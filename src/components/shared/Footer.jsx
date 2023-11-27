@@ -3,9 +3,8 @@ import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-800 text-white py-5">
+    <footer className="bg-[#6F0571] text-white py-5">
       <div className="container mx-auto flex flex-col items-center">
-        {/* Navigation Links */}
         <div className="mt-4">
           <ul className="flex space-x-4 justify-center">
             <li>
@@ -22,7 +21,6 @@ export default function Footer() {
             </li>
           </ul>
         </div>
-        {/* Social Media Icons */}
         <div className="mt-4 flex space-x-4">
           <a href="#" className="hover:text-blue-400">
             <FaFacebook size={24} />
@@ -34,7 +32,6 @@ export default function Footer() {
             <FaInstagram size={24} />
           </a>
         </div>
-        {/* Footer Bottom Text */}
         <div className="text-center mt-6">
           &copy; {new Date().getFullYear()} All Rights Reserved.
         </div>

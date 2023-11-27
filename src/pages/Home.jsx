@@ -1,11 +1,11 @@
 import Carousel from ".././components/home/Carousel";
-import Discounts from ".././components/home/Discounts";
+import HomeCards from ".././components/home/HomeCards";
 
 export default function Home() {
   return (
     <div>
       <Carousel />
-      <Discounts />
+      <HomeCards />
     </div>
   );
 }

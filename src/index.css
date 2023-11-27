@@ -2,14 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-
 /* Style for the dropdown content */
 .dropdown-content {
   display: none;
   position: absolute;
   min-width: 160px;
   z-index: 1000;
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   background-color: #fff;
   border-radius: 4px; /* Rounded corners */
   padding-top: 8px; /* Space for the arrow */
@@ -19,7 +18,7 @@
 
 /* Create the triangular pointing top */
 .dropdown-content::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -8px; /* Position above the dropdown */
   left: 20px; /* Adjust as necessary for alignment */
@@ -33,3 +32,18 @@
   display: block;
 }
 
+.swiper-pagination-bullet-active {
+  background-color: #ffffff !important;
+}
+
+.swiper-pagination-bullet {
+  background-color: #ffffff !important;
+}
+
+.swiper-button-prev {
+  color: rgb(73, 73, 73);
+}
+
+.swiper-button-next {
+  color: rgb(73, 73, 73);
+}
