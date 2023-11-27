@@ -88,7 +88,7 @@ export default function HomeCards() {
           <h2 className="text-3xl font-bold text-center mb-6">
             Nuestros Productos
           </h2>
-          <div className="flex flex-wrap gap-5 justify-center mx-40 pb-20">
+          <div className="flex flex-wrap gap-5 justify-center mx-32 lg:mx-40 pb-20">
             {discounts.map((discount) => (
               <Link to={discount.url} key={discount.id}>
                 <div
