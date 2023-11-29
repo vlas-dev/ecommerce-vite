@@ -1,77 +1,56 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "../../hooks/useForm/useForm";
 import crudAxios from "../../config/axios";
+import { CRMContext } from "../context/CRMcontext";
 
-export default function SignUp() {
+export default function SignIn() {
   const {formState,onInputChange} = useForm({
-    nombre:'',
-    apellido:'',
-    email: '',
-    password: '',
-    role:'USER_ROLE',
-    pais:'Venezuela',
-    ciudad:'barcelona',
-    estado:'anzoategui'
+    email:'',
+    password:''
   })
-  const crearUsuario = async(e) =>{
+  const [ auth,setAuth] = useContext(CRMContext)
+  const autenticarUser = async(e) =>{
     e.preventDefault()
-      try {
-        const respuesta = await crudAxios.post('/signup', formState) 
-        console.log(respuesta)
-        
-      } catch (error) {
-        console.log(error)
-        const errors = error.response.data.errors
-        errors.map(err=>{
-          console.log(err.msg)
+    try {
+      const res = await crudAxios.post('/signin', formState) 
+      const {token} = res.data
+      localStorage.setItem('x-token',token)
+      setAuth({
+        token,
+        auth:true
+     })
+      console.log(res.data)
+    } catch (error) {
+ 
+      const errors = error.response.data.msg
+      console.log(errors)
 
-        })
-      }
+    }
   }
-  console.log(import.meta.env.VITE_APP_BACKEND_URL)
   return (
     <div className="bg-gray-100 min-h-screen flex justify-center items-center">
-      <div className="bg-white p-6 rounded-md shadow-md w-full max-w-sm mt-20">
-        <h2 className="text-2xl font-bold mb-4 text-center">Registrarse</h2>
-        <form onSubmit={crearUsuario}>
+      <div className="bg-white p-6 rounded-md shadow-md w-full max-w-sm">
+        <h2 className="text-2xl font-bold mb-4 text-center">Ingresar</h2>
+        <form onSubmit={autenticarUser}>
           <div className="mb-4">
-            <label htmlFor="firstName" className="block text-gray-700 text-sm font-bold mb-2">
-              Nombre
-            </label>
-            <input type="text" id="firstName" name="nombre" value={formState.nombre} onChange={onInputChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Nombre" />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="lastName"  className="block text-gray-700 text-sm font-bold mb-2">
-              Apellido
-            </label>
-            <input type="text" id="lastName"  name="apellido" value={formState.apellido} onChange={onInputChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Apellido" />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="email"  className="block text-gray-700 text-sm font-bold mb-2">
+            <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">
               Email
             </label>
-            <input type="email" id="email" name="email" value={formState.email} onChange={onInputChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Email" />
+            <input type="email" id="email" value={formState.email} name="email" onChange={onInputChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Email" />
           </div>
-          
-          <div className="mb-4">
+          <div className="mb-6">
             <label htmlFor="password" className="block text-gray-700 text-sm font-bold mb-2">
               Contraseña
             </label>
-            <input type="password" id="password" name="password" value={formState.password} onChange={onInputChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" placeholder="**********" />
-          </div>
-          <div className="mb-6">
-            <label htmlFor="confirmPassword" className="block text-gray-700 text-sm font-bold mb-2">
-              Confirmar Contraseña
-            </label>
-            <input type="password" id="confirmPassword" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" placeholder="**********" />
+            <input type="password" id="password" value={formState.password} name="password" onChange={onInputChange}  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" placeholder="**********" />
           </div>
           <div className="flex items-center justify-between">
             <button className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-              Registrarse
+              Ingresar
             </button>
-            <Link to="/signin" className="inline-block align-baseline font-bold text-sm text-blue-600 hover:text-blue-800">
-              ¿Ya tienes cuenta? Ingresar
+            <Link to="/signup" className="inline-block align-baseline font-bold text-sm text-blue-600 hover:text-blue-800">
+              ¿No tienes cuenta? Regístrate
             </Link>
           </div>
         </form>

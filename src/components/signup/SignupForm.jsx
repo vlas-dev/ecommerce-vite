@@ -13,7 +13,6 @@ export default function SignUp() {
     pais:'Venezuela',
     ciudad:'barcelona',
     estado:'anzoategui'
-    
   })
   const crearUsuario = async(e) =>{
     e.preventDefault()

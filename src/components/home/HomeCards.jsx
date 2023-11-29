@@ -48,7 +48,7 @@ export default function HomeCards() {
 
                   {product.descuento ? (
                     <p class="line-through text-[rgba(0,0,0,.55)] text-[12px]">
-                      $225.123
+                      ${product.descuento.antiguo}
                     </p>
                   ) : (
                     ''

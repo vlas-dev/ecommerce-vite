@@ -6,7 +6,8 @@ import logoImage from "/assets/logo.png";
 
 export default function Navbar() {
   const [isOpen, setOpen] = useState(false); // State to control the hamburger menu visibility
-  const [isSubmenuOpen, setSubmenuOpen] = useState(false);
+  const [showSubmenu, setShowSubmenu] = useState(false);
+
   const categories = [
     {
       id: 1,
@@ -64,9 +65,7 @@ export default function Navbar() {
             </div>
 
             <Link to="/signin">
-              <button className="p-2">
-                Ingresar
-              </button>
+              <button className="p-2">Ingresar</button>
             </Link>
             <Link to="/signup">
               <button className="bg-blue-600 hover:bg-blue-800 p-2 rounded font-bold">
@@ -94,40 +93,42 @@ export default function Navbar() {
 
         {/* Hamburger Menu Content */}
         <div
-          className={`fixed h-screen w-full bg-black bg-opacity-50 transition-opacity ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-            }`}
+          className={`fixed h-screen w-full bg-black bg-opacity-50 transition-opacity ${
+            isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+          }`}
           onClick={() => setOpen(false)}
         ></div>
         <ul
-          className={`md:hidden fixed top-0 right-0 h-screen w-3/5 px-10 space-y-8 bg-gray-800 flex flex-col pt-32 text-white text-xl transform ${isOpen ? "translate-x-0" : "translate-x-full"
-            } transition duration-300 ease-in-out`}
+          className={`md:hidden fixed top-0 right-0 h-screen w-3/5 px-10 space-y-8 bg-gray-800 flex flex-col pt-32 text-white text-xl transform ${
+            isOpen ? "translate-x-0" : "translate-x-full"
+          } transition duration-300 ease-in-out`}
         >
           <Link to="/signin">
-            <button onClick={()=> setOpen(!isOpen)} className="p-2">
+            <button onClick={() => setOpen(!isOpen)} className="p-2">
               Ingresar
             </button>
           </Link>
           <Link to="/signup">
-            <button onClick={()=> setOpen(!isOpen)} className="bg-blue-600 hover:bg-blue-800 p-2 rounded font-bold">
+            <button
+              onClick={() => setOpen(!isOpen)}
+              className="bg-blue-600 hover:bg-blue-800 p-2 rounded font-bold"
+            >
               Registrarse
             </button>
           </Link>
           <div className={`relative group items-center`}>
-            <button className="p-2" onClick={() => setSubmenuOpen(!isSubmenuOpen)}>
-              Categorías
-            </button>
-            <div className={`dropdown-content ${isSubmenuOpen ? "block" : "hidden"} absolute bg-white shadow-lg group-hover:block z-50`}>
-              {categories.map((category) => (
-                <Link key={category.id} to={category.link}>
-                  <button className="block px-4 py-2 text-gray-800 hover:bg-gray-100">
-                    {category.name}
-                  </button>
-                </Link>
-              ))}
-            </div>
+           <button className="p-2" onClick={() => setShowSubmenu(!showSubmenu)}>
+        Categorías
+      </button>
+      {showSubmenu && (
+        <div className="flex flex-col font-bold">
+          <a href="/celulares" className="p-2">Celulares</a>
+          <a href="/notebooks" className="p-2">Notebooks</a>
+          <a href="/tablets" className="p-2">Tablets</a>
+        </div>
+      )}
+          
           </div>
-
-
         </ul>
       </nav>
     </div>
