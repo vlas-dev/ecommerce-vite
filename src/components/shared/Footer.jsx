@@ -3,10 +3,10 @@ import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#6F0571] text-white py-5">
+    <footer className="bg-gray-800 text-white py-5">
       <div className="container mx-auto flex flex-col items-center">
         <div className="mt-4">
-          <ul className="flex space-x-4 justify-center">
+          {/* <ul className="flex space-x-4 justify-center">
             <li>
               <a href="#" className="hover:text-blue-400">Home</a>
             </li>
@@ -19,7 +19,7 @@ export default function Footer() {
             <li>
               <a href="#" className="hover:text-blue-400">Contacto</a>
             </li>
-          </ul>
+          </ul> */}
         </div>
         <div className="mt-4 flex space-x-4">
           <a href="#" className="hover:text-blue-400">

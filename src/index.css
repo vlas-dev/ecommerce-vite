@@ -32,6 +32,8 @@
   display: block;
 }
 
+/* Change calors ofcarousel arrows and bullets */
+
 .swiper-pagination-bullet-active {
   background-color: #ffffff !important;
 }
@@ -46,4 +48,25 @@
 
 .swiper-button-next {
   color: rgb(73, 73, 73);
+}
+
+/* Page transition */
+
+.fade-enter {
+  opacity: 0;
+  z-index: 1;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-in;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit.fade-exit-active {
+  opacity: 0;
+  transition: opacity 300ms ease-in;
 }
