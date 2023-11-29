@@ -1,0 +1,70 @@
+[
+    {
+      "id": 1,
+      "image": "https://distriglobalja.com/wp-content/uploads/2021/06/iphone-11-copy.png",
+      "mas-vendidos": true,
+      "titulo": "Teléfono Samsung Galaxy S90 con 1TB de almacenamiento",
+      "descuento": {
+        "descuento": true,
+        "antiguo": 799.999,
+        "porcentaje": 20
+      },
+      "precio": 639.222,
+      "envioGratis": true,
+      "description": "Experimenta el poder y la elegancia con el teléfono Samsung Galaxy S90. Almacena todo lo que necesitas con su impresionante capacidad de 1TB. La pantalla AMOLED de 6.7 pulgadas ofrece colores vibrantes y detalles nítidos. Cámara triple de 48 MP para capturar momentos increíbles. Batería de larga duración y carga rápida de 25W. ¡Descubre la última tecnología de Samsung ahora!",
+      "marca": "Samsung",
+      "estrellas": 4.8,
+      "url": "/telefono-samsung-galaxy-s90"
+    },
+    {
+      "id": 2,
+      "image": "https://consumer.huawei.com/content/dam/huawei-cbg-site/latam/co/support/laptop-user-guide/img/laptop.png",
+      "mas-vendidos": true,
+      "titulo": "Portátil Ultradelgado HP Spectre ultimate edition",
+      "descuento": {
+        "descuento": false,
+        "antiguo": 1299.998,
+        "porcentaje": 0
+      },
+      "precio": 1299.399,
+      "envioGratis": true,
+      "description": "Trabaja y juega con estilo con el portátil ultradelgado HP Spectre. La pantalla táctil de 13.3 pulgadas ofrece una experiencia visual asombrosa. Equipado con un potente procesador Intel Core i7, 16GB de RAM y 512GB de almacenamiento SSD. Diseño elegante de aluminio y autonomía de batería excepcional. Ideal para profesionales en movimiento.",
+      "marca": "HP",
+      "estrellas": 4.5,
+      "url": "/portatil-hp-spectre"
+    },
+    {
+      "id": 3,
+      "image": "https://cdnx.jumpseller.com/tiquemobile/image/28308367/resize/610/610?1692904628",
+      "mas-vendidos": false,
+      "titulo": "Portátil Ultradelgado HP Spectre ultimate edition",
+      "descuento": {
+        "descuento": false,
+        "antiguo": 1299.991,
+        "porcentaje": 0
+      },
+      "precio": 1299.299,
+      "envioGratis": false,
+      "description": "Trabaja y juega con estilo con el portátil ultradelgado HP Spectre. La pantalla táctil de 13.3 pulgadas ofrece una experiencia visual asombrosa. Equipado con un potente procesador Intel Core i7, 16GB de RAM y 512GB de almacenamiento SSD. Diseño elegante de aluminio y autonomía de batería excepcional. Ideal para profesionales en movimiento.",
+      "marca": "HP",
+      "estrellas": 4.5,
+      "url": "/portatil-hp-spectre"
+    },
+    {
+      "id": 4,
+      "image": "https://ae01.alicdn.com/kf/A1cff6faf27a14bcaa1d0ddef809e3d11v/Versi-n-global-Black-Shark-4-5G-12GB-RAM-256GB-NFC-Tel-fono-para-juegos.png",
+      "mas-vendidos": true,
+      "titulo": "Portátil Ultradelgado HP Spectre ultimate edition",
+      "descuento": {
+        "descuento": false,
+        "antiguo": 1299.929,
+        "porcentaje": 0
+      },
+      "precio": 1299.991,
+      "envioGratis": true,
+      "description": "Trabaja y juega con estilo con el portátil ultradelgado HP Spectre. La pantalla táctil de 13.3 pulgadas ofrece una experiencia visual asombrosa. Equipado con un potente procesador Intel Core i7, 16GB de RAM y 512GB de almacenamiento SSD. Diseño elegante de aluminio y autonomía de batería excepcional. Ideal para profesionales en movimiento.",
+      "marca": "HP",
+      "estrellas": 4.5,
+      "url": "/portatil-hp-spectre"
+    }
+  ]
