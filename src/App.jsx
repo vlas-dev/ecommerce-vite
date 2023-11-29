@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
@@ -7,8 +7,11 @@ import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
 import Footer from "./components/shared/Footer";
-
+import { CRMContext, CRMProvider } from './components/context/CRMcontext';
+ 
+ 
 function AnimatedRoutes() {
+
   const location = useLocation();
 
   return (
@@ -30,13 +33,17 @@ function AnimatedRoutes() {
 }
 
 export default function App() {
+  const [auth, setAuth] = useContext(CRMContext)
   return (
-    <Router>
-      <Navbar />
-      <div className="min-h-screen bg-gray-100">
-        <AnimatedRoutes />
-      </div>
-      <Footer />
-    </Router>
+    
+    <CRMProvider value={[auth,setAuth]}>
+      <Router>
+        <Navbar />
+        <div className="min-h-screen bg-gray-100">
+          <AnimatedRoutes />
+        </div>
+        <Footer />
+      </Router>
+    </CRMProvider>
   );
 }
