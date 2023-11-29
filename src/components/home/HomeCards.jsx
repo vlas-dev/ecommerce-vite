@@ -5,14 +5,14 @@ import products from '../../services/productsData.json'
 
 export default function HomeCards() {
   return (
-    <div className="pt-10 ">
+    <div className="md:pt-10 scale-90 md:scale-100">
       <h2 className="text-[2.3rem] font-[600] text-center mb-6">
-        Mejores productos
+        Nuestros productos
       </h2>
-      <div className="flex flex-wrap gap-5 justify-center  pb-20">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-5 mx-auto md:pb-20 max-w-[1200px]">
         {products.map((product) => (
-          <Link to={product.url} key={product.id}>
-            {/* contenedor */}
+          <Link to={product.url} key={product.id} className="w-full">
+          {/* contenedor */}
             <div className="bg-white rounded-[6px] shadow-md hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1  w-[284px] max-w-[284px] h-[469px] max-h-[469px]z">
               {/*imagen */}
               {/* <div className="flex justify-center  w-64 h-72"></div> */}
