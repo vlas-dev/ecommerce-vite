@@ -178,7 +178,7 @@ export default function Navbar() {
                   className="p-2 flex items-center justify-center gap-2"
                   onClick={() => setShowProfileSubmenu(!showProfileSubmenu)}
                 >
-                  Mi Perfil <IoIosArrowDown />
+                  Mi Cuenta <IoIosArrowDown />
                 </button>
                 <div
                   className={`${
