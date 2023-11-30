@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { RiSearchLine, RiShoppingCartLine } from "react-icons/ri";
 import { IoIosArrowDown } from "react-icons/io";
+import { FaRegUser } from "react-icons/fa6";
+
 import { Twirl as Hamburger } from "hamburger-react";
 import logoImage from "/assets/logo.png";
 import { CRMContext } from "../../components/context/CRMcontext";
@@ -11,6 +13,8 @@ export default function Navbar() {
 
   const [isOpen, setOpen] = useState(false); // State to control the hamburger menu visibility
   const [showSubmenu, setShowSubmenu] = useState(false);
+  const [showProfileSubmenu, setShowProfileSubmenu] = useState(false); 
+
   const navigate = useNavigate();
 
   const categories = [
@@ -112,17 +116,41 @@ export default function Navbar() {
             </div>
 
             {auth.isAuthenticated ? (
-              // Logged in user view
-              <>
-                <Link className="p-2" to="/dashboard">
-                  Dashboard
-                </Link>
-                <Link className="p-2" to="/profile">
-                  Perfil
-                </Link>
-                <button onClick={handleLogout}>Log Out</button>
-              </>
-            ) : (
+            // Logged in user view
+            <>
+              <div className={`relative group items-center`}>
+                <button
+                  className="p-3 flex items-center justify-center gap-2"
+                  onMouseEnter={() => setShowProfileSubmenu(true)}
+                  onMouseLeave={() => setShowProfileSubmenu(false)}
+                >
+                  <FaRegUser /> <IoIosArrowDown />
+                </button>
+                <div
+                  className={`${
+                    showProfileSubmenu
+                      ? "scale-100 opacity-100 absolute bg-white rounded text-gray-800"
+                      : "scale-95 opacity-0 absolute pointer-events-none"
+                  } transform transition-all duration-300 ease-in-out flex flex-col font-bold `}
+                  onMouseEnter={() => setShowProfileSubmenu(true)}
+                  onMouseLeave={() => setShowProfileSubmenu(false)}
+                >
+                  <Link
+                    to="/dashboard"
+                    className="p-2 hover:bg-gray-200 rounded"
+                  >
+                    Dashboard
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="p-2 hover:bg-gray-200 rounded"
+                  >
+                    Log Out
+                  </button>
+                </div>
+              </div>
+            </>
+          ) : (
               // Guest user view
               <>
                 <Link className="p-2" to="/signin">
