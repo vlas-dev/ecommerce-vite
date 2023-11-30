@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { RiSearchLine, RiShoppingCartLine } from "react-icons/ri";
+import { IoIosArrowDown } from "react-icons/io";
 import { Twirl as Hamburger } from "hamburger-react";
 import logoImage from "/assets/logo.png";
 import { CRMContext } from "../../components/context/CRMcontext";
@@ -69,31 +70,67 @@ export default function Navbar() {
           </form>
 
           <div className="hidden md:flex space-x-4 font-semibold text-white">
-            <div className="relative group items-center">
-              <button className="p-2">Categorías</button>
-              <div className="dropdown-content hidden absolute bg-white shadow-lg group-hover:block">
-                {categories.map((category) => (
-                  <Link key={category.id} to={category.link}>
-                    <button className="block px-4 py-2 text-gray-800 hover:bg-gray-100">
-                      {category.name}
-                    </button>
-                  </Link>
-                ))}
+            <div className={`relative group items-center`}>
+              <button
+                className="p-2 flex items-center justify-center gap-2"
+                onMouseEnter={() => setShowSubmenu(true)} // Show submenu on hover
+                onMouseLeave={() => setShowSubmenu(false)} // Hide submenu when mouse leaves
+              >
+                Categorías <IoIosArrowDown />
+              </button>
+              <div
+                className={`${
+                  showSubmenu
+                    ? "scale-100 opacity-100 absolute bg-white rounded text-gray-800"
+                    : "scale-95 opacity-0 absolute pointer-events-none" // Use pointer-events-none to prevent interaction when hidden
+                } transform transition-all duration-300 ease-in-out flex flex-col font-bold `}
+                onMouseEnter={() => setShowSubmenu(true)}
+                onMouseLeave={() => setShowSubmenu(false)}
+              >
+                <a
+                  onClick={() => setOpen(false)}
+                  href="/celulares"
+                  className="p-2 hover:bg-gray-200 rounded"
+                >
+                  Celulares
+                </a>
+                <a
+                  onClick={() => setOpen(false)}
+                  href="/notebooks"
+                  className="p-2 hover:bg-gray-200 rounded"
+                >
+                  Notebooks
+                </a>
+                <a
+                  onClick={() => setOpen(false)}
+                  href="/tablets"
+                  className="p-2 hover:bg-gray-200 rounded"
+                >
+                  Tablets
+                </a>
               </div>
             </div>
 
             {auth.isAuthenticated ? (
               // Logged in user view
               <>
-                <Link className="p-2" to="/dashboard">Dashboard</Link>
-                <Link  className="p-2" to="/profile">Perfil</Link>
+                <Link className="p-2" to="/dashboard">
+                  Dashboard
+                </Link>
+                <Link className="p-2" to="/profile">
+                  Perfil
+                </Link>
                 <button onClick={handleLogout}>Log Out</button>
               </>
             ) : (
               // Guest user view
               <>
-                <Link  className="p-2" to="/signin">Ingresar</Link>
-                <Link  className="p-2" to="/signup">Registrarse</Link>
+                <Link className="p-2" to="/signin">
+                  Ingresar
+                </Link>
+                <Link className="p-2" to="/signup">
+                  Registrarse
+                </Link>
               </>
             )}
             <button className="p-2">
@@ -130,53 +167,58 @@ export default function Navbar() {
           {auth.isAuthenticated ? (
             // Logged in user view
             <>
-              <Link to="/dashboard">Dashboard</Link>
-              <Link to="/profile">Perfil</Link>
+              <Link className="p-2" to="/dashboard">
+                Dashboard
+              </Link>
+              <Link className="p-2" to="/profile">
+                Perfil
+              </Link>
               <button onClick={handleLogout}>Log Out</button>
             </>
           ) : (
             // Guest user view
             <>
-              <Link onClick={() => setOpen(false)} to="/signin">
+              <Link className="p-2" onClick={() => setOpen(false)} to="/">
+                Home
+              </Link>
+              <Link className="p-2" onClick={() => setOpen(false)} to="/signin">
                 Ingresar
               </Link>
-              <Link onClick={() => setOpen(false)} to="/signup">
+              <Link className="p-2" onClick={() => setOpen(false)} to="/signup">
                 Registrarse
               </Link>
             </>
           )}
           <div className={`relative group items-center`}>
             <button
-              className="p-2"
+              className="p-2 flex items-center justify-center gap-2"
               onClick={() => setShowSubmenu(!showSubmenu)}
             >
-              Categorías
+              Categorías <IoIosArrowDown />
             </button>
-            {showSubmenu && (
-              <div className="flex flex-col font-bold">
-                <a
-                  onClick={() => setOpen(false)}
-                  href="/celulares"
-                  className="p-2"
-                >
-                  Celulares
-                </a>
-                <a
-                  onClick={() => setOpen(false)}
-                  href="/notebooks"
-                  className="p-2"
-                >
-                  Notebooks
-                </a>
-                <a
-                  onClick={() => setOpen(false)}
-                  href="/tablets"
-                  className="p-2"
-                >
-                  Tablets
-                </a>
-              </div>
-            )}
+            <div
+              className={`${
+                showSubmenu ? "scale-100 opacity-100" : "scale-95 opacity-0"
+              } transform transition-all duration-300 ease-in-out flex flex-col font-bold`}
+            >
+              <a
+                onClick={() => setOpen(false)}
+                href="/celulares"
+                className="p-2"
+              >
+                Celulares
+              </a>
+              <a
+                onClick={() => setOpen(false)}
+                href="/notebooks"
+                className="p-2"
+              >
+                Notebooks
+              </a>
+              <a onClick={() => setOpen(false)} href="/tablets" className="p-2">
+                Tablets
+              </a>
+            </div>
           </div>
         </ul>
       </nav>

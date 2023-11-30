@@ -30,7 +30,6 @@ export default function SignIn() {
       <div className="bg-white p-6 rounded-md shadow-md w-full max-w-sm">
         <h2 className="text-2xl font-bold mb-4 text-center">Ingresar</h2>
         <form onSubmit={autenticarUser}>
-         
           <div className="mb-4">
             <label
               htmlFor="email"
@@ -51,7 +50,7 @@ export default function SignIn() {
           <div className="mb-6">
             <label
               htmlFor="password"
-              className="block text-gray-700 text-sm font-bold mb-2 sr-only" 
+              className="block text-gray-700 text-sm font-bold mb-2 sr-only"
             >
               Contraseña
             </label>
@@ -83,13 +82,13 @@ export default function SignIn() {
         {errors.length > 0 && (
           <div className="mt-10 absolute">
             {errors.map((err, index) => (
-              <p key={index} className="text-red-600 ">{err.msg}</p>
+              <p key={index} className="text-red-600 ">
+                {err.msg}
+              </p>
             ))}
           </div>
         )}
-        
       </div>
-      
     </div>
   );
 }

@@ -1,13 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
+import React, { useState, useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
 
 import Navbar from "./components/shared/Navbar";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
 import Footer from "./components/shared/Footer";
-import { CRMContext, CRMProvider } from './components/context/CRMcontext';
+import { CRMContext, CRMProvider } from "./components/context/CRMcontext";
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -16,12 +21,10 @@ function AnimatedRoutes() {
   const pageTransition = {
     in: {
       opacity: 1,
-      
     },
     out: {
       opacity: 0,
-      
-    }
+    },
   };
 
   return (
@@ -47,12 +50,12 @@ function AnimatedRoutes() {
 
 export default function App() {
   const [auth, setAuth] = useState({
-    token: '',
+    token: "",
     isAuthenticated: false,
   });
 
   useEffect(() => {
-    const token = localStorage.getItem('x-token');
+    const token = localStorage.getItem("x-token");
     if (token) {
       setAuth({ token, isAuthenticated: true });
     }

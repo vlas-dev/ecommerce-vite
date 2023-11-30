@@ -28,11 +28,11 @@ export default function HomeCards() {
   };
 
   return (
-    <div className="md:pt-10 scale-90 md:scale-100">
-      <h2 className="text-[2.3rem] font-[600] text-center mb-6">
+    <div className="">
+      <h2 className="mt-20 md:mt-5 text-[2.3rem] font-[600] text-center mb-6">
         Nuestros productos
       </h2>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-5 mx-auto md:pb-20 max-w-[1200px]">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-5 mx-auto md:pb-20 max-w-[300px] md:max-w-[1200px]">
         {products.map((product) => (
           
             <div key={product.id}  className="relative bg-white rounded-[6px] shadow-md hover:shadow-lg transition duration-300 ease-in-out transform w-[284px] max-w-[284px] h-[469px] max-h-[469px]">
