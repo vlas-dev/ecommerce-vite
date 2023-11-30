@@ -209,14 +209,14 @@ export default function Navbar() {
             <>
               <Link
                 onClick={() => setOpen(!isOpen)}
-                className="p-2 my-2"
+                className="p-2"
                 to="/signin"
               >
                 Ingresar
               </Link>
               <Link
                 onClick={() => setOpen(!isOpen)}
-                className="p-2 mb-2"
+                className="p-2"
                 to="/signup"
               >
                 Registrarse
