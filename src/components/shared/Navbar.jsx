@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { RiSearchLine, RiShoppingCartLine } from "react-icons/ri";
 import { Twirl as Hamburger } from "hamburger-react";
 import logoImage from "/assets/logo.png";
-
+import { CRMContext } from "../../components/context/CRMcontext";
 export default function Navbar() {
+  const [auth, setAuth] = useContext(CRMContext);
+  console.log(auth);
+
   const [isOpen, setOpen] = useState(false); // State to control the hamburger menu visibility
   const [showSubmenu, setShowSubmenu] = useState(false);
 
@@ -25,6 +28,19 @@ export default function Navbar() {
       link: "/category/tablets",
     },
   ];
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem("x-token");
+    if (storedToken) {
+      setAuth({ token: storedToken, isAuthenticated: true });
+    }
+  }, []);
+
+  const handleLogout = () => {
+    setAuth({ token: null, isAuthenticated: false });
+    localStorage.removeItem("x-token");
+    setOpen(false);
+  };
 
   return (
     <div className="bg-gray-800 fixed z-50 w-full">
@@ -64,14 +80,20 @@ export default function Navbar() {
               </div>
             </div>
 
-            <Link to="/signin">
-              <button className="p-2">Ingresar</button>
-            </Link>
-            <Link to="/signup">
-              <button className="bg-blue-600 hover:bg-blue-800 p-2 rounded font-bold">
-                Registrarse
-              </button>
-            </Link>
+            {auth.isAuthenticated ? (
+              // Logged in user view
+              <>
+                <Link to="/dashboard">Dashboard</Link>
+                <Link to="/profile">Perfil</Link>
+                <button onClick={handleLogout}>Log Out</button>
+              </>
+            ) : (
+              // Guest user view
+              <>
+                <Link to="/signin">Ingresar</Link>
+                <Link to="/signup">Registrarse</Link>
+              </>
+            )}
             <button className="p-2">
               <RiShoppingCartLine size={24} aria-label="Shopping Cart" />
             </button>
@@ -103,31 +125,56 @@ export default function Navbar() {
             isOpen ? "translate-x-0" : "translate-x-full"
           } transition duration-300 ease-in-out`}
         >
-          <Link to="/signin">
-            <button onClick={() => setOpen(!isOpen)} className="p-2">
-              Ingresar
-            </button>
-          </Link>
-          <Link to="/signup">
-            <button
-              onClick={() => setOpen(!isOpen)}
-              className="bg-blue-600 hover:bg-blue-800 p-2 rounded font-bold"
-            >
-              Registrarse
-            </button>
-          </Link>
+          {auth.isAuthenticated ? (
+            // Logged in user view
+            <>
+              <Link to="/dashboard">Dashboard</Link>
+              <Link to="/profile">Perfil</Link>
+              <button onClick={handleLogout}>Log Out</button>
+            </>
+          ) : (
+            // Guest user view
+            <>
+              <Link onClick={() => setOpen(false)} to="/signin">
+                Ingresar
+              </Link>
+              <Link onClick={() => setOpen(false)} to="/signup">
+                Registrarse
+              </Link>
+            </>
+          )}
           <div className={`relative group items-center`}>
-           <button className="p-2" onClick={() => setShowSubmenu(!showSubmenu)}>
-        Categorías
-      </button>
-      {showSubmenu && (
-        <div className="flex flex-col font-bold">
-          <a href="/celulares" className="p-2">Celulares</a>
-          <a href="/notebooks" className="p-2">Notebooks</a>
-          <a href="/tablets" className="p-2">Tablets</a>
-        </div>
-      )}
-          
+            <button
+              className="p-2"
+              onClick={() => setShowSubmenu(!showSubmenu)}
+            >
+              Categorías
+            </button>
+            {showSubmenu && (
+              <div className="flex flex-col font-bold">
+                <a
+                  onClick={() => setOpen(false)}
+                  href="/celulares"
+                  className="p-2"
+                >
+                  Celulares
+                </a>
+                <a
+                  onClick={() => setOpen(false)}
+                  href="/notebooks"
+                  className="p-2"
+                >
+                  Notebooks
+                </a>
+                <a
+                  onClick={() => setOpen(false)}
+                  href="/tablets"
+                  className="p-2"
+                >
+                  Tablets
+                </a>
+              </div>
+            )}
           </div>
         </ul>
       </nav>

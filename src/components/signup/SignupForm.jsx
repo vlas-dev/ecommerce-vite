@@ -29,7 +29,7 @@ export default function SignUp() {
         })
       }
   }
-  console.log(import.meta.env.VITE_APP_BACKEND_URL)
+  
   return (
     <div className="bg-gray-100 min-h-screen flex justify-center items-center">
       <div className="bg-white p-6 rounded-md shadow-md w-full max-w-sm mt-20">
