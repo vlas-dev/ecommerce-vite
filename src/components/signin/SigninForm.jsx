@@ -22,6 +22,9 @@ export default function SignIn() {
       console.log(errors);
     }
   };
+
+
+  
   return (
     <div className="bg-gray-100 min-h-screen flex justify-center items-center">
       <div className="bg-white p-6 rounded-md shadow-md w-full max-w-sm">

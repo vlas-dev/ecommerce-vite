@@ -1,24 +1,23 @@
-import React, { useState, useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useLocation,
-} from "react-router-dom";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import Navbar from "./components/shared/Navbar";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
 import Footer from "./components/shared/Footer";
-import { CRMContext, CRMProvider } from "./components/context/CRMcontext";
+import { CRMContext, CRMProvider } from './components/context/CRMcontext';
 
 function AnimatedRoutes() {
   const location = useLocation();
   return (
     <TransitionGroup>
-      <CSSTransition key={location.key} classNames="fade" timeout={300}>
+      <CSSTransition
+        key={location.key}
+        classNames="fade"
+        timeout={300}
+      >
         <Routes location={location}>
           <Route path="/" element={<Home />} />
           <Route path="/signup" element={<Signup />} />
@@ -32,12 +31,12 @@ function AnimatedRoutes() {
 
 export default function App() {
   const [auth, setAuth] = useState({
-    token: "",
+    token: '',
     isAuthenticated: false,
   });
 
   useEffect(() => {
-    const token = localStorage.getItem("x-token");
+    const token = localStorage.getItem('x-token');
     if (token) {
       setAuth({ token, isAuthenticated: true });
     }
