@@ -74,81 +74,61 @@ export default function Navbar() {
           </form>
 
           <div className="hidden md:flex space-x-4 font-semibold text-white">
-            <div className={`relative group items-center`}>
-              <button
-                className="p-2 flex items-center justify-center gap-2"
-                onMouseEnter={() => setShowSubmenu(true)} // Show submenu on hover
-                onMouseLeave={() => setShowSubmenu(false)} // Hide submenu when mouse leaves
-              >
-                Categorías <IoIosArrowDown />
-              </button>
-              <div
-                className={`${
-                  showSubmenu
-                    ? "scale-100 opacity-100 absolute bg-white rounded text-gray-800"
-                    : "scale-95 opacity-0 absolute pointer-events-none" // Use pointer-events-none to prevent interaction when hidden
-                } transform transition-all duration-300 ease-in-out flex flex-col font-bold `}
-                onMouseEnter={() => setShowSubmenu(true)}
-                onMouseLeave={() => setShowSubmenu(false)}
-              >
-                <a
-                  onClick={() => setOpen(false)}
-                  href="/celulares"
-                  className="p-2 hover:bg-gray-200 rounded"
-                >
-                  Celulares
-                </a>
-                <a
-                  onClick={() => setOpen(false)}
-                  href="/notebooks"
-                  className="p-2 hover:bg-gray-200 rounded"
-                >
-                  Notebooks
-                </a>
-                <a
-                  onClick={() => setOpen(false)}
-                  href="/tablets"
-                  className="p-2 hover:bg-gray-200 rounded"
-                >
-                  Tablets
-                </a>
-              </div>
-            </div>
+          <div className="relative group items-center">
+    <button className="p-2 flex items-center justify-center gap-2">
+        Categorías <IoIosArrowDown />
+    </button>
+    <div className="absolute p-2 opacity-0 group-hover:opacity-100 group-hover:scale-100 scale-95 bg-white rounded text-gray-800 transform transition-all duration-300 ease-in-out flex flex-col font-bold pointer-events-none group-hover:pointer-events-auto">
+        {/* The submenu div now remains visible when hovering over the links */}
+        <a
+            onClick={() => setOpen(false)}
+            href="/celulares"
+            className="p-2 hover:bg-gray-200 rounded"
+        >
+            Celulares
+        </a>
+        <a
+            onClick={() => setOpen(false)}
+            href="/notebooks"
+            className="p-2 hover:bg-gray-200 rounded"
+        >
+            Notebooks
+        </a>
+        <a
+            onClick={() => setOpen(false)}
+            href="/tablets"
+            className="p-2 hover:bg-gray-200 rounded"
+        >
+            Tablets
+        </a>
+    </div>
+</div>
+
 
             {auth.isAuthenticated ? (
             // Logged in user view
             <>
-              <div className={`relative group items-center`}>
-                <button
-                  className="p-3 flex items-center justify-center gap-2"
-                  onMouseEnter={() => setShowProfileSubmenu(true)}
-                  onMouseLeave={() => setShowProfileSubmenu(false)}
-                >
-                  <FaRegUser /> <IoIosArrowDown />
-                </button>
-                <div
-                  className={`${
-                    showProfileSubmenu
-                      ? "scale-100 opacity-100 absolute bg-white rounded text-gray-800"
-                      : "scale-95 opacity-0 absolute pointer-events-none"
-                  } transform transition-all duration-300 ease-in-out flex flex-col font-bold `}
-                  onMouseEnter={() => setShowProfileSubmenu(true)}
-                  onMouseLeave={() => setShowProfileSubmenu(false)}
-                >
-                  <Link
-                    to="/dashboard"
-                    className="p-2 hover:bg-gray-200 rounded"
-                  >
-                    Dashboard
-                  </Link>
-                  <button
-                    onClick={handleLogout}
-                    className="p-2 hover:bg-gray-200 rounded"
-                  >
-                    Log Out
-                  </button>
-                </div>
-              </div>
+              <div className="relative group items-center">
+    <button className="p-3 flex items-center justify-center gap-2">
+        <FaRegUser /> <IoIosArrowDown />
+    </button>
+    <div className="absolute p-2 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 group-hover:scale-100 scale-95 bg-white rounded text-gray-800 transition-all duration-300 ease-in-out flex flex-col font-bold pointer-events-none group-hover:pointer-events-auto">
+        {/* The submenu div now remains visible when hovering over the button group */}
+        <Link
+            to="/dashboard"
+            className="p-2 hover:bg-gray-200 rounded"
+        >
+            Dashboard
+        </Link>
+        <button
+            onClick={handleLogout}
+            className="p-2 hover:bg-gray-200 rounded"
+        >
+            Log Out
+        </button>
+    </div>
+</div>
+
             </>
           ) : (
               // Guest user view
