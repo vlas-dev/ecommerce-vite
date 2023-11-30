@@ -13,7 +13,7 @@ export default function Navbar() {
 
   const [isOpen, setOpen] = useState(false); // State to control the hamburger menu visibility
   const [showSubmenu, setShowSubmenu] = useState(false);
-  const [showProfileSubmenu, setShowProfileSubmenu] = useState(false); 
+  const [showProfileSubmenu, setShowProfileSubmenu] = useState(false);
 
   const navigate = useNavigate();
 
@@ -74,63 +74,61 @@ export default function Navbar() {
           </form>
 
           <div className="hidden md:flex space-x-4 font-semibold text-white">
-          <div className="relative group items-center">
-    <button className="p-2 flex items-center justify-center gap-2">
-        Categorías <IoIosArrowDown />
-    </button>
-    <div className="absolute p-2 opacity-0 group-hover:opacity-100 group-hover:scale-100 scale-95 bg-white rounded text-gray-800 transform transition-all duration-300 ease-in-out flex flex-col font-bold pointer-events-none group-hover:pointer-events-auto">
-        {/* The submenu div now remains visible when hovering over the links */}
-        <a
-            onClick={() => setOpen(false)}
-            href="/celulares"
-            className="p-2 hover:bg-gray-200 rounded"
-        >
-            Celulares
-        </a>
-        <a
-            onClick={() => setOpen(false)}
-            href="/notebooks"
-            className="p-2 hover:bg-gray-200 rounded"
-        >
-            Notebooks
-        </a>
-        <a
-            onClick={() => setOpen(false)}
-            href="/tablets"
-            className="p-2 hover:bg-gray-200 rounded"
-        >
-            Tablets
-        </a>
-    </div>
-</div>
-
+            <div className="relative group items-center">
+              <button className="p-2 flex items-center justify-center gap-2">
+                Categorías <IoIosArrowDown />
+              </button>
+              <div className="absolute p-2 opacity-0 group-hover:opacity-100 group-hover:scale-100 scale-95 bg-white rounded text-gray-800 transform transition-all duration-300 ease-in-out flex flex-col font-bold pointer-events-none group-hover:pointer-events-auto">
+                {/* The submenu div now remains visible when hovering over the links */}
+                <a
+                  onClick={() => setOpen(false)}
+                  href="/celulares"
+                  className="p-2 hover:bg-gray-200 rounded"
+                >
+                  Celulares
+                </a>
+                <a
+                  onClick={() => setOpen(false)}
+                  href="/notebooks"
+                  className="p-2 hover:bg-gray-200 rounded"
+                >
+                  Notebooks
+                </a>
+                <a
+                  onClick={() => setOpen(false)}
+                  href="/tablets"
+                  className="p-2 hover:bg-gray-200 rounded"
+                >
+                  Tablets
+                </a>
+              </div>
+            </div>
 
             {auth.isAuthenticated ? (
-            // Logged in user view
-            <>
-              <div className="relative group items-center">
-    <button className="p-3 flex items-center justify-center gap-2">
-        <FaRegUser /> <IoIosArrowDown />
-    </button>
-    <div className="absolute p-2 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 group-hover:scale-100 scale-95 bg-white rounded text-gray-800 transition-all duration-300 ease-in-out flex flex-col font-bold pointer-events-none group-hover:pointer-events-auto">
-        {/* The submenu div now remains visible when hovering over the button group */}
-        <Link
-            to="/dashboard"
-            className="p-2 hover:bg-gray-200 rounded"
-        >
-            Dashboard
-        </Link>
-        <button
-            onClick={handleLogout}
-            className="p-2 hover:bg-gray-200 rounded"
-        >
-            Log Out
-        </button>
-    </div>
-</div>
-
-            </>
-          ) : (
+              // Logged in user view
+              <>
+                <div className="relative group items-center">
+                  <button className="p-3 flex items-center justify-center gap-2">
+                    <FaRegUser /> <IoIosArrowDown />
+                  </button>
+                  <div className="absolute p-2 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 group-hover:scale-100 scale-95 bg-white rounded text-gray-800 transition-all duration-300 ease-in-out flex flex-col font-bold pointer-events-none group-hover:pointer-events-auto">
+                    {/* The submenu div now remains visible when hovering over the button group */}
+                    <Link
+                      to="/dashboard"
+                      className="p-2 hover:bg-gray-200 rounded text-start"
+                    >
+                      Dashboard
+                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className="p-2 hover:bg-gray-200 rounded text-start"
+                    >
+                      Salir
+                    </button>
+                  </div>
+                </div>
+              </>
+            ) : (
               // Guest user view
               <>
                 <Link className="p-2" to="/signin">
@@ -175,24 +173,52 @@ export default function Navbar() {
           {auth.isAuthenticated ? (
             // Logged in user view
             <>
-              <Link className="p-2" to="/dashboard">
-                Dashboard
-              </Link>
-              <Link className="p-2" to="/profile">
-                Perfil
-              </Link>
-              <button onClick={handleLogout}>Log Out</button>
+              <div className="relative group items-center">
+                <button
+                  className="p-2 flex items-center justify-center gap-2"
+                  onClick={() => setShowProfileSubmenu(!showProfileSubmenu)}
+                >
+                  Mi Perfil <IoIosArrowDown />
+                </button>
+                <div
+                  className={`${
+                    showProfileSubmenu ? "block" : "hidden"
+                  } flex flex-col font-bold`}
+                >
+                  <a
+                    onClick={() => setOpen(false)}
+                    href="/celulares"
+                    className="p-2 my-2"
+                  >
+                    Dashboard
+                  </a>
+                  <a
+                    onClick={() => {
+                      handleLogout();
+                      setShowProfileSubmenu(!showProfileSubmenu);
+                    }}
+                    className="p-2"
+                  >
+                    Salir
+                  </a>
+                </div>
+              </div>
             </>
           ) : (
             // Guest user view
             <>
-              <Link className="p-2" onClick={() => setOpen(false)} to="/">
-                Home
-              </Link>
-              <Link className="p-2" onClick={() => setOpen(false)} to="/signin">
+              <Link
+                onClick={() => setOpen(!isOpen)}
+                className="p-2 my-2"
+                to="/signin"
+              >
                 Ingresar
               </Link>
-              <Link className="p-2" onClick={() => setOpen(false)} to="/signup">
+              <Link
+                onClick={() => setOpen(!isOpen)}
+                className="p-2 mb-2"
+                to="/signup"
+              >
                 Registrarse
               </Link>
             </>
@@ -206,20 +232,20 @@ export default function Navbar() {
             </button>
             <div
               className={`${
-                showSubmenu ? "scale-100 opacity-100" : "scale-95 opacity-0"
-              } transform transition-all duration-300 ease-in-out flex flex-col font-bold`}
+                showSubmenu ? "block" : "hidden"
+              } flex flex-col font-bold`}
             >
               <a
                 onClick={() => setOpen(false)}
                 href="/celulares"
-                className="p-2"
+                className="p-2 my-2"
               >
                 Celulares
               </a>
               <a
                 onClick={() => setOpen(false)}
                 href="/notebooks"
-                className="p-2"
+                className="p-2 mb-2"
               >
                 Notebooks
               </a>
