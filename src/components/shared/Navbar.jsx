@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RiSearchLine, RiShoppingCartLine } from "react-icons/ri";
 import { Twirl as Hamburger } from "hamburger-react";
 import logoImage from "/assets/logo.png";
@@ -10,6 +10,7 @@ export default function Navbar() {
 
   const [isOpen, setOpen] = useState(false); // State to control the hamburger menu visibility
   const [showSubmenu, setShowSubmenu] = useState(false);
+  const navigate = useNavigate();
 
   const categories = [
     {
@@ -40,6 +41,7 @@ export default function Navbar() {
     setAuth({ token: null, isAuthenticated: false });
     localStorage.removeItem("x-token");
     setOpen(false);
+    navigate("/");
   };
 
   return (
@@ -83,15 +85,15 @@ export default function Navbar() {
             {auth.isAuthenticated ? (
               // Logged in user view
               <>
-                <Link to="/dashboard">Dashboard</Link>
-                <Link to="/profile">Perfil</Link>
+                <Link className="p-2" to="/dashboard">Dashboard</Link>
+                <Link  className="p-2" to="/profile">Perfil</Link>
                 <button onClick={handleLogout}>Log Out</button>
               </>
             ) : (
               // Guest user view
               <>
-                <Link to="/signin">Ingresar</Link>
-                <Link to="/signup">Registrarse</Link>
+                <Link  className="p-2" to="/signin">Ingresar</Link>
+                <Link  className="p-2" to="/signup">Registrarse</Link>
               </>
             )}
             <button className="p-2">

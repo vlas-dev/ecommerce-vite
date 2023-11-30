@@ -35,7 +35,7 @@ export default function HomeCards() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-5 mx-auto md:pb-20 max-w-[1200px]">
         {products.map((product) => (
           
-            <div className="relative bg-white rounded-[6px] shadow-md hover:shadow-lg transition duration-300 ease-in-out transform w-[284px] max-w-[284px] h-[469px] max-h-[469px]">
+            <div key={product.id}  className="relative bg-white rounded-[6px] shadow-md hover:shadow-lg transition duration-300 ease-in-out transform w-[284px] max-w-[284px] h-[469px] max-h-[469px]">
               <div className="w-[250px] h-[286px] mx-auto flex items-center">
               <Link to={product.url} key={product.id} className="w-full">
                 <img
