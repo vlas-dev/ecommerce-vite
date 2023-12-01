@@ -132,7 +132,7 @@ export default function SignUp() {
               to="/signin"
               className="inline-block align-baseline font-bold text-sm text-blue-600 hover:text-blue-800"
             >
-              ¿Ya tienes cuenta? Ingresar
+              ¿Ya tienes cuenta? Ingresa
             </Link>
           </div>
         </form>
