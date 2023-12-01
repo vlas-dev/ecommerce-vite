@@ -64,9 +64,9 @@ export default function SignIn() {
               placeholder="Contraseña"
             />
           </div>
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col items-center">
             <button
-              className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full mb-4"
               type="submit"
             >
               Ingresar

@@ -36,7 +36,7 @@ export default function SignUp() {
 
   return (
     <div className="bg-gray-100 min-h-screen flex justify-center items-center">
-      <div className="bg-white p-6 rounded-md shadow-md w-full max-w-lg mt-0 mx-10">
+      <div className="bg-white p-6 rounded-md shadow-md w-full max-w-lg mt-10 mx-10">
         <h2 className="text-2xl font-bold mb-4 text-center">Registrarse</h2>
         <form onSubmit={crearUsuario} className="grid grid-cols-2 gap-4">
           <div className="col-span-2">
@@ -103,7 +103,7 @@ export default function SignUp() {
               name="password"
               value={formState.password}
               onChange={onInputChange}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700  leading-tight focus:outline-none focus:shadow-outline"
               placeholder="Contraseña"
             />
           </div>
@@ -121,9 +121,9 @@ export default function SignUp() {
               placeholder="Confirmar Contraseña"
             />
           </div>
-          <div className="col-span-2 flex items-center justify-between">
+          <div className="col-span-2 flex flex-col items-center">
             <button
-              className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full mb-4"
               type="submit"
             >
               Registrarse
