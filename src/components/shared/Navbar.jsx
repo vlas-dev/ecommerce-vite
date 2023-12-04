@@ -80,27 +80,27 @@ export default function Navbar() {
               </button>
               <div className="absolute p-2 opacity-0 group-hover:opacity-100 group-hover:scale-100 scale-95 bg-white rounded text-gray-800 transform transition-all duration-300 ease-in-out flex flex-col font-bold pointer-events-none group-hover:pointer-events-auto">
                 {/* The submenu div now remains visible when hovering over the links */}
-                <a
+                <Link
                   onClick={() => setOpen(false)}
-                  href="/celulares"
+                  to="/celulares"
                   className="p-2 hover:bg-gray-200 rounded"
                 >
                   Celulares
-                </a>
-                <a
+                </Link>
+                <Link
                   onClick={() => setOpen(false)}
-                  href="/notebooks"
+                  to="/notebooks"
                   className="p-2 hover:bg-gray-200 rounded"
                 >
                   Notebooks
-                </a>
-                <a
+                </Link>
+                <Link
                   onClick={() => setOpen(false)}
-                  href="/tablets"
+                  to="/tablets"
                   className="p-2 hover:bg-gray-200 rounded"
                 >
                   Tablets
-                </a>
+                </Link>
               </div>
             </div>
 
@@ -114,17 +114,18 @@ export default function Navbar() {
                   <div className="absolute p-2 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 group-hover:scale-100 scale-95 bg-white rounded text-gray-800 transition-all duration-300 ease-in-out flex flex-col font-bold pointer-events-none group-hover:pointer-events-auto">
                     {/* The submenu div now remains visible when hovering over the button group */}
                     <Link
-                      to="/dashboard"
+                      to="/me"
                       className="p-2 hover:bg-gray-200 rounded text-start"
                     >
-                      Dashboard
+                      Perfil
                     </Link>
-                    <button
+                    <a
+                      
                       onClick={handleLogout}
                       className="p-2 hover:bg-gray-200 rounded text-start"
                     >
                       Salir
-                    </button>
+                    </a>
                   </div>
                 </div>
               </>
@@ -185,14 +186,15 @@ export default function Navbar() {
                     showProfileSubmenu ? "block" : "hidden"
                   } flex flex-col font-bold`}
                 >
-                  <a
+                  <Link
                     onClick={() => setOpen(false)}
-                    href="/celulares"
+                    to="/me"
                     className="p-2 my-2"
                   >
-                    Dashboard
-                  </a>
+                    Perfil
+                  </Link>
                   <a
+                    
                     onClick={() => {
                       handleLogout();
                       setShowProfileSubmenu(!showProfileSubmenu);
@@ -235,23 +237,27 @@ export default function Navbar() {
                 showSubmenu ? "block" : "hidden"
               } flex flex-col font-bold`}
             >
-              <a
+              <Link
                 onClick={() => setOpen(false)}
-                href="/celulares"
+                to="/celulares"
                 className="p-2 my-2"
               >
                 Celulares
-              </a>
-              <a
+              </Link>
+              <Link
                 onClick={() => setOpen(false)}
-                href="/notebooks"
+                to="/notebooks"
                 className="p-2 mb-2"
               >
                 Notebooks
-              </a>
-              <a onClick={() => setOpen(false)} href="/tablets" className="p-2">
+              </Link>
+              <Link
+                onClick={() => setOpen(false)}
+                to="/tablets"
+                className="p-2"
+              >
                 Tablets
-              </a>
+              </Link>
             </div>
           </div>
         </ul>

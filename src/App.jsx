@@ -11,6 +11,7 @@ import Navbar from "./components/shared/Navbar";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
+import Me from "./pages/Me";
 import Footer from "./components/shared/Footer";
 import { CRMContext, CRMProvider } from "./components/context/CRMcontext";
 
@@ -41,6 +42,7 @@ function AnimatedRoutes() {
           <Route path="/" element={<Home />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
+          <Route path="/me" element={<Me />} />
           {/* Add more routes as needed */}
         </Routes>
       </motion.div>

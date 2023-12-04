@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "../../hooks/useForm/useForm";
 import crudAxios from "../../config/axios";
@@ -24,6 +24,12 @@ export default function SignIn() {
       }
     }
   };
+
+  useEffect(() => {
+    if (localStorage.getItem('x-token')) {
+      navigate('/me');
+    }
+  }, [navigate]);
 
   return (
     <div className="bg-gray-100 min-h-screen flex justify-center items-center">
