@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import crudAxios from "../../config/axios";
+import { FaCamera } from "react-icons/fa";
+
 
 export default function UserData() {
   const navigate = useNavigate();
@@ -226,7 +228,7 @@ export default function UserData() {
           // User Data Display
           <>
             <div className="text-center mb-6">
-            <div className="mx-auto h-24 w-24 rounded-full overflow-hidden bg-gray-200 mb-4 flex items-center justify-center">
+            <button className="mx-auto h-24 w-24 rounded-full overflow-hidden bg-gray-200 mb-4 flex items-center justify-center">
                 {userData.usuario.imagen ? (
                   <img
                     src={userData.usuario.imagen}
@@ -234,9 +236,9 @@ export default function UserData() {
                     className="h-full w-full object-cover"
                   />
                 ) : (
-                  <span className="text-gray-400 text-3xl">?</span>
+                  <span className="text-gray-400 text-3xl"><FaCamera /></span>
                 )}
-              </div>
+              </button>
               <h2 className="text-2xl font-semibold text-gray-900 capitalize">
                 {userData.usuario.nombre} {userData.usuario.apellido}
               </h2>
