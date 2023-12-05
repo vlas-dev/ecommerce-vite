@@ -11,9 +11,9 @@ export default function SignUp() {
     email: "",
     password: "",
     role: "USER_ROLE",
-    pais: "Venezuela",
-    ciudad: "barcelona",
-    estado: "anzoategui",
+    pais: "",
+    ciudad: "",
+    estado: "",
   });
   const [auth, setAuth] = useContext(CRMContext);
   const [errors, setErrors] = useState([]); // State to store errors
@@ -45,7 +45,7 @@ export default function SignUp() {
       <div className="bg-white p-6 rounded-md shadow-md w-full max-w-lg mt-10 mx-10">
         <h2 className="text-2xl font-bold mb-4 text-center">Registrarse</h2>
         <form onSubmit={crearUsuario} className="grid grid-cols-2 gap-4">
-          <div className="col-span-2">
+          <div className="col-span-1">
             <label
               htmlFor="firstName"
               className="block text-gray-700 text-sm font-bold mb-2 sr-only"
@@ -62,7 +62,7 @@ export default function SignUp() {
               placeholder="Nombre"
             />
           </div>
-          <div className="col-span-2">
+          <div className="col-span-1">
             <label
               htmlFor="lastName"
               className="block text-gray-700 text-sm font-bold mb-2 sr-only"
@@ -79,7 +79,73 @@ export default function SignUp() {
               placeholder="Apellido"
             />
           </div>
-          <div className="col-span-2">
+
+
+
+
+          <div className="col-span-1">
+            <label
+              htmlFor="country"
+              className="block text-gray-700 text-sm font-bold mb-2 sr-only"
+            >
+              País
+            </label>
+            <input
+              type="text"
+              id="country"
+              name="pais"
+              value={formState.pais}
+              onChange={onInputChange}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              placeholder="País"
+            />
+          </div>
+
+
+
+          <div className="col-span-1">
+            <label
+              htmlFor="state"
+              className="block text-gray-700 text-sm font-bold mb-2 sr-only"
+            >
+              Estado
+            </label>
+            <input
+              type="text"
+              id="state"
+              name="estado"
+              value={formState.estado}
+              onChange={onInputChange}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              placeholder="Estado"
+            />
+          </div>
+
+
+
+
+          <div className="col-span-1">
+            <label
+              htmlFor="city"
+              className="block text-gray-700 text-sm font-bold mb-2 sr-only"
+            >
+              Ciudad
+            </label>
+            <input
+              type="text"
+              id="city"
+              name="ciudad"
+              value={formState.ciudad}
+              onChange={onInputChange}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              placeholder="Ciudad"
+            />
+          </div>
+
+
+
+
+          <div className="col-span-1">
             <label
               htmlFor="email"
               className="block text-gray-700 text-sm font-bold mb-2 sr-only"
