@@ -35,8 +35,8 @@ export default function SignUp() {
   };
 
   useEffect(() => {
-    if (localStorage.getItem('x-token')) {
-      navigate('/me');
+    if (localStorage.getItem("x-token")) {
+      navigate("/me");
     }
   }, [navigate]);
 
@@ -80,9 +80,6 @@ export default function SignUp() {
             />
           </div>
 
-
-
-
           <div className="col-span-1">
             <label
               htmlFor="country"
@@ -100,8 +97,6 @@ export default function SignUp() {
               placeholder="País"
             />
           </div>
-
-
 
           <div className="col-span-1">
             <label
@@ -121,9 +116,6 @@ export default function SignUp() {
             />
           </div>
 
-
-
-
           <div className="col-span-1">
             <label
               htmlFor="city"
@@ -141,9 +133,6 @@ export default function SignUp() {
               placeholder="Ciudad"
             />
           </div>
-
-
-
 
           <div className="col-span-1">
             <label
