@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Pedidos = () => {
+const MisCompras = () => {
   return (
     <div>
       {/* Pedidos here */}
@@ -8,4 +8,4 @@ const Pedidos = () => {
   );
 };
 
-export default Pedidos;
+export default MisCompras;

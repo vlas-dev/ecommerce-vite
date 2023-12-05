@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import UserData from "../components/me/UserData";
-import Pedidos from "../components/me/Pedidos";
+import MisCompras from "../components/me/MisCompras";
 
 export default function Me() {
   const [activeTab, setActiveTab] = useState("UserData");
@@ -9,8 +9,8 @@ export default function Me() {
     switch (activeTab) {
       case "UserData":
         return <UserData />;
-      case "Pedidos":
-        return <Pedidos />;
+      case "MisCompras":
+        return <MisCompras />;
       default:
         return <UserData />;
     }
@@ -29,11 +29,11 @@ export default function Me() {
         </button>
         <button 
           className={`px-4 py-2 mx-2 text-sm font-medium ${
-            activeTab === "Pedidos" ? "border-b-2 border-blue-500 text-blue-500" : "text-gray-500"
+            activeTab === "MisCompras" ? "border-b-2 border-blue-500 text-blue-500" : "text-gray-500"
           }`} 
-          onClick={() => setActiveTab("Pedidos")}
+          onClick={() => setActiveTab("MisCompras")}
         >
-          Pedidos
+          Mis Compras
         </button>
        
       </div>
