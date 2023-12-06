@@ -40,12 +40,15 @@ export default function SignUp() {
     }
   }, [navigate]);
 
+
+
+
   return (
     <div className="bg-gray-100 min-h-screen flex justify-center items-center">
       <div className="bg-white p-6 rounded-md shadow-md w-full max-w-lg mt-10 mx-10">
         <h2 className="text-2xl font-bold mb-4 text-center">Registrarse</h2>
         <form onSubmit={crearUsuario} className="grid grid-cols-2 gap-4">
-          <div className="col-span-1">
+          <div className="col-span-2">
             <label
               htmlFor="firstName"
               className="block text-gray-700 text-sm font-bold mb-2 sr-only"
@@ -62,7 +65,7 @@ export default function SignUp() {
               placeholder="Nombre"
             />
           </div>
-          <div className="col-span-1">
+          <div className="col-span-2">
             <label
               htmlFor="lastName"
               className="block text-gray-700 text-sm font-bold mb-2 sr-only"
@@ -80,7 +83,7 @@ export default function SignUp() {
             />
           </div>
 
-          <div className="col-span-1">
+          <div className="col-span-2">
             <label
               htmlFor="country"
               className="block text-gray-700 text-sm font-bold mb-2 sr-only"
@@ -134,7 +137,7 @@ export default function SignUp() {
             />
           </div>
 
-          <div className="col-span-1">
+          <div className="col-span-2">
             <label
               htmlFor="email"
               className="block text-gray-700 text-sm font-bold mb-2 sr-only"
@@ -151,7 +154,10 @@ export default function SignUp() {
               placeholder="Email"
             />
           </div>
-          <div className="col-span-2 md:col-span-1">
+
+
+
+          <div className="col-span-2 ">
             <label
               htmlFor="password"
               className="block text-gray-700 text-sm font-bold mb-2 sr-only"
@@ -168,7 +174,7 @@ export default function SignUp() {
               placeholder="Contraseña"
             />
           </div>
-          <div className="col-span-2 md:col-span-1">
+          <div className="col-span-2">
             <label
               htmlFor="confirmPassword"
               className="block text-gray-700 text-sm font-bold mb-2 sr-only"
@@ -184,14 +190,14 @@ export default function SignUp() {
           </div>
           <div className="col-span-2 flex flex-col items-center">
             <button
-              className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full mb-4"
+              className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full mb-4"
               type="submit"
             >
               Registrarse
             </button>
             <Link
               to="/signin"
-              className="inline-block align-baseline font-bold text-sm text-blue-600 hover:text-blue-800"
+              className="inline-block align-baseline font-bold text-sm text-indigo-600 hover:text-indigo-700"
             >
               ¿Ya tienes cuenta? Ingresa
             </Link>

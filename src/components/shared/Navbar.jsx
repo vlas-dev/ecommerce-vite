@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { RiSearchLine, RiShoppingCartLine } from "react-icons/ri";
 import { IoIosArrowDown } from "react-icons/io";
 import { FaRegUser } from "react-icons/fa6";
+import crudAxios from "../../config/axios";
 
 import { Twirl as Hamburger } from "hamburger-react";
 import logoImage from "/assets/logo.png";
@@ -17,23 +18,23 @@ export default function Navbar() {
 
   const navigate = useNavigate();
 
-  const categories = [
-    {
-      id: 1,
-      name: "Celulares",
-      link: "/category/celulares",
-    },
-    {
-      id: 2,
-      name: "Notebooks",
-      link: "/category/notebooks",
-    },
-    {
-      id: 3,
-      name: "Tablets",
-      link: "/category/tablets",
-    },
-  ];
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const consultarApi = async () => {
+      try {
+        const res = await crudAxios.get("/category");
+
+        setCategories(res.data);
+      } catch (error) {
+        console.log(error);
+        return [];
+      }
+    };
+    consultarApi();
+  }, []);
+
+  console.log(categories);
 
   useEffect(() => {
     const storedToken = localStorage.getItem("x-token");
@@ -80,27 +81,17 @@ export default function Navbar() {
               </button>
               <div className="absolute p-2 opacity-0 group-hover:opacity-100 group-hover:scale-100 scale-95 bg-white rounded text-gray-800 transform transition-all duration-300 ease-in-out flex flex-col font-bold pointer-events-none group-hover:pointer-events-auto">
                 {/* The submenu div now remains visible when hovering over the links */}
-                <Link
-                  onClick={() => setOpen(false)}
-                  to="/celulares"
-                  className="p-2 hover:bg-gray-200 rounded"
-                >
-                  Celulares
-                </Link>
-                <Link
-                  onClick={() => setOpen(false)}
-                  to="/notebooks"
-                  className="p-2 hover:bg-gray-200 rounded"
-                >
-                  Notebooks
-                </Link>
-                <Link
-                  onClick={() => setOpen(false)}
-                  to="/tablets"
-                  className="p-2 hover:bg-gray-200 rounded"
-                >
-                  Tablets
-                </Link>
+
+                {categories.map((category) => (
+                  <Link
+                    key={category.id}
+                    onClick={() => setOpen(false)}
+                    to={`product/get/${category.slug}`}
+                    className="p-2 hover:bg-gray-200 rounded"
+                  >
+                    {category.nombre}
+                  </Link>
+                ))}
               </div>
             </div>
 
@@ -120,7 +111,6 @@ export default function Navbar() {
                       Perfil
                     </Link>
                     <a
-                      
                       onClick={handleLogout}
                       className="p-2 hover:bg-gray-200 rounded text-start"
                     >
@@ -135,7 +125,7 @@ export default function Navbar() {
                 <Link className="p-2" to="/signin">
                   Ingresar
                 </Link>
-                <Link className="p-2" to="/signup">
+                <Link className="p-2 bg-indigo-600 hover:bg-indigo-700 rounded" to="/signup">
                   Registrarse
                 </Link>
               </>
@@ -187,17 +177,19 @@ export default function Navbar() {
                   } flex flex-col font-bold`}
                 >
                   <Link
-                    onClick={() => setOpen(false)}
+                    onClick={() => {
+                      setOpen(false);
+                      setShowProfileSubmenu(false);
+                    }}
                     to="/me"
                     className="p-2 my-2"
                   >
                     Perfil
                   </Link>
                   <a
-                    
                     onClick={() => {
                       handleLogout();
-                      setShowProfileSubmenu(!showProfileSubmenu);
+                      setShowProfileSubmenu(false);
                     }}
                     className="p-2"
                   >
@@ -210,14 +202,18 @@ export default function Navbar() {
             // Guest user view
             <>
               <Link
-                onClick={() => setOpen(!isOpen)}
+                onClick={() => {
+                  setOpen(false);
+                }}
                 className="p-2"
                 to="/signin"
               >
                 Ingresar
               </Link>
               <Link
-                onClick={() => setOpen(!isOpen)}
+                onClick={() => {
+                  setOpen(false);
+                }}
                 className="p-2"
                 to="/signup"
               >
@@ -237,27 +233,19 @@ export default function Navbar() {
                 showSubmenu ? "block" : "hidden"
               } flex flex-col font-bold`}
             >
-              <Link
-                onClick={() => setOpen(false)}
-                to="/celulares"
-                className="p-2 my-2"
-              >
-                Celulares
-              </Link>
-              <Link
-                onClick={() => setOpen(false)}
-                to="/notebooks"
-                className="p-2 mb-2"
-              >
-                Notebooks
-              </Link>
-              <Link
-                onClick={() => setOpen(false)}
-                to="/tablets"
-                className="p-2"
-              >
-                Tablets
-              </Link>
+              {categories.map((category) => (
+                <Link
+                  key={category.id}
+                  onClick={() => {
+                    setOpen(false);
+                    setShowSubmenu(false);
+                  }}
+                  to={`product/get/${category.slug}`}
+                  className="p-2 hover:bg-gray-200 rounded"
+                >
+                  {category.nombre}
+                </Link>
+              ))}
             </div>
           </div>
         </ul>

@@ -72,14 +72,14 @@ export default function SignIn() {
           </div>
           <div className="flex flex-col items-center">
             <button
-              className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full mb-4"
+              className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full mb-4"
               type="submit"
             >
               Ingresar
             </button>
             <Link
               to="/signup"
-              className="inline-block align-baseline font-bold text-sm text-blue-600 hover:text-blue-800"
+              className="inline-block align-baseline font-bold text-sm text-indigo-600 hover:text-indigo-700"
             >
               ¿No tienes cuenta? Regístrate
             </Link>

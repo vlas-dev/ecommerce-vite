@@ -1,103 +1,81 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import products from '../../services/productsData.json';
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import crudAxios from "../../config/axios";
 
 export default function HomeCards() {
-  // State to track quantity of each product
-  const [quantities, setQuantities] = useState(products.reduce((acc, product) => {
-    acc[product.id] = 0;
-    return acc;
-  }, {}));
+  const [products, setProducts] = useState([]);
+  const navigate = useNavigate();
+  const { slug } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Function to increment quantity
-  const incrementQuantity = (id) => {
-    setQuantities({
-      ...quantities,
-      [id]: quantities[id] + 1
-    });
-  };
+  useEffect(() => {
+    const consultarApi = async () => {
+      const link = slug ? "/get/" + slug : "";
 
-  // Function to decrement quantity
-  const decrementQuantity = (id) => {
-    if (quantities[id] > 0) {
-      setQuantities({
-        ...quantities,
-        [id]: quantities[id] - 1
-      });
-    }
-  };
+      console.log(slug);
+      try {
+        setIsLoading(true);
+        const res = await crudAxios.get(`/product${link}`);
+        setProducts(res.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+        return [];
+      }
+    };
+    consultarApi();
+    window.scrollTo(0, 0);
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="loader"></div>
+      </div>
+    );
+  }
+
+
 
   return (
     <div className="">
-      <h2 className="mt-20 md:mt-5 text-[2.3rem] font-[600] text-center mb-6">
-        Nuestros productos
-      </h2>
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-5 mx-auto md:pb-20 max-w-[300px] md:max-w-[1200px]">
-        {products.map((product) => (
-          
-            <div key={product.id}  className="relative bg-white rounded-[6px] shadow-md hover:shadow-lg transition duration-300 ease-in-out transform w-[284px] max-w-[284px] h-[469px] max-h-[469px]">
-              <div className="w-[250px] h-[286px] mx-auto flex items-center">
-              <Link to={product.url} key={product.id} className="w-full">
-                <img
-                  src={product.image}
-                  alt={product.title}
-                  className=" bg-white w-auto h-auto object-cover"
-                />
-                </Link>
-              </div>
-              <hr className="bg-gray-300" />
-              <div className="p-4">
-                {product['mas-vendidos'] ? (
-                  <span className="bg-[#ff7733] text-white rounded-sm px-[5px] py-[1px] uppercase text-[.75rem] font-[600] ">
-                    Más vendido
-                  </span>
-                ) : (
-                  ''
-                )}
-                <h3 className="font-[400] text- text-[.95rem] text-[rgba(0,0,0,.8)]">
-                  {product.titulo}
-                </h3>
-                <div>
-                  {product.descuento.descuento ? (
-                    <p className="line-through text-[rgba(0,0,0,.55)] text-[12px]">
-                      ${product.descuento.antiguo}
-                    </p>
-                  ) : (
-                    ''
-                  )}
-                  <div className="flex">
-                    <p className="text-2xl">${product.precio}</p>
-                    {product.descuento.descuento ? (
-                      <p className="text-[#00a650] flex items-center pl-1 text-[.9rem]">
-                        {product.descuento.porcentaje}% OFF
-                      </p>
-                    ) : (
-                      ''
-                    )}
-                  </div>
-                </div>
-                <p className="text-[#00a650] font-[600] text-[14px]">
-                  {product.envioGratis ? 'Envío gratis' : 'Sin envío incluido'}
-                </p>
-              </div>
-              
-              {/* Quantity Controls - Positioned at bottom right */}
-              <div className="absolute bottom-2 right-2 flex items-center">
-                <button onClick={() => decrementQuantity(product.id)} className="px-2 py-1 border rounded-l">
-                  -
-                </button>
-                <span className="px-2 py-1 border-t border-b">
-                  {quantities[product.id]}
-                </span>
-                <button onClick={() => incrementQuantity(product.id)} className="px-2 py-1 border rounded-r">
-                  +
-                </button>
-              </div>
-
+    <h2 className="pt-28 md:pt-10 text-[2.3rem] font-[600] text-center mb-6">
+      Nuestros productos
+    </h2>
+  
+    <div className="grid grid-cols-1 md:grid-cols-4 gap-5 mx-auto md:pb-20 max-w-[300px] md:max-w-[1200px]">
+      {products.map((product) => (
+        <div
+          key={product.id}
+          className=" relative bg-white rounded shadow-md hover:shadow-lg transition duration-300"
+        >
+          <Link to={`/product/${product.id}`} key={product.id} className="w-full h-full block">
+            <div className="w-[250px] h-[286px] p-4 mx-auto flex items-center">
+              <img
+                src={`${import.meta.env.VITE_APP_BACKEND_URL}/uploads/productos/${product.imagen}`}
+                alt={product.titulo}
+                className="w-auto h-auto object-cover"
+              />
             </div>
-          
-        ))}
-      </div>
+            <hr className="bg-gray-300" />
+            <div className="p-4">
+              <h3 className="text-lg font-semibold mb-4">{product.titulo}</h3>
+              <div>
+                <div className="flex">
+                  <p className="text-indigo-700 text-xl font-semibold mb-4">
+                    ${product.precio}
+                  </p>
+                </div>
+              </div>
+              <p className=" font-semibold text-[14px]">
+                {product.envio ? "Envío gratis " : "Sin envío incluido"}
+              </p>
+            </div>
+          </Link>
+        </div>
+      ))}
     </div>
+  </div>
+  
   );
 }
