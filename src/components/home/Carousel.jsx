@@ -4,12 +4,26 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-import Products from "./products.json";
-
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
 
 export default function Carousel() {
-  const products = Products.filter((product) => product.imageDiscount);
+  const slideData = [
+    {
+      id: 1,
+      link: "/product/46961013-56d8-4907-beed-3f29b6b984e2",
+      image: "/assets/discount1.png",
+    },
+    {
+      id: 2,
+      link: "/product/get/notebooks",
+      image: "/assets/discount2.png",
+    },
+    {
+      id: 3,
+      link: "/product/949959ad-067d-4b3c-8ae4-29be035d7044",
+      image: "/assets/discount3.png",
+    },
+  ];
 
   return (
     <div className="bg-gray-100">
@@ -26,12 +40,11 @@ export default function Carousel() {
         }}
         speed={500}
       >
-        {products.map((product) => (
-          <SwiperSlide key={product.id}>
-            <a href={product.url}>
+        {slideData.map((slide) => (
+          <SwiperSlide key={slide.id}>
+            <a href={slide.link}>
               <div className="hidden md:flex flex-col items-center shadow-md mx-16 md:mt-24 ">
-               
-                <img src={product.imageDiscount} alt={product.title} />
+                <img src={slide.image} alt={`Slide ${slide.id}`} />
               </div>
             </a>
           </SwiperSlide>
