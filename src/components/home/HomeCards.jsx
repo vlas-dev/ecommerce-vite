@@ -43,6 +43,9 @@ export default function HomeCards({ dataLoaded }) {
             >
               <div className="w-[250px] h-[286px] p-4 mx-auto flex items-center">
                 <img
+                   
+                  //  src={`${import.meta.env.VITE_APP_BACKEND_URL}/uploads/productos/${product.imagen}`} // Carga las imagenes desde el backend
+
                    src={`/images/products/${product.titulo}.png`} 
                   alt={product.titulo}
                   className="w-auto h-auto object-cover"
