@@ -54,7 +54,7 @@ export default function ProductPage() {
             >
               <div className="md:w-1/2 flex justify-center items-center">
                 <img
-                  src={`../images/products/${product.titulo}.png`}
+                   src={`/images/products/${product.titulo}.png`} 
                   alt={product.titulo}
                   className="w-3/4 p-10"
                 />

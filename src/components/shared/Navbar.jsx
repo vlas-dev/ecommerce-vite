@@ -51,7 +51,7 @@ export default function Navbar() {
   };
 
   return (
-    <div className="bg-gray-800 fixed z-50 w-full">
+    <div className="bg-indigo-950 fixed z-50 w-full">
       <nav className="p-2 items-center md:mx-10 lg:mx-40">
         <div className="max-w-[1200px] mx-auto flex justify-between items-center">
           <Link to="/" className="text-2xl font-bold w-20 mr-8 md:mr-16">

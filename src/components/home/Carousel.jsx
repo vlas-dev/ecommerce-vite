@@ -5,6 +5,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
+import { Link } from "react-router-dom";
 
 export default function Carousel() {
   const slideData = [
@@ -42,11 +43,11 @@ export default function Carousel() {
       >
         {slideData.map((slide) => (
           <SwiperSlide key={slide.id}>
-            <a href={slide.link}>
+            <Link to={slide.link}>
               <div className="hidden md:flex flex-col items-center shadow-md mx-16 md:mt-24 ">
                 <img src={slide.image} alt={`Slide ${slide.id}`} />
               </div>
-            </a>
+            </Link>
           </SwiperSlide>
         ))}
       </Swiper>

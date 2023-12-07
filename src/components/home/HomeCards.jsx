@@ -43,7 +43,7 @@ export default function HomeCards({ dataLoaded }) {
             >
               <div className="w-[250px] h-[286px] p-4 mx-auto flex items-center">
                 <img
-                  src={`../images/products/${product.titulo}.png`}
+                   src={`/images/products/${product.titulo}.png`} 
                   alt={product.titulo}
                   className="w-auto h-auto object-cover"
                 />
