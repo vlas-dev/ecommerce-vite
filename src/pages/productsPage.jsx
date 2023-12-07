@@ -45,7 +45,7 @@ export default function ProductPage() {
 
   return (
     <>
-      <div className="bg-gray-100 flex justify-center pt-40 h-screen ">
+      <div className="bg-gray-100 flex justify-center pt-32 h-screen ">
         <div className="mx-auto container">
           <div className="mx-auto md:pb-20 max-w-[1000px]">
             <div
