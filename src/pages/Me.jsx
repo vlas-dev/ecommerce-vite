@@ -21,7 +21,7 @@ export default function Me() {
       <div className="flex justify-center ">
         <button 
           className={`px-4 py-2 mx-2 text-sm font-medium ${
-            activeTab === "UserData" ? "border-b-2 border-blue-500 text-blue-500" : "text-gray-500"
+            activeTab === "UserData" ? "border-b-2 border-indigo-600 text-indigo-600" : "text-gray-500"
           }`} 
           onClick={() => setActiveTab("UserData")}
         >
@@ -29,7 +29,7 @@ export default function Me() {
         </button>
         <button 
           className={`px-4 py-2 mx-2 text-sm font-medium ${
-            activeTab === "MisCompras" ? "border-b-2 border-blue-500 text-blue-500" : "text-gray-500"
+            activeTab === "MisCompras" ? "border-b-2 border-indigo-600 text-indigo-600" : "text-gray-500"
           }`} 
           onClick={() => setActiveTab("MisCompras")}
         >

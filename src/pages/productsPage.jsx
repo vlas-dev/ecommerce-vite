@@ -73,10 +73,10 @@ export default function ProductPage() {
                 </p>
 
                 <div className="my-10 flex flex-col gap-4 pr-5 font-semibold">
-                  <button className="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600">
+                  <button className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">
                     Comprar
                   </button>
-                  <button className="bg-gray-200 text-indigo-500 px-4 py-2 rounded-md hover:bg-gray-300">
+                  <button className="bg-gray-200 text-indigo-600 px-4 py-2 rounded-md hover:bg-gray-300">
                     Agregar al carrito
                   </button>
                 </div>
