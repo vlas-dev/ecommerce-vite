@@ -74,7 +74,9 @@ export default function UserData() {
   };
 
   if (!userData) {
-    return <div className="flex justify-center">Cargando...</div>;
+    return <div className="flex justify-center mt-20 h-screen">
+    <div className="loader"></div>
+  </div>;
   }
 
   return (
