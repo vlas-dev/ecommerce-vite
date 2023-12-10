@@ -45,7 +45,7 @@ export default function SignUp() {
 
   return (
     <div className="bg-gray-100 min-h-screen flex justify-center items-center">
-      <div className="bg-white p-6 rounded-md shadow-md w-full max-w-lg mt-10 mx-10">
+      <div className="bg-white p-6 rounded-md shadow-md w-full max-w-lg mt-32 mx-10">
         <h2 className="text-2xl font-bold mb-4 text-center">Registrarse</h2>
         <form onSubmit={crearUsuario} className="grid grid-cols-2 gap-4">
           <div className="col-span-2">

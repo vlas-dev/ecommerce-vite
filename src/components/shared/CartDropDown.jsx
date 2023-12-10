@@ -33,7 +33,7 @@ export default function CartDropdown({ closeDropdown }) {
             </div>
             <div className="flex items-center">
               <button
-                className="bg-gray-200 text-indigo-600 px-2 rounded-md hover:bg-gray-300"
+                className="bg-gray-200 text-indigo-600 rounded-md hover:bg-gray-300 min-w-[25px]"
                 onClick={() => decreaseQuantity(item.id)}
               >
                 -

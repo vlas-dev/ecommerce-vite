@@ -35,15 +35,15 @@ export default function CartPage() {
   }
 
   return (
-    <div className="container mx-auto pt-24">
-      <div className="flex shadow-md">
-        <div className="w-3/4 bg-white px-10 py-10">
+    <div className="container mx-auto pt-36">
+      <div className="flex flex-col md:flex-row shadow-md">
+        <div className="w-full  bg-white px-10 py-10 rounded">
           <div className="flex justify-between border-b pb-8">
             <h1 className="font-semibold text-2xl">Carrito</h1>
             <h2 className="font-semibold text-2xl">
               {totalItems} Productos
             </h2>{" "}
-            {/* Updated to show total items */}
+            
           </div>
           <div className="mt-10 mb-5">
             {cartItems.map((item) => (
@@ -62,16 +62,16 @@ export default function CartPage() {
                     <p>${item.precio}</p>
                   </div>
                 </div>
-                <div className="flex items-center">
+                <div className="flex items-center font-semibold text-xl">
                   <button
-                    className="px-2 py-1 text-gray-600 hover:text-gray-800"
+                    className="bg-gray-200 text-indigo-600 px-3 py-1 rounded-md hover:bg-gray-300 ml-1  min-w-[36px]"
                     onClick={() => decreaseQuantity(item.id)}
                   >
                     -
                   </button>
                   <span className="mx-3">{item.quantity}</span>
                   <button
-                    className="px-2 py-1 text-gray-600 hover:text-gray-800"
+                    className="bg-indigo-600 text-white px-3 py-1 rounded-md hover:bg-indigo-700"
                     onClick={() => increaseQuantity(item.id)}
                   >
                     +
@@ -92,16 +92,14 @@ export default function CartPage() {
               </div>
             ))}
           </div>
-          <Link to="/" className="text-indigo-600 text-sm mt-10 font-semibold">
-            Continuar comprando
-          </Link>
+        
         </div>
 
-        <div className="w-1/4 px-8 py-10">
+        <div className="w-full px-8 py-10">
           <h1 className="font-semibold text-2xl border-b pb-8">Mi Orden</h1>
           <div className="flex md:flex-row flex-col justify-between mt-10 mb-5">
-            <span className="font-semibold text-sm uppercase mb-4">Total </span>
-            <span className="font-semibold text-sm">
+            <span className="font-semibold uppercase mb-4">Total </span>
+            <span className="font-semibold ">
               ${calculateTotalPrice().toFixed(2)}
             </span>
           </div>

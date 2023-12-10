@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import crudAxios from "../config/axios";
 
 import { CartContext } from "../components/context/CartContext";
@@ -85,11 +85,11 @@ export default function ProductPage() {
                   {product.envio ? "Envío gratis " : "Sin envío incluido"}
                 </p>
 
-                <div className="my-10 flex flex-col gap-4 pr-5 font-semibold">
+                <div className="my-10 flex flex-col font-semibold">
                   {itemInCart ? (
-                    <div className="flex items-center justify-center">
+                    <div className="flex items-center">
                       <button
-                        className="bg-gray-200 text-indigo-600 px-4 py-2 rounded-md hover:bg-gray-300"
+                        className="bg-gray-200 text-indigo-600 px-4 py-2 rounded-md hover:bg-gray-300 ml-1  min-w-[40px]"
                         onClick={() => decreaseQuantity(product.id)}
                       >
                         -
@@ -101,10 +101,16 @@ export default function ProductPage() {
                       >
                         +
                       </button>
+
+                      <Link to="/cart">
+                        <button className="bg-indigo-600 text-white px-28 py-2  rounded-md hover:bg-indigo-700 ml-12">
+                          Ver Carrito
+                        </button>
+                      </Link>
                     </div>
                   ) : (
                     <button
-                      className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700"
+                      className="bg-indigo-600 text-white  py-2 rounded-md hover:bg-indigo-700"
                       onClick={handleAddToCart}
                     >
                       Agregar al carrito
