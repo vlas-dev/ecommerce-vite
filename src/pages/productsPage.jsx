@@ -48,6 +48,14 @@ export default function ProductPage() {
 
   const itemInCart = cartItems.find((item) => item.id === product.id);
 
+  const handleAddToCart = () => {
+    if (!localStorage.getItem("x-token")) {
+      navigate("/signin");
+    } else {
+      addToCart(product);
+    }
+  };
+
   return (
     <>
       <div className="bg-gray-100 flex justify-center pt-32 h-screen">
@@ -97,7 +105,7 @@ export default function ProductPage() {
                   ) : (
                     <button
                       className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700"
-                      onClick={() => addToCart(product)}
+                      onClick={handleAddToCart}
                     >
                       Agregar al carrito
                     </button>
