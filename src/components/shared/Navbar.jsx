@@ -1,40 +1,42 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { RiSearchLine, RiShoppingCartLine } from "react-icons/ri";
 import { IoIosArrowDown } from "react-icons/io";
-import { FaRegUser } from "react-icons/fa6";
+import { FaRegUser } from "react-icons/fa";
 import crudAxios from "../../config/axios";
-
 import { Twirl as Hamburger } from "hamburger-react";
 import logoImage from "/assets/logo.png";
 import { CRMContext } from "../../components/context/CRMcontext";
+import { CartContext } from "../../components/context/CartContext";
+import CartDropDown from "../../components/shared/CartDropDown"; // Import the CartDropdown component
+
 export default function Navbar() {
   const [auth, setAuth] = useContext(CRMContext);
-  console.log(auth);
-
-  const [isOpen, setOpen] = useState(false); // State to control the hamburger menu visibility
+  const [isOpen, setOpen] = useState(false);
   const [showSubmenu, setShowSubmenu] = useState(false);
   const [showProfileSubmenu, setShowProfileSubmenu] = useState(false);
+  const [showCartDropdown, setShowCartDropdown] = useState(false);
 
   const navigate = useNavigate();
-
   const [categories, setCategories] = useState([]);
+
+  const { cartItems, clearCart } = useContext(CartContext);
+  const cartItemCount = cartItems.reduce(
+    (count, item) => count + item.quantity,
+    0
+  );
 
   useEffect(() => {
     const consultarApi = async () => {
       try {
         const res = await crudAxios.get("/category");
-
         setCategories(res.data);
       } catch (error) {
         console.log(error);
-        return [];
       }
     };
     consultarApi();
   }, []);
-
-  console.log(categories);
 
   useEffect(() => {
     const storedToken = localStorage.getItem("x-token");
@@ -46,8 +48,31 @@ export default function Navbar() {
   const handleLogout = () => {
     setAuth({ token: null, isAuthenticated: false });
     localStorage.removeItem("x-token");
-    setOpen(false);
     navigate("/");
+    clearCart();
+  };
+
+  useEffect(() => {
+    const closeCartDropdown = () => {
+      setShowCartDropdown(false);
+    };
+
+    // Listen for clicks on the document to close the cart dropdown
+    document.addEventListener("click", closeCartDropdown);
+
+    return () => {
+      // Remove the event listener when the component unmounts
+      document.removeEventListener("click", closeCartDropdown);
+    };
+  }, []);
+
+  const handleCartClick = (e) => {
+    e.stopPropagation(); // Prevent the click event from propagating to the document
+    if (auth.isAuthenticated) {
+      setShowCartDropdown(!showCartDropdown);
+    } else {
+      navigate("/signin");
+    }
   };
 
   return (
@@ -80,8 +105,6 @@ export default function Navbar() {
                 Categorías <IoIosArrowDown />
               </button>
               <div className="absolute p-2 opacity-0 group-hover:opacity-100 group-hover:scale-100 scale-95 bg-white rounded text-gray-800 transform transition-all duration-300 ease-in-out flex flex-col font-bold pointer-events-none group-hover:pointer-events-auto">
-                {/* The submenu div now remains visible when hovering over the links */}
-
                 {categories.map((category) => (
                   <Link
                     key={category.id}
@@ -96,14 +119,12 @@ export default function Navbar() {
             </div>
 
             {auth.isAuthenticated ? (
-              // Logged in user view
               <>
                 <div className="relative group items-center">
                   <button className="p-3 flex items-center justify-center gap-2">
                     <FaRegUser /> <IoIosArrowDown />
                   </button>
                   <div className="absolute p-2 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 group-hover:scale-100 scale-95 bg-white rounded text-gray-800 transition-all duration-300 ease-in-out flex flex-col font-bold pointer-events-none group-hover:pointer-events-auto">
-                    {/* The submenu div now remains visible when hovering over the button group */}
                     <Link
                       to="/me"
                       className="p-2 hover:bg-gray-200 rounded text-start"
@@ -111,8 +132,9 @@ export default function Navbar() {
                       Perfil
                     </Link>
                     <a
+                      href="/"
                       onClick={handleLogout}
-                      className="p-2 hover:bg-gray-200 rounded text-start"
+                      className="p-2 hover:bg-gray-200 rounded text-start cursor-pointer"
                     >
                       Salir
                     </a>
@@ -120,22 +142,40 @@ export default function Navbar() {
                 </div>
               </>
             ) : (
-              // Guest user view
               <>
                 <Link className="p-2" to="/signin">
                   Ingresar
                 </Link>
-                <Link className="p-2 bg-indigo-600 hover:bg-indigo-700 rounded" to="/signup">
+                <Link
+                  className="p-2 bg-indigo-600 hover:bg-indigo-700 rounded"
+                  to="/signup"
+                >
                   Registrarse
                 </Link>
               </>
             )}
-            <button className="p-2">
+
+            <button className="p-2 relative" onClick={handleCartClick}>
               <RiShoppingCartLine size={24} aria-label="Shopping Cart" />
+              {cartItemCount > 0 && (
+                <span className="absolute top-0 right-0 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
+                  {cartItemCount}
+                </span>
+              )}
             </button>
+
+            {showCartDropdown && <CartDropDown />}
           </div>
 
-          {/* Hamburger Menu */}
+          <Link to="/cart" className="md:hidden text-white mr-6">
+            <RiShoppingCartLine size={24} aria-label="Shopping Cart" />
+            {cartItemCount > 0 && (
+              <span className="absolute top-4 right-20 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
+                {cartItemCount}
+              </span>
+            )}
+          </Link>
+
           <div
             onClick={() => setOpen(!isOpen)}
             className="z-50 md:hidden mt-2 mr-4"
@@ -149,20 +189,19 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Hamburger Menu Content */}
         <div
           className={`fixed h-screen w-full bg-black bg-opacity-50 transition-opacity ${
             isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
           }`}
           onClick={() => setOpen(false)}
         ></div>
+
         <ul
           className={`md:hidden fixed top-0 right-0 h-screen w-3/5 px-10 space-y-8 bg-indigo-950 flex flex-col pt-32 text-white text-xl transform ${
             isOpen ? "translate-x-0" : "translate-x-full"
           } transition duration-300 ease-in-out`}
         >
           {auth.isAuthenticated ? (
-            // Logged in user view
             <>
               <div className="relative group items-center">
                 <button
@@ -187,6 +226,7 @@ export default function Navbar() {
                     Perfil
                   </Link>
                   <a
+                    href="/"
                     onClick={() => {
                       handleLogout();
                       setShowProfileSubmenu(false);
@@ -199,7 +239,6 @@ export default function Navbar() {
               </div>
             </>
           ) : (
-            // Guest user view
             <>
               <Link
                 onClick={() => {
@@ -221,6 +260,7 @@ export default function Navbar() {
               </Link>
             </>
           )}
+
           <div className={`relative group items-center`}>
             <button
               className="p-2 flex items-center justify-center gap-2"

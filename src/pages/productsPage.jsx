@@ -1,36 +1,39 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import crudAxios from "../config/axios";
+
+import { CartContext } from "../components/context/CartContext";
 
 export default function ProductPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState({});
-  const [isLoading, setIsLoading] = useState(true); // New state for loading status
+  const [isLoading, setIsLoading] = useState(true);
+  const { addToCart, increaseQuantity, decreaseQuantity, cartItems } =
+    useContext(CartContext);
 
   useEffect(() => {
     const consultarApi = async () => {
       try {
-        setIsLoading(true); // Start loading
+        setIsLoading(true);
         const res = await crudAxios.get(`/product/${id}`);
         setProduct(res.data);
-        setIsLoading(false); // Stop loading after data is fetched
+        setIsLoading(false);
       } catch (error) {
         console.log(error);
         setProduct({});
-        setIsLoading(false); // Stop loading if there is an error
+        setIsLoading(false);
       }
     };
     consultarApi();
 
     window.scrollTo(0, 0);
-  }, [id]); // Include id in dependency array
+  }, [id]);
 
   if (!isLoading && Object.keys(product).length < 1) {
     navigate("/");
   }
 
-  // Loading indicator
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -43,9 +46,11 @@ export default function ProductPage() {
     navigate("/");
   }
 
+  const itemInCart = cartItems.find((item) => item.id === product.id);
+
   return (
     <>
-      <div className="bg-gray-100 flex justify-center pt-32 h-screen ">
+      <div className="bg-gray-100 flex justify-center pt-32 h-screen">
         <div className="mx-auto container">
           <div className="mx-auto md:pb-20 max-w-[1000px]">
             <div
@@ -54,10 +59,7 @@ export default function ProductPage() {
             >
               <div className="md:w-1/2 flex justify-center items-center">
                 <img
-
-                  //  src={`${import.meta.env.VITE_APP_BACKEND_URL}/uploads/productos/${product.imagen}`} // Carga las imagenes desde el backend
-
-                   src={`/images/products/${product.titulo}.png`} 
+                  src={`/images/products/${product.titulo}.png`}
                   alt={product.titulo}
                   className="w-3/4 p-10"
                 />
@@ -76,12 +78,30 @@ export default function ProductPage() {
                 </p>
 
                 <div className="my-10 flex flex-col gap-4 pr-5 font-semibold">
-                  <button className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">
-                    Comprar
-                  </button>
-                  <button className="bg-gray-200 text-indigo-600 px-4 py-2 rounded-md hover:bg-gray-300">
-                    Agregar al carrito
-                  </button>
+                  {itemInCart ? (
+                    <div className="flex items-center justify-center">
+                      <button
+                        className="bg-gray-200 text-indigo-600 px-4 py-2 rounded-md hover:bg-gray-300"
+                        onClick={() => decreaseQuantity(product.id)}
+                      >
+                        -
+                      </button>
+                      <span className="mx-2">{itemInCart.quantity}</span>
+                      <button
+                        className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700"
+                        onClick={() => increaseQuantity(product.id)}
+                      >
+                        +
+                      </button>
+                    </div>
+                  ) : (
+                    <button
+                      className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700"
+                      onClick={() => addToCart(product)}
+                    >
+                      Agregar al carrito
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
