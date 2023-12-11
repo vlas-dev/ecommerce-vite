@@ -75,6 +75,14 @@ export default function Navbar() {
     }
   };
 
+  const handleCartClickHamburger = (e) => {
+    if (auth.isAuthenticated) {
+      navigate("/cart");
+    } else {
+      navigate("/signin");
+    }
+  };
+
   return (
     <div className="bg-indigo-950 fixed z-50 w-full">
       <nav className="p-2 items-center md:mx-10 lg:mx-40">
@@ -167,14 +175,17 @@ export default function Navbar() {
             {showCartDropdown && <CartDropDown />}
           </div>
 
-          <Link to="/cart" className="md:hidden text-white mr-6">
+          <button
+            className="md:hidden text-white mr-6"
+            onClick={handleCartClickHamburger}
+          >
             <RiShoppingCartLine size={24} aria-label="Shopping Cart" />
             {cartItemCount > 0 && (
               <span className="absolute top-4 right-20 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
                 {cartItemCount}
               </span>
             )}
-          </Link>
+          </button>
 
           <div
             onClick={() => setOpen(!isOpen)}
