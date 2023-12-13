@@ -47,7 +47,7 @@ const CheckoutInfo = () => {
   };
 
   return (
-    <div className="p-8 h-[450px] w-[600px] bg-white shadow-md rounded-lg">
+    <div className="p-8 min-h-[300px] w-[400px] lg:w-[1035px] bg-white shadow-md rounded-lg">
       <h2 className="text-2xl font-bold mb-4 text-center">Información de la compra</h2>
       {cartItems.map((item) => (
         <div key={item.id} className="mb-4 flex justify-between items-center">
