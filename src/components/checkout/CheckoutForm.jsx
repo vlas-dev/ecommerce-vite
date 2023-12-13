@@ -1,68 +1,34 @@
-import React from 'react';
-import { useForm } from '../../hooks/useForm/useForm';
-import { useStripe, useElements } from '@stripe/react-stripe-js';
+import React from "react";
+import { useForm } from "../../hooks/useForm/useForm";
 
-const CheckoutForm = ({ children }) => {
-  const stripe = useStripe();
-  const elements = useElements();
+const CheckoutForm = () => {
   const { formState, onInputChange } = useForm({
-    name: '',
-    lastName: '',
-    line1: 'calle 111',
-    email: '',
-    country: 'venezuela',
-    city: '',
-    state: '',
-    phone: '',
-    postal_code: '',
-
+    name: "",
+    lastName: "",
+    email: "",
+    country: "venezuela",
+    state: "",
+    city: "",
+    line1: "calle 111",
+    phone: "",
+    postal_code: "",
   });
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    if (!stripe || !elements) {
-      return;
-    }
-
-    const returnUrl = `${window.location.origin}/success`;
-
-
-    const result = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        return_url: returnUrl,
-        payment_method_data: {
-          billing_details: {
-            name: `${formState.name} ${formState.lastName}`,
-            email: formState.email,
-            address: {
-              
-              country: formState.country,
-              city: formState.city,
-              state: formState.state,
-              line1: formState.line1,
-              postal_code: formState.postal_code,
-
-            },
-
-            phone: formState.phone,
-          },
-        },
-      },
-    });
-
-    if (result.error) {
-      console.log(result.error.message);
-    }
-  };
-
   return (
-    <form onSubmit={handleSubmit} className="p-8 h-[450px] w-[600px] bg-white shadow-md rounded-lg">
-      <h2 className="text-2xl font-bold mb-4 text-center">Datos de Facturación</h2>
-
+    <div>
+    
+    <form className="p-8 h-[550px] w-[600px] bg-white shadow-md rounded-lg">
+    <h2 className="text-2xl font-bold mb-4 text-center">Datos de Facturación</h2>
       {/* Name Field */}
       <div className="mb-4">
+        
+      <label
+          htmlFor="firstName"
+          className="block text-gray-700 text-sm font-bold mb-2 sr-only"
+          
+        >
+          Nombre
+        </label>
         <input
           type="text"
           id="name"
@@ -76,6 +42,12 @@ const CheckoutForm = ({ children }) => {
 
       {/* Last Name Field */}
       <div className="mb-4">
+      <label
+          htmlFor="lastName"
+          className="block text-gray-700 text-sm font-bold mb-2 sr-only"
+        >
+          Apellido
+        </label>
         <input
           type="text"
           id="lastName"
@@ -89,6 +61,12 @@ const CheckoutForm = ({ children }) => {
 
       {/* Email Field */}
       <div className="mb-4">
+      <label
+          htmlFor="email"
+          className="block text-gray-700 text-sm font-bold mb-2 sr-only"
+        >
+          Email
+        </label>
         <input
           type="email"
           id="email"
@@ -100,29 +78,102 @@ const CheckoutForm = ({ children }) => {
         />
       </div>
 
+      {/* Country Field */}
+      <div className="mb-4">
+        <label
+          htmlFor="country"
+          className="block text-gray-700 text-sm font-bold mb-2 sr-only"
+        >
+          País
+        </label>
+        <input
+          type="text"
+          id="country"
+          value={formState.country}
+          name="country"
+          onChange={onInputChange}
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          placeholder="País"
+        />
+      </div>
+
+      {/* State Field */}
+      <div className="mb-4">
+        <label
+          htmlFor="state"
+          className="block text-gray-700 text-sm font-bold mb-2 sr-only"
+        >
+          Provincia
+        </label>
+        <input
+          type="text"
+          id="state"
+          value={formState.state}
+          name="state"
+          onChange={onInputChange}
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          placeholder="Provincia"
+        />
+      </div>
+
+      {/* City Field */}
+      <div className="mb-4">
+        <label
+          htmlFor="city"
+          className="block text-gray-700 text-sm font-bold mb-2 sr-only"
+        >
+          Ciudad
+        </label>
+        <input
+          type="text"
+          id="city"
+          value={formState.city}
+          name="city"
+          onChange={onInputChange}
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          placeholder="Ciudad"
+        />
+      </div>
+
       {/* Address Field */}
       <div className="mb-4">
+        <label
+          htmlFor="city"
+          className="block text-gray-700 text-sm font-bold mb-2 sr-only"
+        >
+          Dirección
+        </label>
         <input
           type="text"
           id="address"
-          value={formState.address}
-          name="address"
+          value={formState.line1}
+          name="line1"
           onChange={onInputChange}
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           placeholder="Dirección"
         />
       </div>
 
-      {/* Payment Button */}
-      <button
-        disabled={!stripe}
-        className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-      >
-        Pagar
-      </button>
-
-
+      {/* Postal Code Field */}
+      <div className="mb-4">
+        <label
+          htmlFor="postal_code"
+          className="block text-gray-700 text-sm font-bold mb-2 sr-only"
+        >
+          Código Postal
+        </label>
+        <input
+          type="text"
+          id="postal_code"
+          value={formState.postal_code}
+          name="postal_code"
+          onChange={onInputChange}
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          placeholder="Código Postal"
+        />
+      </div>
     </form>
+    </div>
   );
 };
 

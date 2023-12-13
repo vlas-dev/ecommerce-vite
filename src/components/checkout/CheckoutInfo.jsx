@@ -1,11 +1,50 @@
 import React, { useContext } from 'react';
 import { CartContext } from './../context/CartContext';
-import { RiDeleteBin7Line, RiDeleteBin7Fill } from "react-icons/ri";
+import { useStripe, useElements } from '@stripe/react-stripe-js';
+import { useForm } from '../../hooks/useForm/useForm';
 
 const CheckoutInfo = () => {
   const { cartItems } = useContext(CartContext);
+  const stripe = useStripe();
+  const elements = useElements();
+  const { formState } = useForm();
 
   const total = cartItems.reduce((total, item) => total + item.precio * item.quantity, 0);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (!stripe || !elements) {
+      return;
+    }
+
+    const returnUrl = `${window.location.origin}/success`;
+
+    const result = await stripe.confirmPayment({
+      elements,
+      confirmParams: {
+        return_url: returnUrl,
+        payment_method_data: {
+          billing_details: {
+            name: `${formState.name} ${formState.lastName}`,
+            email: formState.email,
+            address: {
+              line1: formState.line1,
+              city: formState.city,
+              state: formState.state,
+              country: formState.country,
+              postal_code: formState.postal_code,
+            },
+            phone: formState.phone,
+          },
+        },
+      },
+    });
+
+    if (result.error) {
+      console.log(result.error.message);
+    }
+  };
 
   return (
     <div className="p-8 h-[450px] w-[600px] bg-white shadow-md rounded-lg">
@@ -32,6 +71,14 @@ const CheckoutInfo = () => {
         <p>Total:</p>
         <p>${total.toFixed(2)}</p>
       </div>
+      <button
+        onClick={handleSubmit}
+        disabled={!stripe}
+        className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+      >
+        Pagar
+      </button>
+
 
     </div>
   );

@@ -13,7 +13,7 @@ export const Checkout = ({ options }) => {
   return (
     <div className="pt-32">
       <Elements stripe={stripePromise} options={options}>
-        <div className="flex justify-center items-center space-x-8">
+        <div className="flex justify-center space-x-8">
           <div>
             <CheckoutForm />
           </div>
@@ -23,7 +23,7 @@ export const Checkout = ({ options }) => {
           </div>
         </div>
 
-        <div className="mt-8 items-center space-x-8">
+        <div className="mt-8">
           <StripeElements />
         </div>
       </Elements>
