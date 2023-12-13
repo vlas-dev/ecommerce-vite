@@ -1,18 +1,72 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RiDeleteBin7Line, RiDeleteBin7Fill } from "react-icons/ri";
 import { CartContext } from "../components/context/CartContext"; // Update the import path as per your project structure
+import { useEffect } from "react";
+import crudAxios from "../config/axios";
 
-export default function CartPage() {
+export default function CartPage({setOption}) {
   const { cartItems, removeFromCart, increaseQuantity, decreaseQuantity } =
-    useContext(CartContext);
+      useContext(CartContext);
 
+    
   const calculateTotalPrice = () => {
     return cartItems.reduce(
       (total, item) => total + item.precio * item.quantity,
       0
     );
   };
+    const totalPrice =calculateTotalPrice()
+    const navigate = useNavigate()
+    const [precio, setPrecio] = useState(0)
+    const [amount, setAmount] = useState({
+      amount:0
+    })
+    const  turnFloatIntoInt = (numero) => {
+      let cadena = numero.toString();
+      let sinPunto = cadena.replace(".", "");
+      let entero = parseInt(sinPunto);
+      return parseInt(entero/10);
+    }
+
+ 
+    
+  const toCheckOut = () =>{
+    console.log(amount)
+
+    const consultarApi = async () => {
+      try {
+          const token = localStorage.getItem("x-token");
+          const config = {
+            headers: { "x-token": token },
+          };
+          const res = await crudAxios.post(`/payment/process`,amount,config);
+          const {client_secret} = await res.data
+          setOption({  
+           
+          clientSecret:client_secret})
+          
+        } catch (error) {
+          console.log(error);
+
+        }
+      };
+      consultarApi();
+      
+
+    // navigate('/checkout')
+  }
+  useEffect(()=>{
+    const amount ={
+      amount:turnFloatIntoInt(precio)
+      }
+    setAmount(amount)
+  },[precio])
+  
+  useEffect(()=>{
+    setPrecio(totalPrice)
+  },[totalPrice])
+
 
   const totalItems = cartItems.reduce(
     (total, item) => total + item.quantity,
@@ -100,15 +154,15 @@ export default function CartPage() {
           <div className="flex md:flex-row flex-col justify-between mt-10 mb-5">
             <span className="font-semibold uppercase mb-4">Total </span>
             <span className="font-semibold ">
-              ${calculateTotalPrice().toFixed(2)}
+              ${totalPrice.toFixed(2)}
             </span>
           </div>
           <div>
-            <Link to="/checkout">
-              <button className="bg-indigo-600 hover:bg-indigo-700 px-5 py-2 text-sm text-white uppercase w-full rounded font-semibold">
+ 
+              <button onClick={toCheckOut} className="bg-indigo-600 hover:bg-indigo-700 px-5 py-2 text-sm text-white uppercase w-full rounded font-semibold">
                 Pagar
               </button>
-            </Link>
+ 
           </div>
         </div>
       </div>

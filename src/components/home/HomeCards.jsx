@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom"; // Import useNavigate
+import { Link, useParams, useNavigate, useLocation } from "react-router-dom"; // Import useNavigate
 import crudAxios from "../../config/axios";
 import { CartContext } from "../../components/context/CartContext";
 
@@ -9,12 +9,15 @@ export default function HomeCards({ dataLoaded }) {
   const { addToCart, increaseQuantity, decreaseQuantity, cartItems } =
     useContext(CartContext);
   const navigate = useNavigate(); // Initialize useNavigate
+  const param = useParams();
 
   useEffect(() => {
     const consultarApi = async () => {
-      const link = slug ? "/get/" + slug : "";
+      if(comp) return
+        const {slug} = param
+        const link = slug ? "/get/" + slug : "";
 
-      console.log(slug);
+
       try {
         const res = await crudAxios.get(`/product${link}`);
         setProducts(res.data);
@@ -26,7 +29,36 @@ export default function HomeCards({ dataLoaded }) {
     };
     consultarApi();
     window.scrollTo(0, 0);
-  }, [slug, dataLoaded]);
+  }, [param,dataLoaded]);
+
+
+  const query = useLocation().search
+  const comp = useLocation()?.search.length>0
+  
+
+  useEffect(()=>{
+    const search = {
+    search :
+     query.split("=")[1]
+    }
+
+    const consultarApi = async () => {
+
+      try {
+
+        const res = await crudAxios.post("/search",search);
+        setProducts(res.data)
+
+      } catch (error) {
+        console.log(error);
+      }
+      
+    };
+    consultarApi();
+     
+},[query])
+
+
 
   const handleAddToCart = (product) => {
     if (!localStorage.getItem("x-token")) {

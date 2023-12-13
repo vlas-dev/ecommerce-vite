@@ -57,8 +57,13 @@ export const CartProvider = ({ children }) => {
   };
 
   const clearCart = () => {
+    console.log('Clearing cart...');
     setCartItems([]);
+    localStorage.setItem('cartItems', JSON.stringify([]));
+    console.log('Cart cleared. Current cartItems:', cartItems);
+    console.log('LocalStorage after clear:', localStorage.getItem('cartItems'));
   };
+  
 
   return (
     <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, increaseQuantity, decreaseQuantity, clearCart }}>

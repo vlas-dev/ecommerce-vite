@@ -9,6 +9,7 @@ import logoImage from "/assets/logo.png";
 import { CRMContext } from "../../components/context/CRMcontext";
 import { CartContext } from "../../components/context/CartContext";
 import CartDropDown from "../../components/shared/CartDropDown"; // Import the CartDropdown component
+import { useForm } from "../../hooks/useForm/useForm";
 
 export default function Navbar() {
   const [auth, setAuth] = useContext(CRMContext);
@@ -17,9 +18,14 @@ export default function Navbar() {
   const [showProfileSubmenu, setShowProfileSubmenu] = useState(false);
   const [showCartDropdown, setShowCartDropdown] = useState(false);
 
+
+  //CAMBIOS EN SEARCH
+  const {formState,onInputChange} = useForm({
+    search:''
+  })
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
-
+ 
   const { cartItems, clearCart } = useContext(CartContext);
   const cartItemCount = cartItems.reduce(
     (count, item) => count + item.quantity,
@@ -74,7 +80,15 @@ export default function Navbar() {
       navigate("/signin");
     }
   };
-
+  //CAMBIOS EN NAVBAR
+  const handleSearch = async(e) =>{
+    e.preventDefault()
+    if(formState.search.length<1) return navigate('/')
+    
+    navigate(`/search?termino=${formState.search}`)
+ 
+  
+  }
   const handleCartClickHamburger = (e) => {
     if (auth.isAuthenticated) {
       navigate("/cart");
@@ -90,13 +104,16 @@ export default function Navbar() {
           <Link to="/" className="text-2xl font-bold w-20 mr-8 md:mr-16">
             <img src={logoImage} alt="Logo" />
           </Link>
-
-          <form className="flex-grow flex items-center mr-10">
+          {/* CAMBIOS EN EL SEARCH */}
+          <form className="flex-grow flex items-center mr-10" onSubmit={handleSearch}>
             <input
               type="text"
               placeholder="Buscar..."
               className="px-6 py-2 text-lg rounded-l border border-r-0 focus:outline-none w-full"
               aria-label="Search"
+              name="search" 
+              value={formState.search}
+              onChange={onInputChange}
             />
             <button
               type="submit"

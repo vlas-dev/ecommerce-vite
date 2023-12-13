@@ -4,6 +4,7 @@ import {
   Routes,
   Route,
   useLocation,
+  useNavigate,
 } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -13,7 +14,8 @@ import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
 import Me from "./pages/Me";
 import Cart from "./pages/Cart";
-import Checkout from "./pages/Checkout";
+import Success from "./pages/Success";
+ 
 import Footer from "./components/shared/Footer";
 import { CRMContext, CRMProvider } from "./components/context/CRMcontext";
 
@@ -21,20 +23,32 @@ import { CartProvider } from "./components/context/CartContext";
 
 
 import ProductPage from "./pages/productsPage";
+import { Checkout } from "./pages/Checkout";
+import crudAxios from "./config/axios";
+ 
+ 
 
 function AnimatedRoutes() {
   const location = useLocation();
-
-  // Animation variants
-  const pageTransition = {
-    in: {
-      opacity: 1,
-    },
-    out: {
-      opacity: 0,
-    },
-  };
-
+  const [options,setOption] = useState({
+    clientSecret: "",
+  })
+  const navigate = useNavigate()
+      // Animation variants
+      const pageTransition = {
+        in: {
+          opacity: 1,
+        },
+        out: {
+          opacity: 0,
+        },
+      };
+  useEffect(()=>{
+    if(options.clientSecret.length>0){
+      navigate('/checkout')
+ 
+    }
+  },[options])
   return (
     <AnimatePresence mode="wait">
       <motion.div
@@ -52,8 +66,14 @@ function AnimatedRoutes() {
           <Route path="/me" element={<Me />} />
           <Route path="/product/get/:slug" element={<Home />} />
           <Route path="/product/:id" element={<ProductPage />} /> 
-          <Route path="/cart" element={<Cart />} /> 
-          <Route path="/checkout" element={<Checkout />} /> 
+          <Route path="/cart" element={<Cart setOption={setOption}/>} /> 
+          <Route path="/checkout" element={<Checkout options={options} />} /> 
+
+          <Route path="/success" element={<Success />} />
+
+          {/* SEARCH AGREGADO */}
+          <Route path="/search" element={<Home />} />
+
           {/* Add more routes as needed */}
         </Routes>
       </motion.div>
