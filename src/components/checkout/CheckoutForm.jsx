@@ -22,7 +22,7 @@ const CheckoutForm = () => {
         </h2>
 
         {/* Flex container for Name and Last Name */}
-        <div className="grid grid-cols-1 md:grid-cols-2 md:gap-4 md:mt-10">
+        <div className="grid grid-cols-1 md:mt-4">
           {/* Name Field */}
           <div className="floating-label-group">
             <input
@@ -57,7 +57,7 @@ const CheckoutForm = () => {
         </div>
 
         {/* Flex container for Email and País */}
-        <div className="grid grid-cols-1 md:grid-cols-2 md:gap-4">
+        <div className="grid grid-cols-1">
           {/* Email Field */}
           <div className="floating-label-group">
             <input

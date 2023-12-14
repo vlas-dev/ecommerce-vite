@@ -18,14 +18,13 @@ export default function Navbar() {
   const [showProfileSubmenu, setShowProfileSubmenu] = useState(false);
   const [showCartDropdown, setShowCartDropdown] = useState(false);
 
-
   //CAMBIOS EN SEARCH
-  const {formState,onInputChange} = useForm({
-    search:''
-  })
+  const { formState, onInputChange } = useForm({
+    search: "",
+  });
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
- 
+
   const { cartItems, clearCart } = useContext(CartContext);
   const cartItemCount = cartItems.reduce(
     (count, item) => count + item.quantity,
@@ -72,16 +71,19 @@ export default function Navbar() {
     };
   }, []);
 
-
   //CAMBIOS EN NAVBAR
-  const handleSearch = async(e) =>{
-    e.preventDefault()
-    if(formState.search.length<1) return navigate('/')
-    
-    navigate(`/search?termino=${formState.search}`)
- 
-  
-  }
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    if (formState.search.length < 1) return navigate("/");
+
+    navigate(`/search?termino=${formState.search}`);
+  };
+
+  const handleCartClick = (e) => {
+    if (!auth.isAuthenticated) {
+      navigate("/signin");
+    }
+  };
   const handleCartClickHamburger = (e) => {
     if (auth.isAuthenticated) {
       navigate("/cart");
@@ -98,13 +100,16 @@ export default function Navbar() {
             <img src={logoImage} alt="Logo" />
           </Link>
           {/* CAMBIOS EN EL SEARCH */}
-          <form className="flex-grow flex items-center mr-10" onSubmit={handleSearch}>
+          <form
+            className="flex-grow flex items-center mr-10"
+            onSubmit={handleSearch}
+          >
             <input
               type="text"
               placeholder="Buscar..."
               className="px-6 py-2 text-lg rounded-l border border-r-0 focus:outline-none w-full"
               aria-label="Search"
-              name="search" 
+              name="search"
               value={formState.search}
               onChange={onInputChange}
             />
@@ -173,8 +178,11 @@ export default function Navbar() {
               </>
             )}
 
-<div className="relative group">
-  <button className="p-2 flex items-center justify-center">
+<div className={`relative ${auth.isAuthenticated ? 'group' : ''}`}>
+  <button
+    onClick={handleCartClick}
+    className="p-2 flex items-center justify-center"
+  >
     <RiShoppingCartLine size={24} aria-label="Shopping Cart" />
     {cartItemCount > 0 && (
       <span className="absolute top-0 right-0 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
@@ -182,11 +190,10 @@ export default function Navbar() {
       </span>
     )}
   </button>
-  <div className="absolute top-full left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 group-hover:scale-100 scale-95 bg-white rounded text-gray-800 transition-all duration-300 ease-in-out flex flex-col font-bold pointer-events-none group-hover:pointer-events-auto">
+  <div className={`absolute top-full left-1/2 transform -translate-x-1/2 opacity-0 ${auth.isAuthenticated ? 'group-hover:opacity-100 group-hover:scale-100' : ''} scale-95 bg-white rounded text-gray-800 transition-all duration-300 ease-in-out flex flex-col font-bold pointer-events-none ${auth.isAuthenticated ? 'group-hover:pointer-events-auto' : ''}`}>
     <CartDropDown />
   </div>
 </div>
-
 
           </div>
 

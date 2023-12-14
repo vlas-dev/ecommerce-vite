@@ -26,8 +26,8 @@ export default function SignIn() {
   };
 
   useEffect(() => {
-    if (localStorage.getItem('x-token')) {
-      navigate('/me');
+    if (localStorage.getItem("x-token")) {
+      navigate("/me");
     }
   }, [navigate]);
 
@@ -36,39 +36,33 @@ export default function SignIn() {
       <div className="bg-white p-6 rounded-md shadow-md w-full max-w-sm">
         <h2 className="text-2xl font-bold mb-4 text-center">Ingresar</h2>
         <form onSubmit={autenticarUser}>
-          <div className="mb-4">
-            <label
-              htmlFor="email"
-              className="block text-gray-700 text-sm font-bold mb-2 sr-only"
-            >
-              Email
-            </label>
+          <div className="floating-label-group">
             <input
               type="email"
               id="email"
               value={formState.email}
               name="email"
               onChange={onInputChange}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="h-12 text-[18px] bg-gray-100 border py-55-rem border-gray-400 text-sm rounded-lg focus:outline-none focus:shadow-outline block w-full p-2.5 placeholder-transparent "
               placeholder="Email"
             />
-          </div>
-          <div className="mb-6">
-            <label
-              htmlFor="password"
-              className="block text-gray-700 text-sm font-bold mb-2 sr-only"
-            >
-              Contraseña
+            <label htmlFor="email" className="block bg-gray-100">
+              Email
             </label>
+          </div>
+          <div className="floating-label-group">
             <input
               type="password"
               id="password"
               value={formState.password}
               name="password"
               onChange={onInputChange}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+              className="h-12 text-[18px] bg-gray-100 border py-55-rem border-gray-400 text-sm rounded-lg focus:outline-none focus:shadow-outline block w-full p-2.5 placeholder-transparent "
               placeholder="Contraseña"
             />
+            <label htmlFor="password" className="block bg-gray-100">
+              Contraseña
+            </label>
           </div>
           <div className="flex flex-col items-center">
             <button
