@@ -42,10 +42,10 @@ export default function SignUp() {
 
   return (
     <div className="bg-gray-100 min-h-screen flex justify-center items-center">
-      <div className="bg-white p-6 rounded-md shadow-md w-full max-w-lg mt-32 mx-10">
+      <div className="bg-white p-6 rounded-md shadow-md w-full max-w-lg mt-32 mx-10 ">
         <h2 className="text-2xl font-bold mb-4 text-center">Registrarse</h2>
-        <form onSubmit={crearUsuario} className="grid grid-cols-2 md:gap-4">
-          <div className="floating-label-group col-span-2 md:col-span-1">
+        <form onSubmit={crearUsuario} className="grid grid-cols-2">
+          <div className="floating-label-group col-span-2 md:col-span-1 mx-2">
             <input
               type="text"
               id="firstName"
@@ -60,7 +60,8 @@ export default function SignUp() {
             </label>
           </div>
 
-          <div className="floating-label-group col-span-2 md:col-span-1">
+          <div className="floating-label-group col-span-2 md:col-span-1 mx-2">
+            {" "}
             <input
               type="text"
               id="lastName"
@@ -75,7 +76,8 @@ export default function SignUp() {
             </label>
           </div>
 
-          <div className="floating-label-group col-span-2 md:col-span-1">
+          <div className="floating-label-group col-span-2 md:col-span-1 mx-2">
+            {" "}
             <input
               type="email"
               id="email"
@@ -90,7 +92,8 @@ export default function SignUp() {
             </label>
           </div>
 
-          <div className="floating-label-group col-span-2 md:col-span-1">
+          <div className="floating-label-group col-span-2 md:col-span-1 mx-2">
+            {" "}
             <input
               type="text"
               id="country"
@@ -105,7 +108,8 @@ export default function SignUp() {
             </label>
           </div>
 
-          <div className="floating-label-group col-span-2 md:col-span-1">
+          <div className="floating-label-group col-span-2 md:col-span-1 mx-2">
+            {" "}
             <input
               type="text"
               id="state"
@@ -120,7 +124,8 @@ export default function SignUp() {
             </label>
           </div>
 
-          <div className="floating-label-group col-span-2 md:col-span-1">
+          <div className="floating-label-group col-span-2 md:col-span-1 mx-2">
+            {" "}
             <input
               type="text"
               id="city"
@@ -135,7 +140,8 @@ export default function SignUp() {
             </label>
           </div>
 
-          <div className="floating-label-group col-span-2 md:col-span-1">
+          <div className="floating-label-group col-span-2 md:col-span-1 mx-2">
+            {" "}
             <input
               type="password"
               id="password"
@@ -149,7 +155,8 @@ export default function SignUp() {
               Contraseña
             </label>
           </div>
-          <div className="floating-label-group col-span-2 md:col-span-1">
+          <div className="floating-label-group col-span-2 md:col-span-1 mx-2">
+            {" "}
             <input
               type="password"
               id="confirmPassword"
