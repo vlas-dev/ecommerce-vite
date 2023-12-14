@@ -159,8 +159,8 @@ export default function CartPage({setOption}) {
           </div>
           <div>
  
-              <button onClick={toCheckOut} className="bg-indigo-600 hover:bg-indigo-700 px-5 py-2 text-sm text-white uppercase w-full rounded font-semibold">
-                Pagar
+              <button onClick={toCheckOut} className="bg-indigo-600 hover:bg-indigo-700 px-5 py-2 text-sm text-white w-full rounded font-bold">
+                Completar Orden
               </button>
  
           </div>

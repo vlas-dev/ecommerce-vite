@@ -35,3 +35,29 @@
   100% { transform: rotate(360deg); }
 }
 
+
+.floating-label-group {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.floating-label-group input {
+  padding-top: 18px; /* Increase padding to make space for the label */
+}
+
+.floating-label-group label {
+  position: absolute;
+  bottom: 15px; /* Start inside the input */
+  left: 12px; /* Adjusted left padding */
+  transition: all 0.3s ease;
+  pointer-events: none;
+  color: #bfc2c9; /* Tailwind gray-700 */
+}
+
+.floating-label-group input:focus + label,
+.floating-label-group input:not(:placeholder-shown) + label {
+  bottom: 38px; /* Move up when focused */
+  left: 12px;
+  font-size: 0.75rem; /* Smaller label size when lifted */
+  color: #4a5568; /* Tailwind gray-700 */
+}
