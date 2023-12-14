@@ -63,9 +63,9 @@ export default function CartPage({ setOption }) {
 
   if (cartItems.length === 0) {
     return (
-      <div className="container mx-auto pt-32 text-center">
+      <div className="container mx-auto text-center pt-32">
         <h2 className="text-2xl font-bold">Carrito vacío</h2>
-        <Link to="/" className="text-indigo-600 mt-3 inline-block font-semibold">
+        <Link to="/" className="text-indigo-600 mt-3 inline-block font-bold">
           Volver
         </Link>
       </div>
@@ -73,11 +73,11 @@ export default function CartPage({ setOption }) {
   }
 
   return (
-    <div className="container mx-auto p-10 md:p-20">
+    <div className="container mx-auto px-10 pt-20 md:pt-32 lg:px-32 ">
       <div className="flex flex-col md:flex-row shadow-md">
         <div className="w-full bg-white px-10 py-10 rounded">
           <div className="flex justify-between border-b pb-8">
-            <h1 className="font-semibold text-2xl">Carrito</h1>
+            <h1 className="text-2xl font-bold">Carrito</h1>
             <h2 className="font-semibold text-2xl">{totalItems} Productos</h2>
           </div>
           <div className="mt-4 mb-5 ">
@@ -130,7 +130,7 @@ export default function CartPage({ setOption }) {
         </div>
 
         <div className="w-full md:w-1/2 px-4 sm:px-8 py-10">
-          <h1 className="font-semibold text-2xl border-b pb-4 sm:pb-8">Mi Orden</h1>
+          <h1 className="text-2xl font-bold border-b pb-4 sm:pb-8">Mi Orden</h1>
           <div className="flex md:flex-row flex-col justify-between mt-4 sm:mt-10 mb-4 sm:mb-5">
             <span className="font-semibold uppercase mb-4">Total </span>
             <span className="font-semibold ">${totalPrice.toFixed(2)}</span>

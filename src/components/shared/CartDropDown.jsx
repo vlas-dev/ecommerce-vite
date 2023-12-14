@@ -67,7 +67,7 @@ export default function CartDropdown({ closeDropdown }) {
   };
 
   return (
-    <div className="absolute right-0 top-24 bg-white text-black shadow-lg p-4 rounded z-50 w-96">
+    <div className=" bg-white text-black shadow-lg p-4 rounded z-50 w-96">
       <div className="mb-4 font-bold">Mi Carrito</div>
       {renderCartItems()}
       <div className="text-center mt-4">

@@ -13,10 +13,9 @@ export default function HomeCards({ dataLoaded }) {
 
   useEffect(() => {
     const consultarApi = async () => {
-      if(comp) return
-        const {slug} = param
-        const link = slug ? "/get/" + slug : "";
-
+      if (comp) return;
+      const { slug } = param;
+      const link = slug ? "/get/" + slug : "";
 
       try {
         const res = await crudAxios.get(`/product${link}`);
@@ -29,36 +28,26 @@ export default function HomeCards({ dataLoaded }) {
     };
     consultarApi();
     window.scrollTo(0, 0);
-  }, [param,dataLoaded]);
+  }, [param, dataLoaded]);
 
+  const query = useLocation().search;
+  const comp = useLocation()?.search.length > 0;
 
-  const query = useLocation().search
-  const comp = useLocation()?.search.length>0
-  
-
-  useEffect(()=>{
+  useEffect(() => {
     const search = {
-    search :
-     query.split("=")[1]
-    }
+      search: query.split("=")[1],
+    };
 
     const consultarApi = async () => {
-
       try {
-
-        const res = await crudAxios.post("/search",search);
-        setProducts(res.data)
-
+        const res = await crudAxios.post("/search", search);
+        setProducts(res.data);
       } catch (error) {
         console.log(error);
       }
-      
     };
     consultarApi();
-     
-},[query])
-
-
+  }, [query]);
 
   const handleAddToCart = (product) => {
     if (!localStorage.getItem("x-token")) {
@@ -117,14 +106,14 @@ export default function HomeCards({ dataLoaded }) {
                     {product.envio ? "Envío gratis " : "Sin envío incluido"}
                   </p>
                 </div>
-                <div className="absolute bottom-6 right-3 font-semibold ">
+                <div className="absolute bottom-6 right-6 lg:right-4 font-semibold ">
                   {cartItems.some((item) => item.id === product.id) ? (
                     <div className="flex items-center">
                       <button
                         className="bg-gray-200 text-indigo-600 px-3 py-1 rounded-md hover:bg-gray-300 min-w-[32px]"
                         onClick={() => decreaseQuantity(product.id)}
                       >
-                      -
+                        -
                       </button>
                       <span className="mx-2">
                         {

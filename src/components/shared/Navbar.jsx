@@ -72,14 +72,7 @@ export default function Navbar() {
     };
   }, []);
 
-  const handleCartClick = (e) => {
-    e.stopPropagation(); // Prevent the click event from propagating to the document
-    if (auth.isAuthenticated) {
-      setShowCartDropdown(!showCartDropdown);
-    } else {
-      navigate("/signin");
-    }
-  };
+
   //CAMBIOS EN NAVBAR
   const handleSearch = async(e) =>{
     e.preventDefault()
@@ -180,16 +173,21 @@ export default function Navbar() {
               </>
             )}
 
-            <button className="p-2 relative" onClick={handleCartClick}>
-              <RiShoppingCartLine size={24} aria-label="Shopping Cart" />
-              {cartItemCount > 0 && (
-                <span className="absolute top-0 right-0 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
-                  {cartItemCount}
-                </span>
-              )}
-            </button>
+<div className="relative group">
+  <button className="p-2 flex items-center justify-center">
+    <RiShoppingCartLine size={24} aria-label="Shopping Cart" />
+    {cartItemCount > 0 && (
+      <span className="absolute top-0 right-0 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
+        {cartItemCount}
+      </span>
+    )}
+  </button>
+  <div className="absolute top-full left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 group-hover:scale-100 scale-95 bg-white rounded text-gray-800 transition-all duration-300 ease-in-out flex flex-col font-bold pointer-events-none group-hover:pointer-events-auto">
+    <CartDropDown />
+  </div>
+</div>
 
-            {showCartDropdown && <CartDropDown />}
+
           </div>
 
           <button
@@ -218,7 +216,7 @@ export default function Navbar() {
         </div>
 
         <div
-          className={`fixed h-screen w-full bg-black bg-opacity-50 transition-opacity ${
+          className={`md:hidden fixed h-screen w-full  bg-black bg-opacity-50 transition-opacity ${
             isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
           }`}
           onClick={() => setOpen(false)}

@@ -16,7 +16,7 @@ const CheckoutForm = () => {
 
   return (
     <div>
-      <form className="p-8 h-[650px] md:h-[450px] w-[400px] md:w-[500px] bg-white shadow-md rounded-lg">
+      <form className="p-8 h-[650px] md:h-[500px] w-[400px] md:w-[500px] bg-white shadow-md rounded-lg">
         <h2 className="text-2xl font-bold mb-4 text-center">
           Datos de Facturación
         </h2>
