@@ -6,10 +6,10 @@ const CheckoutForm = () => {
     name: "",
     lastName: "",
     email: "",
-    country: "venezuela",
+    country: "",
     state: "",
     city: "",
-    line1: "calle 111",
+    line1: "",
     phone: "",
     postal_code: "",
   });
