@@ -5,7 +5,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { FaRegUser } from "react-icons/fa";
 import crudAxios from "../../config/axios";
 import { Twirl as Hamburger } from "hamburger-react";
-import logoImage from "/assets/logo.png";
+import logoImage from "/assets/logoNav.png";
 import { CRMContext } from "../../components/context/CRMcontext";
 import { CartContext } from "../../components/context/CartContext";
 import CartDropDown from "../../components/shared/CartDropDown"; // Import the CartDropdown component
@@ -93,99 +93,133 @@ export default function Navbar() {
   };
 
   return (
-    <div className="bg-indigo-950 fixed z-50 w-full">
-      <nav className="p-2 items-center md:mx-10 lg:mx-40">
-        <div className="max-w-[1200px] mx-auto flex justify-between items-center">
-          <Link to="/" className="text-2xl font-bold w-20 mr-8 md:mr-16">
+    <div className="fixed w-full bg-indigo-950 z-50">
+      <nav className="max-w-[1200px] md:mx-auto flex flex-col md:flex-row justify-between items-center p-5 mx-5">
+        
+        {/* Logo and Mobile Controls */}
+        <div className="flex justify-between items-center w-full md:w-auto">
+          <Link to="/" className="flex w-1/3 md:max-w-[500px] lg:md:max-w-[300px] md:mr-10 md:w-auto md:mb-2 ">
             <img src={logoImage} alt="Logo" />
           </Link>
-          {/* CAMBIOS EN EL SEARCH */}
-          <form
-            className="flex-grow flex items-center mr-10"
-            onSubmit={handleSearch}
-          >
-            <input
-              type="text"
-              placeholder="Buscar..."
-              className="px-6 py-2 text-lg rounded-l border border-r-0 focus:outline-none w-full"
-              aria-label="Search"
-              name="search"
-              value={formState.search}
-              onChange={onInputChange}
-            />
+  
+          <div className="md:hidden flex items-center">
             <button
-              type="submit"
-              className="px-4 py-3 border rounded-r bg-white text-gray-700"
-              aria-label="Submit Search"
+              className="text-white ml-10 mr-4"
+              onClick={handleCartClickHamburger}
             >
-              <RiSearchLine size={20} />
+              <RiShoppingCartLine size={24} aria-label="Shopping Cart" /> 
+              {cartItemCount > 0 && (
+                <span className="absolute top-6 right-24 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
+                  {cartItemCount}
+                </span>
+              )}
             </button>
-          </form>
-
-          <div className="hidden md:flex space-x-4 font-semibold text-white">
-            <div className="relative group items-center">
-              <button className="p-2 flex items-center justify-center gap-2">
-                Categorías <IoIosArrowDown />
-              </button>
-              <div className="absolute p-2 opacity-0 group-hover:opacity-100 group-hover:scale-100 scale-95 bg-white rounded text-gray-800 transform transition-all duration-300 ease-in-out flex flex-col font-bold pointer-events-none group-hover:pointer-events-auto">
-                {categories.map((category) => (
-                  <Link
-                    key={category.id}
-                    onClick={() => setOpen(false)}
-                    to={`product/get/${category.slug}`}
-                    className="p-2 hover:bg-gray-200 rounded"
-                  >
-                    {category.nombre}
-                  </Link>
-                ))}
-              </div>
+  
+            <div
+              onClick={() => setOpen(!isOpen)}
+              className="z-50"
+            >
+              <Hamburger
+                color="white"
+                size={20}
+                toggled={isOpen}
+                toggle={setOpen}
+              />
             </div>
-
-            {auth.isAuthenticated ? (
-              <>
-                <div className="relative group items-center">
-                  <button className="p-3 flex items-center justify-center gap-2">
-                    <FaRegUser /> <IoIosArrowDown />
-                  </button>
-                  <div className="absolute p-2 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 group-hover:scale-100 scale-95 bg-white rounded text-gray-800 transition-all duration-300 ease-in-out flex flex-col font-bold pointer-events-none group-hover:pointer-events-auto">
-                    <Link
-                      to="/me"
-                      className="p-2 hover:bg-gray-200 rounded text-start"
-                    >
-                      Perfil
-                    </Link>
-                    <a
-                      href="/"
-                      onClick={handleLogout}
-                      className="p-2 hover:bg-gray-200 rounded text-start cursor-pointer"
-                    >
-                      Salir
-                    </a>
-                  </div>
-                </div>
-              </>
-            ) : (
-              <>
-                <Link className="p-2" to="/signin">
-                  Ingresar
-                </Link>
+          </div>
+        </div>
+  
+        {/* Search Bar */}
+        <form
+          className="w-full items-center flex mt-4 md:mt-0 "
+          onSubmit={handleSearch}
+        >
+          <input
+            type="text"
+            placeholder="Buscar..."
+            className="px-6 py-2 text-lg rounded-l border border-r-0 focus:outline-none w-full"
+            aria-label="Search"
+            name="search"
+            value={formState.search}
+            onChange={onInputChange}
+          />
+          <button
+            type="submit"
+            className="px-4 py-3 border rounded-r bg-white text-gray-700"
+            aria-label="Submit Search"
+          >
+            <RiSearchLine size={20} />
+          </button>
+        </form>
+  
+        {/* Desktop Menu and User Controls */}
+        <div className="hidden md:flex  font-semibold text-white mx-10">
+          {/* Category Dropdown */}
+          <div className="relative group items-center">
+            <button className="p-2 flex items-center justify-center gap-2">
+              Categorías <IoIosArrowDown />
+            </button>
+            <div className="absolute p-2 opacity-0 group-hover:opacity-100 group-hover:scale-100 scale-95 bg-white rounded text-gray-800 transform transition-all duration-300 ease-in-out flex flex-col font-bold pointer-events-none group-hover:pointer-events-auto">
+              {categories.map((category) => (
                 <Link
-                  className="p-2 bg-indigo-600 hover:bg-indigo-700 rounded"
-                  to="/signup"
+                  key={category.id}
+                  onClick={() => setOpen(false)}
+                  to={`product/get/${category.slug}`}
+                  className="p-2 hover:bg-gray-200 rounded"
                 >
-                  Registrarse
+                  {category.nombre}
                 </Link>
-              </>
-            )}
-
-<div className={`relative ${auth.isAuthenticated ? 'group' : ''}`}>
+              ))}
+            </div>
+          </div>
+  
+          {/* User Profile and Cart Dropdown */}
+          {auth.isAuthenticated ? (
+            <>
+              <div className="relative group items-center">
+                <button className="p-3 flex items-center justify-center gap-2">
+                  <FaRegUser /> <IoIosArrowDown />
+                </button>
+                <div className="absolute p-2 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 group-hover:scale-100 scale-95 bg-white rounded text-gray-800 transition-all duration-300 ease-in-out flex flex-col font-bold pointer-events-none group-hover:pointer-events-auto">
+                  <Link
+                    to="/me"
+                    className="p-2 hover:bg-gray-200 rounded text-start"
+                  >
+                    Perfil
+                  </Link>
+                  <a
+                    href="/"
+                    onClick={handleLogout}
+                    className="p-2 hover:bg-gray-200 rounded text-start cursor-pointer"
+                  >
+                    Salir
+                  </a>
+                </div>
+              </div>
+            </>
+          ) : (
+            <>
+              <Link className="p-2 mr-2" to="/signin">
+                Ingresar
+              </Link>
+              <Link
+                className="p-2 mr-2 bg-indigo-600 hover:bg-indigo-700 rounded"
+                to="/signup"
+              >
+                Registrarse
+              </Link>
+            </>
+          )}
+  
+  <div className={`relative ${auth.isAuthenticated ? 'group' : ''}`}>
   <button
     onClick={handleCartClick}
-    className="p-2 flex items-center justify-center"
+    className="p-2 flex items-center justify-center space-x-2"
   >
     <RiShoppingCartLine size={24} aria-label="Shopping Cart" />
+    {auth.isAuthenticated && <IoIosArrowDown />}
     {cartItemCount > 0 && (
-      <span className="absolute top-0 right-0 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
+      <span className="absolute top-0 left-3 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
         {cartItemCount}
       </span>
     )}
@@ -195,44 +229,17 @@ export default function Navbar() {
   </div>
 </div>
 
-          </div>
-
-          <button
-            className="md:hidden text-white mr-6"
-            onClick={handleCartClickHamburger}
-          >
-            <RiShoppingCartLine size={24} aria-label="Shopping Cart" />
-            {cartItemCount > 0 && (
-              <span className="absolute top-4 right-20 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
-                {cartItemCount}
-              </span>
-            )}
-          </button>
-
-          <div
-            onClick={() => setOpen(!isOpen)}
-            className="z-50 md:hidden mt-2 mr-4"
-          >
-            <Hamburger
-              color="white"
-              size={20}
-              toggled={isOpen}
-              toggle={setOpen}
-            />
-          </div>
         </div>
-
+  
+        {/* Mobile Menu Overlay */}
         <div
-          className={`md:hidden fixed h-screen w-full  bg-black bg-opacity-50 transition-opacity ${
-            isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-          }`}
+          className={`md:hidden fixed top-0 h-screen w-full  bg-black bg-opacity-50 transition-opacity ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
           onClick={() => setOpen(false)}
         ></div>
-
+  
+        {/* Mobile Menu */}
         <ul
-          className={`md:hidden fixed top-0 right-0 h-screen w-3/5 px-10 space-y-8 bg-indigo-950 flex flex-col pt-32 text-white text-xl transform ${
-            isOpen ? "translate-x-0" : "translate-x-full"
-          } transition duration-300 ease-in-out`}
+          className={`md:hidden fixed top-0 right-0 h-screen w-3/5 px-10 space-y-8 bg-indigo-950 flex flex-col pt-32 text-white text-xl transform ${isOpen ? "translate-x-0" : "translate-x-full"} transition duration-300 ease-in-out`}
         >
           {auth.isAuthenticated ? (
             <>
@@ -244,17 +251,17 @@ export default function Navbar() {
                   Mi Cuenta <IoIosArrowDown />
                 </button>
                 <div
-                  className={`${
-                    showProfileSubmenu ? "block" : "hidden"
-                  } flex flex-col font-bold`}
+                  className={`${showProfileSubmenu ? "block" : "hidden"
+                    } flex flex-col font-bold `}
                 >
                   <Link
                     onClick={() => {
                       setOpen(false);
                       setShowProfileSubmenu(false);
+  
                     }}
                     to="/me"
-                    className="p-2 my-2"
+                    className="p-2 my-2 hover:bg-indigo-800 rounded"
                   >
                     Perfil
                   </Link>
@@ -264,7 +271,7 @@ export default function Navbar() {
                       handleLogout();
                       setShowProfileSubmenu(false);
                     }}
-                    className="p-2"
+                    className="p-2  hover:bg-indigo-800 rounded"
                   >
                     Salir
                   </a>
@@ -293,18 +300,17 @@ export default function Navbar() {
               </Link>
             </>
           )}
-
+  
           <div className={`relative group items-center`}>
             <button
-              className="p-2 flex items-center justify-center gap-2"
+              className="p-2 flex items-center justify-center gap-2 "
               onClick={() => setShowSubmenu(!showSubmenu)}
             >
               Categorías <IoIosArrowDown />
             </button>
             <div
-              className={`${
-                showSubmenu ? "block" : "hidden"
-              } flex flex-col font-bold`}
+              className={`${showSubmenu ? "block" : "hidden"
+                } flex flex-col font-bold`}
             >
               {categories.map((category) => (
                 <Link
@@ -314,7 +320,7 @@ export default function Navbar() {
                     setShowSubmenu(false);
                   }}
                   to={`product/get/${category.slug}`}
-                  className="p-2 hover:bg-gray-200 rounded"
+                  className="p-2 hover:bg-indigo-800 rounded"
                 >
                   {category.nombre}
                 </Link>
@@ -324,5 +330,4 @@ export default function Navbar() {
         </ul>
       </nav>
     </div>
-  );
-}
+  );}

@@ -59,17 +59,17 @@ export default function HomeCards({ dataLoaded }) {
 
   return (
     <div className="">
-      <h2 className="pt-28 md:pt-10 text-3xl font-bold mb-8 text-center">
+      <h2 className="pt-40 md:pt-10 text-3xl font-bold mb-8 text-center">
         Nuestros productos
       </h2>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5 mx-auto md:pb-20 max-w-[300px] md:max-w-[1200px]">
+  
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5 mx-auto md:pb-20 max-w-[300px] md:max-w-[800px] lg:max-w-[1200px]">
         {products.map((product) => (
           <div
             key={product.id}
-            className=" relative bg-white rounded shadow-md hover:shadow-lg transition duration-300"
+            className="flex flex-col justify-between bg-white rounded shadow-md hover:shadow-lg transition duration-300"
           >
-            <div className="w-full h-full block">
+            <div className="w-full">
               <div className="w-[250px] h-[286px] p-4 mx-auto flex items-center">
                 <Link
                   to={`/product/${product.id}`}
@@ -83,7 +83,7 @@ export default function HomeCards({ dataLoaded }) {
                   />
                 </Link>
               </div>
-
+  
               <hr className="bg-gray-300" />
               <div className="p-4">
                 <Link
@@ -91,23 +91,30 @@ export default function HomeCards({ dataLoaded }) {
                   key={product.id}
                   className="w-full h-full block"
                 >
-                  <h3 className="text-lg font-semibold mb-32">
+                  <h3 className="text-lg font-semibold">
                     {product.titulo}
                   </h3>
                 </Link>
-                <div className="absolute bottom-5">
+             
+              </div>
+            </div>
+  
+            <div className="p-4">
+
+
+            <div className="items-center mb-5">
                   <div className="flex">
                     <p className="text-indigo-700 text-xl font-semibold ">
                       ${product.precio}
                     </p>
                   </div>
-
-                  <p className=" font-semibold text-[14px] mb-16">
+  
+                  <p className="font-semibold text-[14px]">
                     {product.envio ? "Envío gratis " : "Sin envío incluido"}
                   </p>
                 </div>
-                <div className="absolute bottom-6 right-6 lg:right-4 font-semibold ">
-                  {cartItems.some((item) => item.id === product.id) ? (
+
+              {cartItems.some((item) => item.id === product.id) ? (
                     <div className="flex items-center">
                       <button
                         className="bg-gray-200 text-indigo-600 px-3 py-1 rounded-md hover:bg-gray-300 min-w-[32px]"
@@ -136,7 +143,7 @@ export default function HomeCards({ dataLoaded }) {
                     </div>
                   ) : (
                     <button
-                      className="bg-indigo-600 text-white px-16 py-2 rounded-md hover:bg-indigo-700 w-fit"
+                      className="bg-indigo-600 text-white px-16 py-2 rounded-md hover:bg-indigo-700 w-full"
                       onClick={() => handleAddToCart(product)}
                     >
                       Agregar al carrito
@@ -144,10 +151,7 @@ export default function HomeCards({ dataLoaded }) {
                   )}
                 </div>
               </div>
-            </div>
+            ))}
           </div>
-        ))}
-      </div>
-    </div>
-  );
-}
+        </div>
+      );}

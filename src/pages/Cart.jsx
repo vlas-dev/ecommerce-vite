@@ -63,7 +63,7 @@ export default function CartPage({ setOption }) {
 
   if (cartItems.length === 0) {
     return (
-      <div className="container mx-auto text-center pt-32">
+      <div className="container mx-auto text-center pt-44">
         <h2 className="text-2xl font-bold">Carrito vacío</h2>
         <Link to="/" className="text-indigo-600 mt-3 inline-block font-bold">
           Volver
@@ -73,9 +73,9 @@ export default function CartPage({ setOption }) {
   }
 
   return (
-    <div className="container mx-auto px-10 pt-20 md:pt-32 lg:px-32 ">
-      <div className="flex flex-col md:flex-row shadow-md">
-        <div className="w-full bg-white px-10 py-10 rounded">
+    <div className="container mx-auto px-10 lg:px-32 ">
+      <div className="flex flex-col md:flex-row shadow-md ">
+        <div className="w-full bg-white px-10 py-10 rounded mt-44">
           <div className="flex justify-between border-b pb-8">
             <h1 className="text-2xl font-bold">Carrito</h1>
             <h2 className="font-semibold text-2xl">{totalItems} Productos</h2>
@@ -84,7 +84,7 @@ export default function CartPage({ setOption }) {
             {cartItems.map((item) => (
               <div
                 key={item.id}
-                className="flex flex-col md:flex-row justify-between items-center border-b mb-5 pb-5"
+                className="flex flex-col md:flex-row justify-between  border-b mb-5 pb-5"
               >
                 <div className="flex items-center mb-3 md:mb-0 ">
                   <img
@@ -97,6 +97,7 @@ export default function CartPage({ setOption }) {
                     <p>${item.precio}</p>
                   </div>
                 </div>
+                <div className="flex justify-center">
                 <div className="flex items-center font-semibold text-xl">
                   <button
                     className="bg-gray-200 text-indigo-600 px-2 sm:px-3 py-1 rounded-md hover:bg-gray-300 ml-1 sm:ml-2 min-w-[30px] sm:min-w-[36px]"
@@ -123,6 +124,7 @@ export default function CartPage({ setOption }) {
                       <RiDeleteBin7Line />
                     )}
                   </button>
+                </div>
                 </div>
               </div>
             ))}

@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "../../hooks/useForm/useForm";
 import crudAxios from "../../config/axios";
 import { CRMContext } from "../context/CRMcontext";
+import { countries } from "../../config/countries";
+import axios from "axios";
 
 export default function SignUp() {
   const { formState, onInputChange } = useForm({
@@ -17,8 +19,62 @@ export default function SignUp() {
   });
   const [auth, setAuth] = useContext(CRMContext);
   const [errors, setErrors] = useState([]); // State to store errors
+  const [states, setStates] = useState([])
+  const [cities, setCities] = useState([])
   const navigate = useNavigate();
+  useEffect(()=>{
+    if(formState.pais.length>0){
+      const consultarApi = async () => {
+        try {
+ 
+          const res = await axios.get(`https://www.universal-tutorial.com/api/states/${formState.pais}`,{
+            headers:{
+              "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJzb3VsaHVkc29ueGRAZ21haWwuY29tIiwiYXBpX3Rva2VuIjoiZFVnM2NuQmpMS0h0X3Ewc3pPZlA1MGc3QlVUMUtPTmVpaGdRNWJ6bXlZZDZQeVJXWHBXR0N4a1ZNWVlTckZTSTlxUSJ9LCJleHAiOjE3MDMwMjE4MTR9._S7Uyd84JpXF-Udjw8tM13sli42vhEVMu7ITt_hpLGw",
+              "Accept":"application/json"
+            }
+          })
+          const estados = res.data.map(estado=> estado.state_name)
+        
+          setStates(estados)
+ 
+        } catch (error) {
+          console.log(error);
+          return [];
+        }
+      };
+      consultarApi();
 
+ 
+
+    }
+  },[formState.pais])
+  useEffect(()=>{
+    if(formState.estado.length>0){
+      const consultarApi = async () => {
+        try {
+          console.log(formState.estado)
+          const res = await axios.get(`https://www.universal-tutorial.com/api/cities/${formState.estado}`,{
+            headers:{
+              "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJzb3VsaHVkc29ueGRAZ21haWwuY29tIiwiYXBpX3Rva2VuIjoiZFVnM2NuQmpMS0h0X3Ewc3pPZlA1MGc3QlVUMUtPTmVpaGdRNWJ6bXlZZDZQeVJXWHBXR0N4a1ZNWVlTckZTSTlxUSJ9LCJleHAiOjE3MDMwMjE4MTR9._S7Uyd84JpXF-Udjw8tM13sli42vhEVMu7ITt_hpLGw",
+              "Accept":"application/json"
+            }
+          })
+
+          const ciudades = res.data.map(ciudad=> ciudad.city_name)
+        
+          setCities(ciudades)
+        // Notify parent component that data is loaded
+        } catch (error) {
+          console.log(error);
+          return [];
+        }
+      };
+      consultarApi();
+
+ 
+
+    }
+  },[formState.estado])
   const crearUsuario = async (e) => {
     e.preventDefault();
     try {
@@ -26,7 +82,7 @@ export default function SignUp() {
       const { token } = respuesta.data;
       localStorage.setItem("x-token", token);
       setAuth({ token, isAuthenticated: true });
-      navigate("/"); // Redirect to home after successful registration
+      window.location.href = '/'; // Redirect to home after successful registration
     } catch (error) {
       if (error.response && error.response.data.errors) {
         setErrors(error.response.data.errors); // Update the state with the errors
@@ -42,7 +98,7 @@ export default function SignUp() {
 
   return (
     <div className="bg-gray-100 min-h-screen flex justify-center items-center">
-      <div className="bg-white p-6 rounded-md shadow-md w-full max-w-lg mt-32 mx-10 ">
+      <div className="bg-white p-6 rounded-md shadow-md w-full max-w-lg mt-44 md:mt-0 mx-10 ">
         <h2 className="text-2xl font-bold mb-4 text-center">Registrarse</h2>
         <form onSubmit={crearUsuario} className="grid grid-cols-2">
           <div className="floating-label-group col-span-2 md:col-span-1 mx-2">
@@ -94,50 +150,59 @@ export default function SignUp() {
 
           <div className="floating-label-group col-span-2 md:col-span-1 mx-2">
             {" "}
-            <input
-              type="text"
-              id="country"
-              name="pais"
-              value={formState.pais}
-              onChange={onInputChange}
-              className="h-12 text-[18px] bg-gray-100 border py-55-rem border-gray-400 text-sm rounded-lg focus:outline-none focus:shadow-outline block w-full p-2.5 placeholder-transparent "
-              placeholder="País"
-            />
-            <label htmlFor="country" className="block bg-gray-100">
-              País
-            </label>
+            <select 
+            name="pais" 
+            value={formState.pais} 
+            onChange={onInputChange}
+            className="h-12 text-[18px] bg-gray-100 border py-55-rem border-gray-400 text-sm rounded-lg focus:outline-none focus:shadow-outline block w-full p-2.5 placeholder-transparent "
+            id="">
+                <option value="">Selecciona un Pais</option>
+              {
+                countries.map((country,id)=>
+                  <option value={country} key={id}>{country}</option>
+                  )
+              }
+            </select>
           </div>
 
           <div className="floating-label-group col-span-2 md:col-span-1 mx-2">
             {" "}
-            <input
-              type="text"
-              id="state"
-              name="estado"
-              value={formState.estado}
-              onChange={onInputChange}
-              className="h-12 text-[18px] bg-gray-100 border py-55-rem border-gray-400 text-sm rounded-lg focus:outline-none focus:shadow-outline block w-full p-2.5 placeholder-transparent "
-              placeholder="Provincia"
-            />
-            <label htmlFor="state" className="block bg-gray-100">
-              Provincia
-            </label>
+            <select 
+            name="estado" 
+            value={formState.estado} 
+            onChange={onInputChange}
+            className="h-12 text-[18px] bg-gray-100 border py-55-rem border-gray-400 text-sm rounded-lg focus:outline-none focus:shadow-outline block w-full p-2.5 placeholder-transparent "
+            id=""
+            disabled={!states.length>0}
+            >
+                <option value="">Selecciona una Provincia</option>
+              {
+                states.map((state,id)=>
+                  <option value={state} key={id}>{state}</option>
+                  )
+              }
+            </select>
+
           </div>
 
           <div className="floating-label-group col-span-2 md:col-span-1 mx-2">
             {" "}
-            <input
-              type="text"
-              id="city"
-              name="ciudad"
-              value={formState.ciudad}
-              onChange={onInputChange}
-              className="h-12 text-[18px] bg-gray-100 border py-55-rem border-gray-400 text-sm rounded-lg focus:outline-none focus:shadow-outline block w-full p-2.5 placeholder-transparent "
-              placeholder="Ciudad"
-            />
-            <label htmlFor="city" className="block bg-gray-100">
-              Ciudad
-            </label>
+            <select 
+            name="ciudad" 
+            value={formState.ciudad} 
+            onChange={onInputChange}
+            className="h-12 text-[18px] bg-gray-100 border py-55-rem border-gray-400 text-sm rounded-lg focus:outline-none focus:shadow-outline block w-full p-2.5 placeholder-transparent "
+            id=""
+            disabled={!cities.length>0}
+            >
+                <option value="">Selecciona una Ciudad</option>
+              {
+                cities.map((city,id)=>
+                  <option value={city} key={id}>{city}</option>
+                  )
+              }
+            </select>
+
           </div>
 
           <div className="floating-label-group col-span-2 md:col-span-1 mx-2">
@@ -178,7 +243,7 @@ export default function SignUp() {
               to="/signin"
               className="inline-block align-baseline font-bold text-sm text-indigo-600 hover:text-indigo-700"
             >
-              ¿Ya tienes cuenta? Ingresa
+              ¿Ya tienes cuenta?
             </Link>
           </div>
         </form>

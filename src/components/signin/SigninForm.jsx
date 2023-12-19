@@ -17,7 +17,7 @@ export default function SignIn() {
       const { token } = res.data;
       localStorage.setItem("x-token", token);
       setAuth({ token, isAuthenticated: true });
-      navigate("/"); // Redirect to home after successful login
+      window.location.href = '/'; // Redirect to home after successful login
     } catch (error) {
       if (error.response && error.response.data.errors) {
         setErrors(error.response.data.errors); // Update the state with the errors
@@ -71,12 +71,17 @@ export default function SignIn() {
             >
               Ingresar
             </button>
+            <div className="flex items-center space-x-16">
             <Link
               to="/signup"
               className="inline-block align-baseline font-bold text-sm text-indigo-600 hover:text-indigo-700"
             >
-              ¿No tienes cuenta? Regístrate
+              ¿No tienes cuenta?
             </Link>
+            <Link to="/recover" className="text-sm font-semibold  ">
+              Olvidé mi contraseña
+            </Link>
+            </div>
           </div>
         </form>
         {errors.length > 0 && (
