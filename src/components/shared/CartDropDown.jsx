@@ -7,6 +7,8 @@ export default function CartDropdown({ closeDropdown }) {
   const { cartItems, removeFromCart, increaseQuantity, decreaseQuantity } =
     useContext(CartContext);
 
+ 
+    // console.log(cartItems)
   const calculateTotalPrice = () => {
     return cartItems.reduce((total, item) => {
       return total + item.precio * item.quantity;

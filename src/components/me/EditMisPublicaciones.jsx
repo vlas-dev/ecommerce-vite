@@ -29,32 +29,52 @@ export default function EditMisPublicaciones({
   const handleInputChange = (e) => {
     setEditProduct({ ...editProduct, [e.target.name]: e.target.value });
   };
-
+  
   const leerImagen = (e) => {
     setFiles(e.target.files[0]);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const {updatedAt,createdAt, id,activo, ...resto} = editProduct
     try {
-      const formData = new FormData();
-      formData.append("titulo", editProduct.titulo);
-      formData.append("precio", editProduct.precio);
-      formData.append("imagen", files);
-      formData.append("category", editProduct.category);
-      formData.append("marca", editProduct.marca);
-      formData.append("envio", editProduct.envio);
-      formData.append("descuento", editProduct.descuento);
-      formData.append("descripcion", editProduct.descripcion);
+    
+
+      const token = localStorage.getItem("x-token");
+      const config = {
+        headers: { 
+        "Content-Type":"multipart/form-data",
+        "x-token":token
+      },
+
+      };
 
       if (isNew) {
-        const token = localStorage.getItem("x-token");
-        const config = {
-          headers: { "x-token": token },
-        };
-        await crudAxios.post("/product/crear", formData, config);
+        const formData = new FormData();
+        formData.append("titulo", resto.titulo);
+        formData.append("precio", resto.precio);
+        formData.append("imagen", files);
+        formData.append("category", resto.category);
+        formData.append("marca", resto.marca);
+        formData.append("envio", resto.envio);
+        formData.append("porcentaje", resto.porcentaje);
+        formData.append("descripcion", resto.descripcion);
+
+        const res  = await crudAxios.post("/product/crear", formData, config);
+        console.log(res.data)
       } else if (isEditing) {
-        await crudAxios.put("/product/update", formData);
+        const formData = new FormData();
+        formData.append("titulo", resto.titulo);
+        formData.append("precio", resto.precio);
+        formData.append("imagen", files);
+        formData.append("category", resto.category);
+        formData.append("marca", resto.marca);
+        formData.append("envio", resto.envio);
+        formData.append("porcentaje", resto.porcentaje);
+        formData.append("descripcion", resto.descripcion);
+ 
+       const res = await crudAxios.put(`/product/${id}`,  formData,config);
+       console.log(res.data)
       }
       await refreshProducts();
       setIsEditing(false);
@@ -67,6 +87,7 @@ export default function EditMisPublicaciones({
   return (
     <form
       onSubmit={handleSubmit}
+ 
       className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-[550px] md:w-[1000px]"
     >
       <div className="mb-4">
@@ -107,9 +128,9 @@ export default function EditMisPublicaciones({
         <input
           type="number"
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          name="descuento"
+          name="porcentaje"
           placeholder="Discount"
-          value={editProduct.descuento}
+          value={editProduct.porcentaje}
           onChange={handleInputChange}
         />
       </div>

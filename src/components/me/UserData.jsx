@@ -28,7 +28,7 @@ export default function UserData() {
         };
     
         const res = await crudAxios.post("/users/me/profile-image",files, config);
-        console.log(res.data)
+        console.log(res)
     
     
       } catch (error) {

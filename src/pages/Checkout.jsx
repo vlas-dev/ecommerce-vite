@@ -3,10 +3,23 @@ import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "../components/checkout/CheckoutForm";
 import StripeElements from "../components/checkout/StripeElements";
 import CheckoutInfo from "../components/checkout/CheckoutInfo";
+import { useForm } from "../hooks/useForm/useForm";
 
 export const Checkout = ({ options }) => {
   const [stripe, setStripe] = useState(null);
-
+  const { formState, onInputChange,setState } = useForm({
+    nombre: "",
+    apellido: "",
+    email: "",
+    pais: "",
+    estado: "",
+    ciudad: "",
+    line1: "",
+    phone: 123456789,
+    postal_code: "",
+    productos:""
+  });
+ 
   useEffect(() => {
     // Dynamically import the Stripe module
     import("@stripe/stripe-js")
@@ -29,11 +42,11 @@ export const Checkout = ({ options }) => {
         <div className="flex flex-col justify-center items-center">
           {/* Components stacked on small screens */}
           <div className="lg:flex md:justify-center space-y-8 lg:space-x-8 lg:space-y-0">
-            <CheckoutForm />
+            <CheckoutForm formulario ={[formState,onInputChange]}/>
             <StripeElements />
           </div>
           <div className="mt-8">
-            <CheckoutInfo />
+            <CheckoutInfo formulario={[formState,setState]}/>
           </div>
         </div>
       </Elements>

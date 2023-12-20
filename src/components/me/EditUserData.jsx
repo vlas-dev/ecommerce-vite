@@ -42,7 +42,7 @@ export const EditUserData = ({data}) =>{
             try {
               const res = await axios.get(`https://www.universal-tutorial.com/api/states/${formState.pais}`,{
                 headers:{
-                  "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJzb3VsaHVkc29ueGRAZ21haWwuY29tIiwiYXBpX3Rva2VuIjoiZFVnM2NuQmpMS0h0X3Ewc3pPZlA1MGc3QlVUMUtPTmVpaGdRNWJ6bXlZZDZQeVJXWHBXR0N4a1ZNWVlTckZTSTlxUSJ9LCJleHAiOjE3MDMwMjE4MTR9._S7Uyd84JpXF-Udjw8tM13sli42vhEVMu7ITt_hpLGw",
+                  "Authorization":import.meta.env.VITE_APP_COUNTRY_API,
                   "Accept":"application/json"
                 }
               })
@@ -67,7 +67,7 @@ export const EditUserData = ({data}) =>{
     
               const res = await axios.get(`https://www.universal-tutorial.com/api/cities/${formState.estado}`,{
                 headers:{
-                  "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJzb3VsaHVkc29ueGRAZ21haWwuY29tIiwiYXBpX3Rva2VuIjoiZFVnM2NuQmpMS0h0X3Ewc3pPZlA1MGc3QlVUMUtPTmVpaGdRNWJ6bXlZZDZQeVJXWHBXR0N4a1ZNWVlTckZTSTlxUSJ9LCJleHAiOjE3MDMwMjE4MTR9._S7Uyd84JpXF-Udjw8tM13sli42vhEVMu7ITt_hpLGw",
+                  "Authorization":import.meta.env.VITE_APP_COUNTRY_API,
                   "Accept":"application/json"
                 }
               })

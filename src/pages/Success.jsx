@@ -7,7 +7,7 @@ const Success = () => {
 
   useEffect(() => {
     clearCart();
-  }, [clearCart]);
+  }, []);
 
   return (
     <div className="flex flex-col items-center justify-center p-8 min-h-screen w-full bg-white">

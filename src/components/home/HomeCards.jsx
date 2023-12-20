@@ -77,7 +77,7 @@ export default function HomeCards({ dataLoaded }) {
                   className="w-full h-full block"
                 >
                   <img
-                    src={`/images/products/${product.titulo}.png`}
+                    src={`${import.meta.env.VITE_APP_BACKEND_URL}/uploads/productos/${product.imagen}`}
                     alt={product.titulo}
                     className="w-auto h-auto object-cover"
                   />

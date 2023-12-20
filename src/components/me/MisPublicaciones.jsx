@@ -37,7 +37,7 @@ export default function MisPublicaciones() {
       category: "",
       marca: "",
       envio: true,
-      descuento:0,
+      porcentaje:0,
       descripcion: "",
       imagen: "",
     });
@@ -50,6 +50,22 @@ export default function MisPublicaciones() {
 
   const handleRemove = async (productId) => {
     // Removal logic here
+    try {
+      const token = localStorage.getItem("x-token");
+      const config = {
+        headers: { 
+        "Content-Type":"multipart/form-data",
+        "x-token": token,
+      },
+      };
+
+      const res = await crudAxios.delete(`/product/${productId}`, config);
+      console.log(res.data)
+      refreshProducts()
+    } catch (error) {
+      
+    }
+
   };
 
   const refreshProducts = async () => {
@@ -101,7 +117,7 @@ export default function MisPublicaciones() {
                       <img
                         className="w-20 h-20 object-cover rounded"
                       //  LLAMAR IMAGENES DESDE EL BACK // src={`${import.meta.env.VITE_APP_BACKEND_URL}/uploads/productos/${product.imagen}`}
-                        src={`/images/products/${product.titulo}.png`}
+                        src={`${import.meta.env.VITE_APP_BACKEND_URL}/uploads/productos/${product.imagen}`}
 
                         alt={product.titulo}
                       />

@@ -1,19 +1,71 @@
-import React from "react";
-import { useForm } from "../../hooks/useForm/useForm";
+import React, { useContext, useEffect, useState } from "react";
+import { countries } from "../../config/countries";
+import axios from "axios";
+import { CartContext } from "../context/CartContext";
 
-const CheckoutForm = () => {
-  const { formState, onInputChange } = useForm({
-    name: "",
-    lastName: "",
-    email: "",
-    country: "",
-    state: "",
-    city: "",
-    line1: "",
-    phone: "",
-    postal_code: "",
-  });
+const CheckoutForm = ({formulario}) => {
+  const { cartItems } = useContext(CartContext);
+  const [formState,onInputChange] = formulario
+  const [states, setStates] = useState([])
+  const [cities, setCities] = useState([])
 
+ 
+
+  useEffect(()=>{
+
+    if(formState.pais.length>0){
+      const consultarApi = async () => {
+        try {
+ 
+          const res = await axios.get(`https://www.universal-tutorial.com/api/states/${formState.pais}`,{
+            headers:{
+              "Authorization":import.meta.env.VITE_APP_COUNTRY_API,
+              "Accept":"application/json"
+            }
+          })
+          const estados = res.data.map(estado=> estado.state_name)
+        
+          setStates(estados)
+ 
+        } catch (error) {
+          console.log(error);
+          return [];
+        }
+      };
+      consultarApi();
+
+ 
+
+    }
+  },[formState.pais])
+
+  useEffect(()=>{
+    if(formState.estado.length>0){
+      const consultarApi = async () => {
+        try {
+          console.log(formState.estado)
+          const res = await axios.get(`https://www.universal-tutorial.com/api/cities/${formState.estado}`,{
+            headers:{
+              "Authorization":import.meta.env.VITE_APP_COUNTRY_API,
+              "Accept":"application/json"
+            }
+          })
+
+          const ciudades = res.data.map(ciudad=> ciudad.city_name)
+        
+          setCities(ciudades)
+        // Notify parent component that data is loaded
+        } catch (error) {
+          console.log(error);
+          return [];
+        }
+      };
+      consultarApi();
+
+ 
+
+    }
+  },[formState.estado])
   return (
     <div>
       <form className="p-8 h-[650px] md:h-[500px] w-[400px] md:w-[500px] bg-white shadow-md rounded-lg">
@@ -28,13 +80,13 @@ const CheckoutForm = () => {
             <input
               type="text"
               id="name"
-              value={formState.name}
-              name="name"
+              value={formState.nombre}
+              name="nombre"
               onChange={onInputChange}
               className="h-12 text-[18px] capitalize bg-gray-100 border py-55-rem border-gray-400 text-sm rounded-lg focus:outline-none focus:shadow-outline block w-full p-2.5 placeholder-transparent "
               placeholder=" "
             />
-            <label htmlFor="name" className="block bg-gray-100">
+            <label htmlFor="nombre" className="block bg-gray-100">
               Nombre
             </label>
           </div>
@@ -44,13 +96,13 @@ const CheckoutForm = () => {
             <input
               type="text"
               id="lastName"
-              value={formState.lastName}
-              name="lastName"
+              value={formState.apellido}
+              name="apellido"
               onChange={onInputChange}
               className="h-12 text-[18px] capitalize bg-gray-100 border py-55-rem border-gray-400 text-sm rounded-lg focus:outline-none focus:shadow-outline block w-full p-2.5 placeholder-transparent "
               placeholder="Apellido"
             />
-            <label htmlFor="lastName" className="block bg-gray-100">
+            <label htmlFor="apellido" className="block bg-gray-100">
               Apellido
             </label>
           </div>
@@ -76,18 +128,20 @@ const CheckoutForm = () => {
 
           {/* Country Field (País) */}
           <div className="floating-label-group">
-            <input
-              type="text"
-              id="country"
-              value={formState.country}
-              name="country"
-              onChange={onInputChange}
-              className="h-12 text-[18px] capitalize bg-gray-100 border py-55-rem border-gray-400 text-sm rounded-lg focus:outline-none focus:shadow-outline block w-full p-2.5 placeholder-transparent "
-              placeholder=" "
-            />
-            <label htmlFor="country" className="block bg-gray-100">
-              País
-            </label>
+            {" "}
+            <select 
+            name="pais" 
+            value={formState.pais} 
+            onChange={onInputChange}
+            className="h-12 text-[18px] bg-gray-100 border py-55-rem border-gray-400 text-sm rounded-lg focus:outline-none focus:shadow-outline block w-full p-2.5 placeholder-transparent "
+            id="">
+                <option value="">Selecciona un Pais</option>
+              {
+                countries.map((country,id)=>
+                  <option value={country} key={id}>{country}</option>
+                  )
+              }
+            </select>
           </div>
         </div>
 
@@ -95,34 +149,41 @@ const CheckoutForm = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 md:gap-4">
           {/* State Field (Provincia) */}
           <div className="floating-label-group">
-            <input
-              type="text"
-              id="state"
-              value={formState.state}
-              name="state"
-              onChange={onInputChange}
-              className="h-12 text-[18px] capitalize bg-gray-100 border py-55-rem border-gray-400 text-sm rounded-lg focus:outline-none focus:shadow-outline block w-full p-2.5 placeholder-transparent "
-              placeholder=" "
-            />
-            <label htmlFor="state" className="block bg-gray-100">
-              Provincia
-            </label>
+          {" "}
+            <select 
+            name="estado" 
+            value={formState.estado} 
+            onChange={onInputChange}
+            className="h-12 text-[18px] bg-gray-100 border py-55-rem border-gray-400 text-sm rounded-lg focus:outline-none focus:shadow-outline block w-full p-2.5 placeholder-transparent "
+            id=""
+            disabled={!states.length>0}
+            >
+                <option value="">Selecciona una Provincia</option>
+              {
+                states.map((state,id)=>
+                  <option value={state} key={id}>{state}</option>
+                  )
+              }
+            </select>
           </div>
 
           {/* City Field (Ciudad) */}
           <div className="floating-label-group">
-            <input
-              type="text"
-              id="city"
-              value={formState.city}
-              name="city"
+            <select 
+              name="ciudad" 
+              value={formState.ciudad} 
               onChange={onInputChange}
-              className="h-12 text-[18px] capitalize bg-gray-100 border py-55-rem border-gray-400 text-sm rounded-lg focus:outline-none focus:shadow-outline block w-full p-2.5 placeholder-transparent "
-              placeholder=" "
-            />
-            <label htmlFor="city" className="block bg-gray-100">
-              Ciudad
-            </label>
+              className="h-12 text-[18px] bg-gray-100 border py-55-rem border-gray-400 text-sm rounded-lg focus:outline-none focus:shadow-outline block w-full p-2.5 placeholder-transparent "
+              id=""
+              disabled={!cities.length>0}
+              >
+                  <option value="">Selecciona una Ciudad</option>
+                {
+                  cities.map((city,id)=>
+                    <option value={city} key={id}>{city}</option>
+                    )
+                }
+              </select>
           </div>
         </div>
 
