@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import crudAxios from '../../config/axios';
+import React, { useEffect, useState } from "react";
+import crudAxios from "../../config/axios";
 
 const MisCompras = () => {
   const [pedidos, setPedidos] = useState([]);
@@ -41,25 +41,37 @@ const MisCompras = () => {
         <p>No hay pedidos realizados.</p>
       ) : (
         pedidos.map((pedido, index) => (
-          <div key={index} className="mb-6 bg-white shadow-sm rounded-lg overflow-hidden">
+          <div
+            key={index}
+            className="mb-6 bg-white shadow-sm rounded-lg overflow-hidden"
+          >
             <div className="p-4 border-b flex justify-between items-center">
               <h3 className="text-lg font-semibold">
-                {new Date(pedido.createdAt).toLocaleDateString('es', {
-                  day: 'numeric',
-                  month: 'long',
-                  year: 'numeric'
+                {new Date(pedido.createdAt).toLocaleDateString("es", {
+                  day: "numeric",
+                  month: "long",
+                  year: "numeric",
                 })}
               </h3>
-              <button 
+              <button
                 onClick={() => handleDelete(pedido.id)}
                 className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
               >
-                Eliminar Pedido
+                Cancelar pedido{" "}
               </button>
             </div>
             {pedido.productos.map((producto, idx) => (
-              <div key={idx} className="flex items-center p-4 border-b last:border-b-0">
-                <img src={`${import.meta.env.VITE_APP_BACKEND_URL}/uploads/productos/${producto.imagen}`} alt={producto.titulo} className="w-20 h-20 object-cover rounded mr-4" />
+              <div
+                key={idx}
+                className="flex items-center p-4 border-b last:border-b-0"
+              >
+                <img
+                  src={`${
+                    import.meta.env.VITE_APP_BACKEND_URL
+                  }/uploads/productos/${producto.imagen}`}
+                  alt={producto.titulo}
+                  className="w-20 h-20 object-cover rounded mr-4"
+                />
                 <div className="flex-grow">
                   <p className="font-bold">{producto.titulo}</p>
                   <p>Cantidad: {producto.cantidad}</p>
