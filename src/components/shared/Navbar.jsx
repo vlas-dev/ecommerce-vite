@@ -102,7 +102,7 @@ export default function Navbar() {
             <img src={logoImage} alt="Logo" />
           </Link>
   
-          <div className="lg:hidden flex items-center">
+          <div className="md:hidden flex items-center">
             <button
               className="text-white ml-10 mr-4"
               onClick={handleCartClickHamburger}
@@ -151,6 +151,32 @@ export default function Navbar() {
             <RiSearchLine size={20} />
           </button>
         </form>
+
+        <div className="hidden md:flex lg:hidden items-center">
+            <button
+              className="text-white ml-10 mr-4"
+              onClick={handleCartClickHamburger}
+            >
+              <RiShoppingCartLine size={24} aria-label="Shopping Cart" /> 
+              {cartItemCount > 0 && (
+                <span className="absolute top-6 right-24 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
+                  {cartItemCount}
+                </span>
+              )}
+            </button>
+  
+            <div
+              onClick={() => setOpen(!isOpen)}
+              className="z-50"
+            >
+              <Hamburger
+                color="white"
+                size={20}
+                toggled={isOpen}
+                toggle={setOpen}
+              />
+            </div>
+          </div>
   
         {/* Desktop Menu and User Controls */}
         <div className="hidden lg:flex  font-semibold text-white mx-10">
