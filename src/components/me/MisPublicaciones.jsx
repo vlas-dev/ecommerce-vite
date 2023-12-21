@@ -5,6 +5,7 @@ import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin7Line, RiDeleteBin7Fill } from "react-icons/ri";
 import EditMisPublicaciones from "./EditMisPublicaciones";
 import { TailSpin } from 'react-loader-spinner';
+import Swal from 'sweetalert2';
 
 export default function MisPublicaciones() {
   const [hoveredItemId, setHoveredItemId] = useState(null);
@@ -50,23 +51,32 @@ export default function MisPublicaciones() {
   };
 
   const handleRemove = async (productId) => {
-    // Removal logic here
-    try {
-      const token = localStorage.getItem("x-token");
-      const config = {
-        headers: { 
-        "Content-Type":"multipart/form-data",
-        "x-token": token,
-      },
-      };
-
-      const res = await crudAxios.delete(`/product/${productId}`, config);
-      console.log(res.data)
-      refreshProducts()
-    } catch (error) {
-      
-    }
-
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "No podrás revertir esta acción.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#4F46E5',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar producto.',
+      cancelButtonText: 'No, mantener producto.'
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const token = localStorage.getItem("x-token");
+          const config = {
+            headers: { 
+              "Content-Type":"multipart/form-data",
+              "x-token": token,
+            },
+          };
+          await crudAxios.delete(`/product/${productId}`, config);
+          refreshProducts();
+        } catch (error) {
+          console.error("Error deleting product:", error);
+        }
+      }
+    });
   };
 
   const refreshProducts = async () => {

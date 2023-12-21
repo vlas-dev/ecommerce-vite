@@ -58,9 +58,9 @@ export default function ProductPage() {
 
   return (
     <>
-      <div className="bg-gray-100 flex justify-center pt-44 md:pt-32 h-fit  ">
+      <div className="bg-gray-100 flex justify-center pt-32 h-screen">
         <div className="mx-auto container">
-          <div className="mx-auto max-w-[400px] md:max-w-[1000px]">
+          <div className="mx-auto md:pb-20 max-w-[1000px]">
             <div
               key={product.id}
               className="md:flex bg-white rounded shadow-lg transition duration-300"
