@@ -76,7 +76,7 @@ export default function HomeCards({ dataLoaded }) {
     ) : (
       <>
         {location.search ||  slug ?  null : (
-          <h2 className="pt-0 md:pt-10 lg:pt-0 text-3xl font-bold mb-8 text-center">
+          <h2 className="pt-10 lg:pt-0 text-3xl font-bold mb-8 text-center">
             Nuestros productos
           </h2>
         )}
