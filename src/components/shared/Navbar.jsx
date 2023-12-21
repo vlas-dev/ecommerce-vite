@@ -102,7 +102,7 @@ export default function Navbar() {
             <img src={logoImage} alt="Logo" />
           </Link>
   
-          <div className="md:hidden flex items-center">
+          <div className="lg:hidden flex items-center">
             <button
               className="text-white ml-10 mr-4"
               onClick={handleCartClickHamburger}
@@ -153,7 +153,7 @@ export default function Navbar() {
         </form>
   
         {/* Desktop Menu and User Controls */}
-        <div className="hidden md:flex  font-semibold text-white mx-10">
+        <div className="hidden lg:flex  font-semibold text-white mx-10">
           {/* Category Dropdown */}
           <div className="relative group items-center">
             <button className="p-2 flex items-center justify-center gap-2">
@@ -233,13 +233,13 @@ export default function Navbar() {
   
         {/* Mobile Menu Overlay */}
         <div
-          className={`md:hidden fixed top-0 h-screen w-full  bg-black bg-opacity-50 transition-opacity ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+          className={`lg:hidden fixed top-0 h-screen w-full  bg-black bg-opacity-50 transition-opacity ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
           onClick={() => setOpen(false)}
         ></div>
   
         {/* Mobile Menu */}
         <ul
-          className={`md:hidden fixed top-0 right-0 h-screen w-3/5 px-10 space-y-8 bg-indigo-950 flex flex-col pt-32 text-white text-xl transform ${isOpen ? "translate-x-0" : "translate-x-full"} transition duration-300 ease-in-out`}
+          className={`lg:hidden fixed top-0 right-0 h-screen w-3/5 px-10 space-y-8 bg-indigo-950 flex flex-col pt-32 text-white text-xl transform ${isOpen ? "translate-x-0" : "translate-x-full"} transition duration-300 ease-in-out`}
         >
           {auth.isAuthenticated ? (
             <>
