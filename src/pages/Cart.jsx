@@ -23,7 +23,7 @@ export default function CartPage({ setOption }) {
     let cadena = numero.toString();
     let sinPunto = cadena.replace(".", "");
     let entero = parseInt(sinPunto);
-    return parseInt(entero / 10);
+    return parseInt(entero * 100);
   };
 
   const toCheckOut = () => {
@@ -88,9 +88,7 @@ export default function CartPage({ setOption }) {
               >
                 <div className="flex items-center mb-3 md:mb-0 ">
                   <img
-                    // src={`/images/products/${item.titulo}.png`}
-                    src={`${import.meta.env.VITE_APP_BACKEND_URL}/uploads/productos/${item.imagen}`}
-                    alt={item.titulo}
+ src={`${import.meta.env.VITE_APP_BACKEND_URL}/uploads/productos/${item.imagen}`}                    alt={item.titulo}
                     className="h-16 w-16 md:h-20 md:w-20 object-cover rounded mr-4 "
                   />
                   <div>

@@ -165,7 +165,7 @@ export default function Navbar() {
                   key={category.id}
                   onClick={() => setOpen(false)}
                   to={`product/get/${category.slug}`}
-                  className="p-2 hover:bg-gray-200 rounded"
+                  className="p-2 hover:bg-gray-200 rounded capitalize"
                 >
                   {category.nombre}
                 </Link>

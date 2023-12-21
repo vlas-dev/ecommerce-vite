@@ -12,6 +12,7 @@ export default function EditMisPublicaciones({
 }) {
   const referenciaImg = useRef();
   const [files, setFiles] = useState();
+  const [imagePreviewUrl, setImagePreviewUrl] = useState();
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -31,7 +32,15 @@ export default function EditMisPublicaciones({
   };
   
   const leerImagen = (e) => {
-    setFiles(e.target.files[0]);
+    let file = e.target.files[0];
+    setFiles(file);
+
+    // Preview image
+    let reader = new FileReader();
+    reader.onloadend = () => {
+      setImagePreviewUrl(reader.result);
+    };
+    reader.readAsDataURL(file);
   };
 
   const handleSubmit = async (e) => {
@@ -176,16 +185,25 @@ export default function EditMisPublicaciones({
         />
       </div>
 
-      <input
-        type="file"
-        name="imagen"
-        onChange={leerImagen}
-        ref={referenciaImg}
-        style={{ display: "none" }}
-      />
-      <h1 onClick={() => referenciaImg.current.click()}>
-        Click aquí para seleccionar imagen
-      </h1>
+      <div className="mb-4">
+        
+        <button 
+          type="button" 
+          onClick={() => referenciaImg.current.click()}
+          className=" border border-gray-400 hover:border-gray-500  px-2 rounded">
+          Seleccionar Imagen
+        </button>
+        <input
+          type="file"
+          name="imagen"
+          onChange={leerImagen}
+          ref={referenciaImg}
+          style={{ display: "none" }}
+        />
+        {imagePreviewUrl && (
+          <img src={imagePreviewUrl} alt="Preview" style={{ width: '150px', height: '150px', objectFit: 'cover', marginTop: '10px' }} />
+          )}
+      </div>
 
       <div className="flex flex-col items-center justify-between space-y-2">
         <button

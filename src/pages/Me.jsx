@@ -71,7 +71,7 @@ export default function Me() {
             }`}
             onClick={() => setActiveTab("MisCompras")}
           >
-            Mis Pedidos
+            Mis Compras
           </button>
           {userRole === "ADMIN_ROLE" && (
             <button

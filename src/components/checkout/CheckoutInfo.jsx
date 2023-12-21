@@ -22,63 +22,52 @@ const CheckoutInfo = ({formulario}) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
-    // First, check if Stripe and Elements are loaded
+    console.log(formState)
     if (!stripe || !elements) {
       return;
     }
-  
-    // Update the form state with the product details
-    setState({...formState, productos});
-  
-    // Prepare the Stripe payment confirmation parameters
+    setState({...formState,productos})
+ 
+ 
     const returnUrl = `${window.location.origin}/success`;
-    const paymentMethodData = {
-      billing_details: {
-        name: `${formState.nombre} ${formState.apellido}`,
-        email: formState.email,
-        address: {
-          line1: formState.line1,
-          city: formState.ciudad,
-          state: formState.estado,
-          country: formState.pais,
-          postal_code: formState.postal_code,
-        },
-        phone: formState.phone,
-      },
-    };
-  
-    // Confirm the payment with Stripe
-    const result = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        return_url: returnUrl,
-        payment_method_data: paymentMethodData,
-      },
-    });
-  
-    // Handle any errors from Stripe
-    if (result.error) {
-      console.log(result.error.message);
-      return; // Stop if there's an error
-    }
-  
-    // If Stripe confirmation is successful, then proceed to make the backend request
     try {
       const token = localStorage.getItem("x-token");
       const config = {
         headers: { "x-token": token },
       };
-      const res = await crudAxios.post("/order/crear", formState, config);
-      console.log(res.data);
+      const res = await crudAxios.post("/order/crear", formState,config);
+ 
+      console.log(res.data)
       
-      // Optionally, redirect to success page here if Stripe doesn't handle it
-      // window.location.href = returnUrl;
     } catch (error) {
-      console.log(error);
+      console.log(error)
+    }
+
+    const result = await stripe.confirmPayment({
+      elements,
+      confirmParams: {
+        return_url: returnUrl,
+        payment_method_data: {
+          billing_details: {
+            name: `${formState.nombre} ${formState.apellido}`,
+            email: formState.email,
+            address: {
+              line1: formState.line1,
+              city: formState.ciudad,
+              state: formState.estado,
+              country: formState.pais,
+              postal_code: formState.postal_code,
+            },
+            phone: formState.phone,
+          },
+        },
+      },
+    });
+
+    if (result.error) {
+      console.log(result.error.message);
     }
   };
-  
 
   return (
     <div className="p-8 min-h-[300px] w-[400px] lg:w-[1035px] bg-white shadow-md rounded-lg">
@@ -87,8 +76,8 @@ const CheckoutInfo = ({formulario}) => {
         <div key={item.id} className="mb-4 flex justify-between items-center">
           <div className="flex items-center">
             <img
+             src={`${import.meta.env.VITE_APP_BACKEND_URL}/uploads/productos/${item.imagen}`}
               // src={`/images/products/${item.titulo}.png`}
-              src={`${import.meta.env.VITE_APP_BACKEND_URL}/uploads/productos/${item.imagen}`}
               alt={item.titulo}
               className="h-10 w-10 object-cover rounded mr-2"
             />

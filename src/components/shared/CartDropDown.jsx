@@ -24,7 +24,8 @@ export default function CartDropdown({ closeDropdown }) {
           <div key={item.id} className="flex justify-between items-center py-2">
             <div className="flex items-center">
               <img
-                src={`/images/products/${item.titulo}.png`} // Assuming you have images stored in this path
+                src={`${import.meta.env.VITE_APP_BACKEND_URL}/uploads/productos/${item.imagen}`}
+               // src={`/images/products/${item.titulo}.png`}
                 alt={item.titulo}
                 className="h-10 w-10 object-cover rounded mr-2"
               />

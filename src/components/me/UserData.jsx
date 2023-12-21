@@ -5,38 +5,39 @@ import { FaCamera } from "react-icons/fa";
 import { useRef } from "react";
 import { EditUserData } from "./EditUserData";
 
-
 export default function UserData() {
-  const referenciaImg = useRef()
+  const referenciaImg = useRef();
   const [userData, setUserData] = useState(null);
-  const [files,setFiles] = useState("")
+  const [files, setFiles] = useState("");
   const [isEditing, setIsEditing] = useState(false);
-  const leerImagen = async(e) =>{
+  const [imageUploaded, setImageUploaded] = useState(false); // New state variable
+
+  const leerImagen = async (e) => {
     const formData = new FormData();
-    formData.append('imagen',e.target.files[0])
- 
-    setFiles(formData)
+    formData.append('imagen', e.target.files[0]);
+    setFiles(formData);
+  };
 
-  }
-  useEffect(()=>{
-    const fetchData = async()=>{
-      try {
+  useEffect(() => {
+    if (files) {
+      const fetchData = async () => {
+        try {
+          const token = localStorage.getItem("x-token");
+          const config = {
+            headers: { "x-token": token },
+          };
 
-        const token = localStorage.getItem("x-token");
-        const config = {
-          headers: { "x-token": token },
-        };
-    
-        const res = await crudAxios.post("/users/me/profile-image",files, config);
-        console.log(res)
-    
-    
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
+          const res = await crudAxios.post("/users/me/profile-image", files, config);
+          console.log(res);
+          setImageUploaded(true); // Update the state variable upon successful upload
+        } catch (error) {
+          console.error("Error uploading image:", error);
+        }
+      };
+      fetchData();
     }
-    fetchData()
-  },[files])
+  }, [files]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -47,7 +48,7 @@ export default function UserData() {
 
         const res = await crudAxios.get("/me", config);
         setUserData(res.data);
-  
+        setImageUploaded(false); // Reset the state variable after fetching user data
 
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -55,12 +56,14 @@ export default function UserData() {
     };
 
     fetchData();
-  }, []);
+  }, [imageUploaded]); // Add imageUploaded to the dependency array
 
   if (!userData) {
-    return <div className="flex justify-center mt-20 h-screen">
-    <div className="loader"></div>
-  </div>;
+    return (
+      <div className="flex justify-center mt-20 h-screen">
+        <div className="loader"></div>
+      </div>
+    );
   }
 
   return (
