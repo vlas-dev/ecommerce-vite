@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import crudAxios from "../../config/axios";
+import Swal from 'sweetalert2';
 
 const MisCompras = () => {
   const [pedidos, setPedidos] = useState([]);
@@ -22,6 +23,23 @@ const MisCompras = () => {
   };
 
   const handleDelete = async (id) => {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "¡No podrás revertir esta acción!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, cancelar pedido!',
+      cancelButtonText: 'No, mantener pedido'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteOrder(id);
+      }
+    });
+  };
+
+  const deleteOrder = async (id) => {
     try {
       const token = localStorage.getItem("x-token");
       const config = {
