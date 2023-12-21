@@ -21,19 +21,19 @@ export const EditUserData = ({data}) =>{
         ciudad: '',
       });
  
-      useEffect(()=>{
-          setState({
-            nombre: userData.usuario.nombre,
-            apellido: userData.usuario.apellido,
-            email: userData.usuario.email,
-            pais: userData.usuario.pais,
-            imagen:userData.usuario.imagen,
-            password:'',
-            estado: '',
-            ciudad: '',
-          })
-         
-      },[userData.usuario])
+     useEffect(() => {
+  setState({
+    nombre: userData.usuario.nombre,
+    apellido: userData.usuario.apellido,
+    email: userData.usuario.email,
+    pais: userData.usuario.pais,
+    imagen: userData.usuario.imagen,
+    password: '',
+    estado: userData.usuario.estado || '', // Set the default value to an empty string
+    ciudad: userData.usuario.ciudad || '', // Set the default value to an empty string
+  });
+}, [userData.usuario]);
+
     
     useEffect(()=>{
 

@@ -4,6 +4,7 @@ import crudAxios from "../../config/axios";
 import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin7Line, RiDeleteBin7Fill } from "react-icons/ri";
 import EditMisPublicaciones from "./EditMisPublicaciones";
+import { TailSpin } from 'react-loader-spinner';
 
 export default function MisPublicaciones() {
   const [hoveredItemId, setHoveredItemId] = useState(null);
@@ -75,88 +76,93 @@ export default function MisPublicaciones() {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center mt-20 h-screen">
-        <div className="loader"></div>
+      <div className="flex justify-center mt-20">
+        <div className="flex justify-center items-center h-full">
+          <TailSpin
+            color="#4F46E5" // Choose color
+            height={50} // Set height
+            width={50} // Set width
+          />
+        </div>
       </div>
     );
   }
 
-  return (
-    <div className="container mx-auto p-4">
-      {isNew || isEditing ? (
-        <EditMisPublicaciones
-          isNew={isNew}
-          isEditing={isEditing}
-          editProduct={editProduct}
-          setEditProduct={setEditProduct}
-          setIsEditing={setIsEditing}
-          setIsNew={setIsNew}
-          refreshProducts={refreshProducts}
-        />
-      ) : (
-        <div>
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-2xl font-bold ">Lista de Productos</h2>
-            <button
-              onClick={handleAddNew}
-              className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded shadow-lg"
-            >
-              Subir Producto
-            </button>
-          </div>
-
-          <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-            <ul>
-              {products.map((product, index) => (
-                <li key={product.id} className="mb-4">
-                  <div className="flex items-center justify-between">
-                    <Link
-                      to={`/product/${product.id}`}
-                      className="flex items-center space-x-4"
-                    >
-                      <img
-                        className="w-20 h-20 object-cover rounded"
-                      //  LLAMAR IMAGENES DESDE EL BACK // src={`${import.meta.env.VITE_APP_BACKEND_URL}/uploads/productos/${product.imagen}`}
-                        src={`${import.meta.env.VITE_APP_BACKEND_URL}/uploads/productos/${product.imagen}`}
-
-                        alt={product.titulo}
-                      />
-                      <div>
-                        <h3 className="text-lg font-bold">{product.titulo}</h3>
-                        <p className="text-gray-600">${product.precio}</p>
-                      </div>
-                    </Link>
-
-                    <div className="flex items-center space-x-2 text-indigo-600">
-                      <button
-                        onClick={() => handleEdit(product)}
-                      >
-                        <FaRegEdit />
-                      </button>
-
-                      <button
-                        className="text-red-500"
-                        onClick={() => handleRemove(product.id)}
-                        onMouseEnter={() => setHoveredItemId(product.id)}
-                        onMouseLeave={() => setHoveredItemId(null)}
-                      >
-                        {hoveredItemId === product.id ? (
-                          <RiDeleteBin7Fill />
-                        ) : (
-                          <RiDeleteBin7Line />
-                        )}
-                      </button>
-                    </div>
-                  </div>
-                  {index < products.length - 1 && (
-                    <hr className="my-4 border-gray-300" />
-                  )}
-                </li>
-              ))}
-            </ul>
-          </div>
+return (
+  <div className="container mx-auto p-4 max-w-[400px] md:max-w-[800px]">
+    {isNew || isEditing ? (
+      <EditMisPublicaciones
+        isNew={isNew}
+        isEditing={isEditing}
+        editProduct={editProduct}
+        setEditProduct={setEditProduct}
+        setIsEditing={setIsEditing}
+        setIsNew={setIsNew}
+        refreshProducts={refreshProducts}
+      />
+    ) : (
+      <div>
+        <div className="flex flex-col justify-center items-center md:flex-row md:justify-between md:items-center mb-4">
+          <h2 className="text-2xl font-bold mb-2 md:mb-0">Lista de Productos</h2>
+          <button
+            onClick={handleAddNew}
+            className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded shadow-lg mt-2 md:mt-0"
+          >
+            Subir Producto
+          </button>
         </div>
-      )}
-    </div>
-  );
+
+        <div className="bg-white shadow-md rounded px-4 py-6 mb-4">
+          <ul>
+            {products.map((product, index) => (
+              <li key={product.id} className="mb-4">
+                <div className="flex flex-col md:flex-row md:items-center justify-between">
+                  <Link
+                    to={`/product/${product.id}`}
+                    className="flex items-center space-x-2"
+                  >
+                    <img
+                      className="w-20 h-20 object-cover rounded"
+                      src={`${import.meta.env.VITE_APP_BACKEND_URL}/uploads/productos/${product.imagen}`}
+                      alt={product.titulo}
+                    />
+                    <div>
+                      <h3 className="text-lg font-bold">{product.titulo}</h3>
+                      <p className="text-gray-600">${product.precio}</p>
+                    </div>
+                  </Link>
+
+                  <div className="flex items-center space-x-2 text-indigo-600 mt-4 md:mt-0 mx-auto md:mx-0">
+                    <button
+                      onClick={() => handleEdit(product)}
+                    >
+                      <FaRegEdit />
+                    </button>
+
+                    <button
+                      className="text-red-500"
+                      onClick={() => handleRemove(product.id)}
+                      onMouseEnter={() => setHoveredItemId(product.id)}
+                      onMouseLeave={() => setHoveredItemId(null)}
+                    >
+                      {hoveredItemId === product.id ? (
+                        <RiDeleteBin7Fill />
+                      ) : (
+                        <RiDeleteBin7Line />
+                      )}
+                    </button>
+                  </div>
+                </div>
+                {index < products.length - 1 && (
+                  <hr className="my-4 border-gray-300" />
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    )}
+  </div>
+);
+
 }

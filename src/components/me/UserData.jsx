@@ -4,6 +4,7 @@ import crudAxios from "../../config/axios";
 import { FaCamera } from "react-icons/fa";
 import { useRef } from "react";
 import { EditUserData } from "./EditUserData";
+import { TailSpin } from 'react-loader-spinner';
 
 export default function UserData() {
   const referenciaImg = useRef();
@@ -60,8 +61,14 @@ export default function UserData() {
 
   if (!userData) {
     return (
-      <div className="flex justify-center mt-20 h-screen">
-        <div className="loader"></div>
+      <div className="flex justify-center mt-20">
+        <div className="flex justify-center items-center h-full">
+          <TailSpin
+            color="#4F46E5" // Choose color
+            height={50} // Set height
+            width={50} // Set width
+          />
+        </div>
       </div>
     );
   }

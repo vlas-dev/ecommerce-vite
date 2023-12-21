@@ -44,7 +44,7 @@ export default function Carousel() {
         {slideData.map((slide) => (
           <SwiperSlide key={slide.id}>
             <Link to={slide.link}>
-              <div className="hidden lg:flex flex-col items-center shadow-md mx-16 md:mt-20 ">
+              <div className="hidden lg:flex flex-col items-center shadow-md md:mt-20 ">
                 <img src={slide.image} alt={`Slide ${slide.id}`} />
               </div>
             </Link>

@@ -107,19 +107,23 @@ export default function EditMisPublicaciones({
           placeholder="Title"
           value={editProduct.titulo}
           onChange={handleInputChange}
+          required 
         />
       </div>
 
-      <div className="mb-4">
-        <h1>Precio</h1>
-        <input
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          name="precio"
-          placeholder="Price"
-          value={editProduct.precio}
-          onChange={handleInputChange}
-        />
-      </div>
+     <div className="mb-4">
+  <h1>Precio</h1>
+  <input
+    type="number" // Set the input type to "number"
+    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+    name="precio"
+    placeholder="Price"
+    value={editProduct.precio}
+    onChange={handleInputChange}
+    required 
+  />
+</div>
+
 
       <div className="mb-4">
         <h1>Marca</h1>
@@ -129,6 +133,7 @@ export default function EditMisPublicaciones({
           placeholder="Brand"
           value={editProduct.marca}
           onChange={handleInputChange}
+          required 
         />
       </div>
 
@@ -160,10 +165,11 @@ export default function EditMisPublicaciones({
       <div className="mb-4">
         <h1>Categoría</h1>
         <select
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline capitalize"
           value={editProduct.category}
           onChange={handleInputChange}
           name="category"
+          required 
         >
           <option value={""}>Seleccione una categoría</option>
           {categories.map((category) => (
@@ -175,15 +181,18 @@ export default function EditMisPublicaciones({
       </div>
 
       <div className="mb-4">
-        <h1>Descripción</h1>
-        <textarea
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          name="descripcion"
-          placeholder="Description"
-          value={editProduct.descripcion}
-          onChange={handleInputChange}
-        />
-      </div>
+  <h1>Descripción</h1>
+  <textarea
+    className="shadow appearance-none border rounded w-full py-10 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline my-2"
+    name="descripcion"
+    placeholder="Descripción"
+    value={editProduct.descripcion}
+    onChange={handleInputChange}
+    style={{ paddingTop: '0.5rem' }} 
+    required 
+  />
+</div>
+
 
       <div className="mb-4">
         

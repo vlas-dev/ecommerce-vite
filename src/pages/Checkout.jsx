@@ -37,7 +37,7 @@ export const Checkout = ({ options }) => {
   }
 
   return (
-    <div className="pt-32">
+    <div className="pt-44 md:pt-32">
       <Elements stripe={stripe} options={options}>
         <div className="flex flex-col justify-center items-center">
           {/* Components stacked on small screens */}

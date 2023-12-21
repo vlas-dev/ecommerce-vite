@@ -37,7 +37,7 @@ export default function ProductPage() {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <div className="loader"></div>
+        {/* <div className="loader"></div> */}
       </div>
     );
   }
