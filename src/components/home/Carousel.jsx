@@ -27,7 +27,7 @@ export default function Carousel() {
   ];
 
   return (
-    <div className="bg-gray-100">
+    <div className="bg-gray-950">
       <Swiper
         pagination={{
           clickable: true,
