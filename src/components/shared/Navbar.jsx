@@ -320,7 +320,7 @@ export default function Navbar() {
                     setShowSubmenu(false);
                   }}
                   to={`product/get/${category.slug}`}
-                  className="p-2 hover:bg-indigo-800 rounded"
+                  className="p-2 hover:bg-indigo-800 rounded capitalize"
                 >
                   {category.nombre}
                 </Link>
