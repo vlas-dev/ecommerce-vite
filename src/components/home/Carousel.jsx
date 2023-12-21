@@ -11,7 +11,7 @@ export default function Carousel() {
   const slideData = [
     {
       id: 1,
-      link: "/product/46961013-56d8-4907-beed-3f29b6b984e2",
+      link: "/product/8b2abdf9-ac0d-47bd-a56f-10a56e13b956",
       image: "/assets/discount1.png",
     },
     {
@@ -21,7 +21,7 @@ export default function Carousel() {
     },
     {
       id: 3,
-      link: "/product/949959ad-067d-4b3c-8ae4-29be035d7044",
+      link: "/product/eec47b99-7a9d-48ad-99f1-eed7caf3b891",
       image: "/assets/discount3.png",
     },
   ];
