@@ -67,7 +67,8 @@ export default function ProductPage() {
             >
               <div className="md:w-1/2 flex justify-center items-center">
                 <img
-                  src={`/images/products/${product.titulo}.png`}
+                  // src={`/images/products/${product.titulo}.png`}
+                  src={`${import.meta.env.VITE_APP_BACKEND_URL}/uploads/productos/${product.imagen}`}
                   alt={product.titulo}
                   className="w-3/4 p-10"
                 />

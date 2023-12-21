@@ -27,37 +27,23 @@ export default function CartPage({ setOption }) {
   };
 
   const toCheckOut = () => {
-    // Log the amount and product details for debugging
-    console.log("Amount to be charged:", amount);
-    console.log("Cart items:", cartItems);
-  
+    console.log(amount);
+
     const consultarApi = async () => {
       try {
-        // Validate the amount
-        if (typeof amount.amount !== 'number' || isNaN(amount.amount)) {
-          console.error('Invalid amount:', amount);
-          return;
-        }
-    
-        // Define the config object with the necessary headers
         const token = localStorage.getItem("x-token");
         const config = {
-          headers: { "x-token": token }
+          headers: { "x-token": token },
         };
-    
-        // Axios POST request with config
         const res = await crudAxios.post(`/payment/process`, amount, config);
-        const { client_secret } = res.data;
+        const { client_secret } = await res.data;
         setOption({
           clientSecret: client_secret,
         });
       } catch (error) {
-        // Error handling
-        console.error('Error in consultarApi:', error);
-        // Additional error handling can be added here
+        console.log(error);
       }
     };
-    
     consultarApi();
   };
 
@@ -102,8 +88,8 @@ export default function CartPage({ setOption }) {
               >
                 <div className="flex items-center mb-3 md:mb-0 ">
                   <img
-                    src={`/images/products/${item.titulo}.png`}
-                    // src={`${import.meta.env.VITE_APP_BACKEND_URL}/uploads/productos/${item.imagen}`}
+                    // src={`/images/products/${item.titulo}.png`}
+                    src={`${import.meta.env.VITE_APP_BACKEND_URL}/uploads/productos/${item.imagen}`}
                     alt={item.titulo}
                     className="h-16 w-16 md:h-20 md:w-20 object-cover rounded mr-4 "
                   />
