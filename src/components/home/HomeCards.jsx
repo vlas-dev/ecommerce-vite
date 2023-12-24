@@ -63,7 +63,7 @@ export default function HomeCards({ dataLoaded }) {
   };
 
   return (
-    <div className="scale-90 lg:scale-95">
+    <div className="scale-90 lg:scale-95 max-w-[1300px] mx-auto">
     {isLoading ? (
        <div className="flex justify-center items-center h-full pt-96 lg:pt-40">
        <TailSpin
@@ -76,16 +76,16 @@ export default function HomeCards({ dataLoaded }) {
     ) : (
       <>
      
-     <h2 className={`text-3xl font-bold mb-8 text-center ${slug ? 'pt-36 lg:pt-24' : 'pt-24 lg:pt-0'}`}>
+     <h2 className={`text-3xl font-bold mb-8 text-center ${slug ? 'pt-24 lg:pt-24' : 'pt-0 lg:pt-0'}`}>
             {slug ? slug.charAt(0).toUpperCase() + slug.slice(1) : 'Nuestros productos'}
           </h2>
   
-      <div className={`flex flex-col md:flex-row justify-center gap-5 mx-auto md:pb-20`}>
-        {products.map((product) => (
-          <div
-            key={product.id}
-            className="mx-auto lg:mx-0 bg-white rounded shadow-md hover:shadow-lg transition duration-300 w-[300px]"
-          >
+          <div className="flex flex-wrap justify-center gap-5 mx-auto md:pb-20">
+          {products.map((product) => (
+            <div
+              key={product.id}
+              className="mx-auto lg:mx-0 bg-white rounded shadow-md hover:shadow-lg transition duration-300 w-[300px] max-w-full"
+            >
             <div className="w-full">
               <div className="w-[250px] h-[286px] mx-auto flex items-center">
                 <Link
