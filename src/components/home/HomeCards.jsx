@@ -183,7 +183,7 @@ export default function HomeCards({ dataLoaded }) {
               <button
                 key={index}
                 onClick={() => paginate(index + 1)}
-                className={`mx-2 p-2 ${currentPage === index + 1 ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+                className={`mx-2 px-4 py-2 rounded ${currentPage === index + 1 ? 'bg-indigo-600 text-white' : 'bg-gray-200'}`}
               >
                 {index + 1}
               </button>
