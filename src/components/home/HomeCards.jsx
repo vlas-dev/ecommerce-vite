@@ -138,7 +138,7 @@ export default function HomeCards({ dataLoaded }) {
               </div>
   
               {cartItems.some((item) => item.id === product.id) ? (
-                <div className="flex items-center">
+                <div className="flex items-center justify-center">
                   <button
                     className="bg-gray-200 text-indigo-600 px-3 py-1 rounded-md hover:bg-gray-300 min-w-[32px]"
                     onClick={() => decreaseQuantity(product.id)}
@@ -159,7 +159,7 @@ export default function HomeCards({ dataLoaded }) {
                   </button>
   
                   <Link to="/cart">
-                    <button className="bg-indigo-600 text-white px-6 py-2  rounded-md hover:bg-indigo-700 ml-4 mr-3">
+                    <button className="bg-indigo-600 text-white px-6 py-2  rounded-md hover:bg-indigo-700 ml-4">
                       Ver Carrito
                     </button>
                   </Link>
