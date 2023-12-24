@@ -75,17 +75,16 @@ export default function HomeCards({ dataLoaded }) {
      </div>
     ) : (
       <>
-        {location.search ||  slug ?  null : (
-          <h2 className="pt-10 lg:pt-0 text-3xl font-bold mb-8 text-center">
-            Nuestros productos
+     
+     <h2 className={`text-3xl font-bold mb-8 text-center ${slug ? 'pt-36 lg:pt-24' : 'pt-24 lg:pt-0'}`}>
+            {slug ? slug.charAt(0).toUpperCase() + slug.slice(1) : 'Nuestros productos'}
           </h2>
-        )}
   
-      <div className={`grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5 mx-auto md:pb-20 max-w-[300px] md:max-w-[800px] lg:max-w-[1200px] ${location.search || slug ?  'pt-32' : ''}`}>
+      <div className={`flex flex-col md:flex-row justify-center gap-5 mx-auto md:pb-20`}>
         {products.map((product) => (
           <div
             key={product.id}
-            className="flex flex-col justify-between bg-white rounded shadow-md hover:shadow-lg transition duration-300"
+            className="mx-auto lg:mx-0 bg-white rounded shadow-md hover:shadow-lg transition duration-300 w-[300px]"
           >
             <div className="w-full">
               <div className="w-[250px] h-[286px] mx-auto flex items-center">

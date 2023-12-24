@@ -99,7 +99,7 @@ export default function MisPublicaciones() {
   }
 
 return (
-  <div className="container mx-auto p-4 max-w-[400px] md:max-w-[800px]">
+  <div className="container flex justify-center mx-auto p-4 max-w-[400px] md:max-w-[600px]">
     {isNew || isEditing ? (
       <EditMisPublicaciones
         isNew={isNew}
@@ -122,7 +122,7 @@ return (
           </button>
         </div>
 
-        <div className="bg-white shadow-md rounded px-4 py-6 mb-4">
+        <div className="bg-white shadow-md rounded p-8 mb-4">
           <ul>
             {products.map((product, index) => (
               <li key={product.id} className="mb-4">

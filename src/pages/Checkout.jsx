@@ -41,7 +41,7 @@ export const Checkout = ({ options }) => {
       <Elements stripe={stripe} options={options}>
         <div className="flex flex-col justify-center items-center">
           {/* Components stacked on small screens */}
-          <div className="lg:flex md:justify-center space-y-8 lg:space-x-8 lg:space-y-0">
+          <div className="lg:flex md:justify-center space-y-8 lg:space-y-0 lg:space-x-4">
             <CheckoutForm formulario ={[formState,onInputChange]}/>
             <StripeElements />
           </div>

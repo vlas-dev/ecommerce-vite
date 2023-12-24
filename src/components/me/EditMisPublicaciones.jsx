@@ -183,7 +183,7 @@ export default function EditMisPublicaciones({
       <div className="mb-4">
   <h1>Descripción</h1>
   <textarea
-    className="shadow appearance-none border rounded w-full py-10 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline my-2"
+    className="shadow appearance-none border rounded w-full py-20 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline my-2"
     name="descripcion"
     placeholder="Descripción"
     value={editProduct.descripcion}

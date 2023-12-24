@@ -70,7 +70,7 @@ const CheckoutInfo = ({formulario}) => {
   };
 
   return (
-    <div className="p-8 min-h-[300px] w-[400px] lg:w-[1035px] bg-white shadow-md rounded-lg  max-w-[300px] md:max-w-[930px] ">
+    <div className="p-8 min-h-[300px] w-[500px] lg:w-[1015px] bg-white shadow-md rounded-lg  max-w-[300px] md:max-w-[1015px] ">
       <h2 className="text-2xl font-bold mb-4 text-center">Información de la compra</h2>
       {cartItems.map((item) => (
         <div key={item.id} className="mb-4 flex justify-between items-center">

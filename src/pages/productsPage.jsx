@@ -58,12 +58,12 @@ export default function ProductPage() {
 
   return (
     <>
-      <div className="bg-gray-100 flex justify-center pt-32 h-screen">
+      <div className="bg-gray-100 flex justify-center pt-32 min-h-screen">
         <div className="mx-auto container">
-          <div className="mx-auto md:pb-20 max-w-[1000px]">
+          <div className="mx-auto md:pb-20 max-w-[350px] md:max-w-[1000px]">
             <div
               key={product.id}
-              className="md:flex bg-white rounded shadow-lg transition duration-300"
+              className="md:flex bg-white rounded shadow-lg transition duration-300 mt-10 md:mt-0"
             >
               <div className="md:w-1/2 flex justify-center items-center">
                 <img
@@ -104,7 +104,7 @@ export default function ProductPage() {
                       </button>
 
                       <Link to="/cart">
-                        <button className="bg-indigo-600 text-white px-28 py-2  rounded-md hover:bg-indigo-700 ml-12">
+                        <button className="bg-indigo-600 text-white px-4 md:px-10 lg:px-28 py-2  rounded-md hover:bg-indigo-700 ml-12 ">
                           Ver Carrito
                         </button>
                       </Link>
