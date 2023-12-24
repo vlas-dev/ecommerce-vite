@@ -4,9 +4,10 @@ import crudAxios from "../../config/axios";
 import { CartContext } from "../../components/context/CartContext";
 import { TailSpin } from 'react-loader-spinner';
 
-
 export default function HomeCards({ dataLoaded }) {
   const [products, setProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(8);
   const [isLoading, setIsLoading] = useState(true);
   const { slug } = useParams();
   const { addToCart, increaseQuantity, decreaseQuantity, cartItems } = useContext(CartContext);
@@ -54,6 +55,13 @@ export default function HomeCards({ dataLoaded }) {
     consultarApiSearch();
   }, [location.search]);
 
+  const lastItemIndex = currentPage * itemsPerPage;
+  const firstItemIndex = lastItemIndex - itemsPerPage;
+  const currentItems = products.slice(firstItemIndex, lastItemIndex);
+  const totalPages = Math.ceil(products.length / itemsPerPage);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   const handleAddToCart = (product) => {
     if (!localStorage.getItem("x-token")) {
       navigate("/signin");
@@ -64,28 +72,27 @@ export default function HomeCards({ dataLoaded }) {
 
   return (
     <div className="scale-90 lg:scale-95 max-w-[1300px] mx-auto">
-    {isLoading ? (
-       <div className="flex justify-center items-center h-full pt-96 lg:pt-40">
-       <TailSpin
-         type="ThreeDots" // You can choose other types
-         color="#4F46E5" // Choose color
-         height={50} // Set height
-         width={50} // Set width
-       />
-     </div>
-    ) : (
-      <>
-     
-     <h2 className={`text-3xl font-bold mb-8 text-center ${slug ? 'pt-24 lg:pt-24' : 'pt-0 lg:pt-0'}`}>
+      {isLoading ? (
+        <div className="flex justify-center items-center h-full pt-96 lg:pt-40">
+          <TailSpin
+            type="ThreeDots"
+            color="#4F46E5"
+            height={50}
+            width={50}
+          />
+        </div>
+      ) : (
+        <>
+          <h2 className={`text-3xl font-bold mb-8 text-center ${slug ? 'pt-24 lg:pt-24' : 'pt-0 lg:pt-0'}`}>
             {slug ? slug.charAt(0).toUpperCase() + slug.slice(1) : 'Nuestros productos'}
           </h2>
   
           <div className="flex flex-wrap justify-center gap-5 mx-auto md:pb-20">
-          {products.map((product) => (
-            <div
-              key={product.id}
-              className="mx-auto lg:mx-0 bg-white rounded shadow-md hover:shadow-lg transition duration-300 w-[300px] max-w-full"
-            >
+            {currentItems.map((product) => (
+              <div
+                key={product.id}
+                className="mx-auto lg:mx-0 bg-white rounded shadow-md hover:shadow-lg transition duration-300 w-[300px] max-w-full"
+              >
             <div className="w-full">
               <div className="w-[250px] h-[286px] mx-auto flex items-center">
                 <Link
@@ -169,6 +176,20 @@ export default function HomeCards({ dataLoaded }) {
           </div>
         ))}
       </div>
+
+
+      <div className="flex justify-center mt-8">
+            {Array.from({ length: totalPages }, (_, index) => (
+              <button
+                key={index}
+                onClick={() => paginate(index + 1)}
+                className={`mx-2 p-2 ${currentPage === index + 1 ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+              >
+                {index + 1}
+              </button>
+            ))}
+          </div>
+      
       </>
     )}
   </div>
