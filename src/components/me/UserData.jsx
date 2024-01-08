@@ -64,7 +64,7 @@ export default function UserData() {
       <div className="flex justify-center mt-20">
         <div className="flex justify-center items-center h-full">
           <TailSpin
-            color="#4F46E5" // Choose color
+            color="#030712" // Choose color
             height={50} // Set height
             width={50} // Set width
           />
@@ -138,7 +138,7 @@ export default function UserData() {
             <div className="mt-6">
               <button
                 onClick={() => setIsEditing(true)}
-                className="inline-flex justify-center w-full py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="inline-flex justify-center w-full py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gray-950 hover:bg-gray-900 focus:outline-none"
               >
                 Editar
               </button>

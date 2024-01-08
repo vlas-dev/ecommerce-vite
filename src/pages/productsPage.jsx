@@ -79,7 +79,7 @@ export default function ProductPage() {
                   {product.titulo}
                 </h3>
                 <p className="mb-4">{product.descripcion}</p>
-                <p className="text-indigo-700 text-3xl font-semibold mb-4">
+                <p className="text-blue-800 text-3xl font-semibold mb-4">
                   ${product.precio}
                 </p>
                 <p className="font-semibold text-sm">
@@ -90,28 +90,28 @@ export default function ProductPage() {
                   {itemInCart ? (
                     <div className="flex items-center">
                       <button
-                        className="bg-gray-200 text-indigo-600 px-4 py-2 rounded-md hover:bg-gray-300 ml-1  min-w-[40px]"
+                        className="bg-gray-200 text-gray-950 px-4 py-2 rounded-md hover:bg-gray-300 ml-1  min-w-[40px]"
                         onClick={() => decreaseQuantity(product.id)}
                       >
                         -
                       </button>
                       <span className="mx-2">{itemInCart.quantity}</span>
                       <button
-                        className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700"
+                        className="bg-gray-950 text-white px-4 py-2 rounded-md hover:bg-gray-900"
                         onClick={() => increaseQuantity(product.id)}
                       >
                         +
                       </button>
 
                       <Link to="/cart">
-                        <button className="bg-indigo-600 text-white px-4 md:px-10 lg:px-28 py-2  rounded-md hover:bg-indigo-700 ml-12 ">
+                        <button className="bg-gray-950 text-white px-4 md:px-10 lg:px-28 py-2  rounded-md hover:bg-gray-900 ml-12 ">
                           Ver Carrito
                         </button>
                       </Link>
                     </div>
                   ) : (
                     <button
-                      className="bg-indigo-600 text-white  py-2 rounded-md hover:bg-indigo-700"
+                      className="bg-gray-950 text-white  py-2 rounded-md hover:bg-gray-900"
                       onClick={handleAddToCart}
                     >
                       Agregar al carrito

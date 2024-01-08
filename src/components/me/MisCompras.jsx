@@ -69,7 +69,7 @@ const MisCompras = () => {
         <div className="flex justify-center mt-20">
           <div className="flex justify-center items-center h-full">
             <TailSpin
-              color="#4F46E5"
+              color="#030712"
               height={50}
               width={50}
             />
@@ -96,7 +96,7 @@ const MisCompras = () => {
                   </h3>
                   <button
                     onClick={() => handleDelete(pedido.id)}
-                    className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+                    className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
                   >
                     Cancelar pedido{" "}
                   </button>

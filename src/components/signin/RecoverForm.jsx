@@ -37,14 +37,14 @@ export default function RecoverPassword() {
                     </div>
                     <div className="flex flex-col items-center">
                         <button
-                            className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full mb-4"
+                            className="bg-gray-950 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full mb-4"
                             type="submit"
                         >
                             Enviar Enlace de Recuperación
                         </button>
                         <Link
                             to="/signin"
-                            className="inline-block align-baseline font-bold text-sm text-indigo-600 hover:text-indigo-700"
+                            className="inline-block align-baseline font-bold text-sm text-gray-950 hover:text-gray-900"
                         >
                             Volver a Ingresar
                         </Link>

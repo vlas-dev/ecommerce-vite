@@ -89,7 +89,7 @@ export default function MisPublicaciones() {
       <div className="flex justify-center mt-20">
         <div className="flex justify-center items-center h-full">
           <TailSpin
-            color="#4F46E5" // Choose color
+            color="#030712" // Choose color
             height={50} // Set height
             width={50} // Set width
           />
@@ -112,17 +112,17 @@ return (
       />
     ) : (
       <div>
-        <div className="flex flex-col justify-center items-center md:flex-row md:justify-between md:items-center mb-4">
+        <div className="flex flex-col justify-center items-center md:flex-row md:justify-between md:items-center mb-4 ">
           <h2 className="text-2xl font-bold mb-2 md:mb-0">Lista de Productos</h2>
           <button
             onClick={handleAddNew}
-            className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded shadow-lg mt-2 md:mt-0"
+            className="bg-gray-950 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded shadow-lg mt-2 md:mt-0"
           >
             Subir Producto
           </button>
         </div>
 
-        <div className="bg-white shadow-md rounded p-8 mb-4">
+        <div className="bg-white shadow-md rounded p-8 mb-4  md:w-[800px]">
           <ul>
             {products.map((product, index) => (
               <li key={product.id} className="mb-4">
@@ -142,7 +142,7 @@ return (
                     </div>
                   </Link>
 
-                  <div className="flex items-center space-x-2 text-indigo-600 mt-4 md:mt-0 mx-auto md:mx-0">
+                  <div className="flex items-center space-x-2 text-blue-800 mt-4 md:mt-0 mx-auto md:mx-0">
                     <button
                       onClick={() => handleEdit(product)}
                     >

@@ -65,7 +65,7 @@ export default function CartPage({ setOption }) {
     return (
       <div className="container mx-auto text-center pt-44">
         <h2 className="text-2xl font-bold">Carrito vacío</h2>
-        <Link to="/" className="text-indigo-600 mt-3 inline-block font-bold">
+        <Link to="/" className="text-gray-950 mt-3 inline-block font-bold">
           Volver
         </Link>
       </div>
@@ -99,14 +99,14 @@ export default function CartPage({ setOption }) {
                 <div className="flex justify-center">
                 <div className="flex items-center font-semibold text-xl">
                   <button
-                    className="bg-gray-200 text-indigo-600 px-2 sm:px-3 py-1 rounded-md hover:bg-gray-300 ml-1 sm:ml-2 min-w-[30px] sm:min-w-[36px]"
+                    className="bg-gray-200 text-gray-950 px-2 sm:px-3 py-1 rounded-md hover:bg-gray-300 ml-1 sm:ml-2 min-w-[30px] sm:min-w-[36px]"
                     onClick={() => decreaseQuantity(item.id)}
                   >
                     -
                   </button>
                   <span className="mx-2 sm:mx-3">{item.quantity}</span>
                   <button
-                    className="bg-indigo-600 text-white px-2 sm:px-3 py-1 rounded-md hover:bg-indigo-700"
+                    className="bg-gray-950 text-white px-2 sm:px-3 py-1 rounded-md hover:bg-gray-900"
                     onClick={() => increaseQuantity(item.id)}
                   >
                     +
@@ -139,14 +139,14 @@ export default function CartPage({ setOption }) {
           <div>
             <button
               onClick={toCheckOut}
-              className="bg-indigo-600 hover:bg-indigo-700 px-4 sm:px-5 py-2 text-sm text-white w-full rounded font-bold"
+              className="bg-gray-950 hover:bg-gray-900 px-4 sm:px-5 py-2 text-sm text-white w-full rounded font-bold"
             >
               Completar Orden
             </button>
           </div>
         </div>
       </div>
-      <Link to="/" className="text-indigo-600 inline-block font-semibold mt-4">
+      <Link to="/" className="text-gray-950 inline-block font-semibold mt-4">
         Continuar comprando
       </Link>
     </div>

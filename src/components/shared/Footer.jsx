@@ -6,17 +6,17 @@ import { Link } from 'react-router-dom';
 export default function Footer() {
   return (
     <div className="bg-gray-100 pt-10 ">
-      <footer className="bg-indigo-950 text-white py-3 ">
+      <footer className="bg-gray-950 text-white py-3 ">
         <div className="container mx-auto flex flex-col items-center ">
           
           <div className="mt-4 flex space-x-4">
-            <a href="#" className="hover:text-indigo-600">
+            <a href="#" className="hover:text-gray-800">
               <FaFacebook size={24} />
             </a>
-            <a href="#" className="hover:text-indigo-600">
+            <a href="#" className="hover:text-gray-800">
               <FaTwitter size={24} />
             </a>
-            <a href="#" className="hover:text-indigo-600">
+            <a href="#" className="hover:text-gray-800">
               <FaInstagram size={24} />
             </a>
           </div>

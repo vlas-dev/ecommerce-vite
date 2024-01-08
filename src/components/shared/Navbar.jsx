@@ -93,7 +93,7 @@ export default function Navbar() {
   };
 
   return (
-    <div className="fixed w-full bg-indigo-950 z-50">
+    <div className="fixed w-full bg-gray-950 z-50">
       <nav className="max-w-[1200px] md:mx-auto flex flex-col md:flex-row justify-between items-center p-5 mx-5">
         
         {/* Logo and Mobile Controls */}
@@ -229,7 +229,7 @@ export default function Navbar() {
                 Ingresar
               </Link>
               <Link
-                className="p-2 mr-2 bg-indigo-600 hover:bg-indigo-700 rounded"
+                className="p-2 mr-2 bg-gray-100 rounded text-gray-900"
                 to="/signup"
               >
                 Registrarse
@@ -265,7 +265,7 @@ export default function Navbar() {
   
         {/* Mobile Menu */}
         <ul
-          className={`lg:hidden fixed top-0 right-0 h-screen  px-10 space-y-8 bg-indigo-950 flex flex-col pt-32 text-white text-xl transform ${isOpen ? "translate-x-0" : "translate-x-full"} transition duration-300 ease-in-out`}
+          className={`lg:hidden fixed top-0 right-0 h-screen  px-10 space-y-8 bg-gray-950 flex flex-col pt-32 text-white text-xl transform ${isOpen ? "translate-x-0" : "translate-x-full"} transition duration-300 ease-in-out`}
         >
           {auth.isAuthenticated ? (
             <>
@@ -287,7 +287,7 @@ export default function Navbar() {
   
                     }}
                     to="/me"
-                    className="p-2 my-2 hover:bg-indigo-800 rounded"
+                    className="p-2 my-2 hover:bg-gray-800 rounded"
                   >
                     Perfil
                   </Link>
@@ -297,7 +297,7 @@ export default function Navbar() {
                       handleLogout();
                       setShowProfileSubmenu(false);
                     }}
-                    className="p-2  hover:bg-indigo-800 rounded"
+                    className="p-2  hover:bg-gray-800 rounded"
                   >
                     Salir
                   </a>
@@ -346,7 +346,7 @@ export default function Navbar() {
                     setShowSubmenu(false);
                   }}
                   to={`product/get/${category.slug}`}
-                  className="p-2 hover:bg-indigo-800 rounded capitalize"
+                  className="p-2 hover:bg-gray-800 rounded capitalize"
                 >
                   {category.nombre}
                 </Link>

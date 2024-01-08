@@ -36,14 +36,14 @@ export default function CartDropdown({ closeDropdown }) {
             </div>
             <div className="flex items-center">
               <button
-                className="bg-gray-200 text-indigo-600 rounded-md hover:bg-gray-300 min-w-[25px]"
+                className="bg-gray-200 text-gray-900 rounded-md hover:bg-gray-300 min-w-[25px]"
                 onClick={() => decreaseQuantity(item.id)}
               >
                 -
               </button>
               <span className="mx-1">{item.quantity}</span>
               <button
-                className="bg-indigo-600 text-white px-2 rounded-md hover:bg-indigo-700"
+                className="bg-gray-900 text-white px-2 rounded-md hover:bg-gray-700"
                 onClick={() => increaseQuantity(item.id)}
               >
                 +
@@ -79,7 +79,7 @@ export default function CartDropdown({ closeDropdown }) {
         </div>
         <Link
           to="/cart"
-          className="bg-indigo-600 text-white px-4 py-3  rounded-md hover:bg-indigo-700"
+          className="bg-gray-950 text-white px-4 py-3  rounded-md hover:bg-gray-900"
         >
           Ver Carrito
         </Link>

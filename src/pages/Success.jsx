@@ -22,7 +22,7 @@ const Success = () => {
         <div className="text-center mt-6">
           <Link
             to="/"
-            className="inline-block bg-indigo-600 text-white px-6 py-3 rounded-md hover:bg-indigo-700 text-lg font-semibold transition duration-300"
+            className="inline-block bg-gray-950 text-white px-6 py-3 rounded-md hover:bg-gray-900 text-lg font-semibold transition duration-300"
           >
             Continuar comprando
           </Link>

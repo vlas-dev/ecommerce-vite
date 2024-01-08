@@ -14,6 +14,9 @@ export default function EditMisPublicaciones({
   const [files, setFiles] = useState();
   const [imagePreviewUrl, setImagePreviewUrl] = useState();
   const [categories, setCategories] = useState([]);
+  const [newCategory, setNewCategory] = useState("");
+  const [isAddingNewCategory, setIsAddingNewCategory] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   useEffect(() => {
     const consultarApi = async () => {
@@ -28,9 +31,60 @@ export default function EditMisPublicaciones({
   }, []);
 
   const handleInputChange = (e) => {
-    setEditProduct({ ...editProduct, [e.target.name]: e.target.value });
+    if (e.target.name === "category" && e.target.value === "add-new") {
+      setIsAddingNewCategory(true);
+    } else {
+      setIsAddingNewCategory(false);
+      setEditProduct({ ...editProduct, [e.target.name]: e.target.value });
+    }
   };
-  
+
+  const handleNewCategoryChange = (e) => {
+    setNewCategory(e.target.value);
+  };
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+
+  const handleCategorySelect = (categoryName) => {
+    if (categoryName === "add-new") {
+      setIsAddingNewCategory(true);
+      setEditProduct({ ...editProduct, category: "Añadir nueva categoría" });
+    } else {
+      setEditProduct({ ...editProduct, category: categoryName });
+      setIsAddingNewCategory(false);
+    }
+    setDropdownOpen(false);
+  };
+
+  const handleCategoryDelete = async (e, categoryId) => {
+    e.stopPropagation();
+    e.preventDefault();
+
+    try {
+      const token = localStorage.getItem("x-token");
+      const deletedCategoryName = categories.find(
+        (category) => category.id === categoryId
+      )?.nombre;
+      await crudAxios.delete(`/category/${categoryId}`, {
+        headers: { "x-token": token },
+      });
+      // Update categories without causing parent re-render
+      const updatedCategories = categories.filter(
+        (category) => category.id !== categoryId
+      );
+      setCategories(updatedCategories);
+
+      // Reset dropdown if the deleted category was selected
+      if (editProduct.category === deletedCategoryName) {
+        setEditProduct({ ...editProduct, category: "" });
+      }
+    } catch (error) {
+      console.error("Error deleting category:", error);
+    }
+  };
+
   const leerImagen = (e) => {
     let file = e.target.files[0];
     setFiles(file);
@@ -45,49 +99,73 @@ export default function EditMisPublicaciones({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const {updatedAt,createdAt, id,activo, ...resto} = editProduct
-    try {
-    
 
+    // Check if adding a new category and newCategory is empty
+    if (isAddingNewCategory && !newCategory.trim()) {
+      alert("Por favor, ingrese el nombre de la nueva categoría.");
+      return;
+    }
+
+    // Check if an existing category is selected
+    if (
+      !isAddingNewCategory &&
+      (!editProduct.category ||
+        editProduct.category === "Seleccione una categoría")
+    ) {
+      alert("Por favor, seleccione una categoría válida.");
+      return;
+    }
+
+    const { updatedAt, createdAt, id, activo, ...resto } = editProduct;
+
+    try {
       const token = localStorage.getItem("x-token");
       const config = {
-        headers: { 
-        "Content-Type":"multipart/form-data",
-        "x-token":token
-      },
-
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "x-token": token,
+        },
       };
 
-      if (isNew) {
-        const formData = new FormData();
-        formData.append("titulo", resto.titulo);
-        formData.append("precio", resto.precio);
-        formData.append("imagen", files);
-        formData.append("category", resto.category);
-        formData.append("marca", resto.marca);
-        formData.append("envio", resto.envio);
-        formData.append("porcentaje", resto.porcentaje);
-        formData.append("descripcion", resto.descripcion);
+      let formData = new FormData();
+      formData.append("titulo", resto.titulo);
+      formData.append("precio", resto.precio);
+      formData.append("imagen", files);
+      formData.append("marca", resto.marca);
+      formData.append("envio", resto.envio);
+      formData.append("porcentaje", resto.porcentaje);
+      formData.append("descripcion", resto.descripcion);
 
-        const res  = await crudAxios.post("/product/crear", formData, config);
-        console.log(res.data)
-      } else if (isEditing) {
-        const formData = new FormData();
-        formData.append("titulo", resto.titulo);
-        formData.append("precio", resto.precio);
-        formData.append("imagen", files);
+      if (isAddingNewCategory && newCategory) {
+        // Add logic to create a new category
+        const categoryConfig = {
+          headers: {
+            "Content-Type": "application/json",
+            "x-token": token,
+          },
+        };
+        await crudAxios.post(
+          "/category/crear",
+          { nombre: newCategory },
+          categoryConfig
+        );
+        // Update categories in state
+        setCategories([...categories, { nombre: newCategory }]);
+        formData.append("category", newCategory);
+      } else {
         formData.append("category", resto.category);
-        formData.append("marca", resto.marca);
-        formData.append("envio", resto.envio);
-        formData.append("porcentaje", resto.porcentaje);
-        formData.append("descripcion", resto.descripcion);
- 
-       const res = await crudAxios.put(`/product/${id}`,  formData,config);
-       console.log(res.data)
       }
+
+      if (isNew) {
+        await crudAxios.post("/product/crear", formData, config);
+      } else if (isEditing) {
+        await crudAxios.put(`/product/${id}`, formData, config);
+      }
+
       await refreshProducts();
       setIsEditing(false);
       setIsNew(false);
+      window.scrollTo(0, 0);
     } catch (error) {
       console.error("Error updating/adding product:", error);
     }
@@ -96,7 +174,6 @@ export default function EditMisPublicaciones({
   return (
     <form
       onSubmit={handleSubmit}
- 
       className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-[550px] md:w-[1000px]"
     >
       <div className="mb-4">
@@ -107,23 +184,22 @@ export default function EditMisPublicaciones({
           placeholder="Title"
           value={editProduct.titulo}
           onChange={handleInputChange}
-          required 
+          required
         />
       </div>
 
-     <div className="mb-4">
-  <h1>Precio</h1>
-  <input
-    type="number" // Set the input type to "number"
-    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-    name="precio"
-    placeholder="Price"
-    value={editProduct.precio}
-    onChange={handleInputChange}
-    required 
-  />
-</div>
-
+      <div className="mb-4">
+        <h1>Precio</h1>
+        <input
+          type="number" // Set the input type to "number"
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          name="precio"
+          placeholder="Price"
+          value={editProduct.precio}
+          onChange={handleInputChange}
+          required
+        />
+      </div>
 
       <div className="mb-4">
         <h1>Marca</h1>
@@ -133,7 +209,7 @@ export default function EditMisPublicaciones({
           placeholder="Brand"
           value={editProduct.marca}
           onChange={handleInputChange}
-          required 
+          required
         />
       </div>
 
@@ -162,44 +238,74 @@ export default function EditMisPublicaciones({
         </select>
       </div>
 
-      <div className="mb-4">
+      <div className="mb-4 relative">
         <h1>Categoría</h1>
-        <select
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline capitalize"
-          value={editProduct.category}
-          onChange={handleInputChange}
-          name="category"
-          required 
+        <button
+          type="button"
+          className="text-start capitalize bg-white shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          onClick={toggleDropdown}
         >
-          <option value={""}>Seleccione una categoría</option>
-          {categories.map((category) => (
-            <option value={category.nombre} key={category.id}>
-              {category.nombre}
-            </option>
-          ))}
-        </select>
+          {editProduct.category || "Seleccione una categoría"}
+        </button>
+        {dropdownOpen && (
+          <div className="absolute z-10 bg-white border rounded w-full py-2 mt-1">
+            {categories.map((category) => (
+              <div
+                key={category.id}
+                className="flex justify-between items-center px-3 py-1 hover:bg-gray-100 cursor-pointer capitalize"
+                onClick={() => handleCategorySelect(category.nombre)}
+              >
+                <span>{category.nombre}</span>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleCategoryDelete(e, category.id);
+                  }}
+                  className="text-red-600 hover:text-red-700"
+                >
+                  Eliminar
+                </button>
+              </div>
+            ))}
+            <hr className="my-1" /> {/* Horizontal line as a separator */}
+            <div
+              className="px-3 py-1 font-bold hover:bg-gray-100 cursor-pointer"
+              onClick={() => handleCategorySelect("add-new")}
+            >
+              <span>Añadir Categoría</span>
+            </div>
+          </div>
+        )}
+        {isAddingNewCategory && (
+          <input
+            type="text"
+            placeholder="Nombre de la nueva categoría"
+            value={newCategory}
+            onChange={handleNewCategoryChange}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-2"
+          />
+        )}
       </div>
 
       <div className="mb-4">
-  <h1>Descripción</h1>
-  <textarea
-    className="shadow appearance-none border rounded w-full py-20 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline my-2"
-    name="descripcion"
-    placeholder="Descripción"
-    value={editProduct.descripcion}
-    onChange={handleInputChange}
-    style={{ paddingTop: '0.5rem' }} 
-    required 
-  />
-</div>
-
+        <h1>Descripción</h1>
+        <textarea
+          className="shadow appearance-none border rounded w-full py-20 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline my-2"
+          name="descripcion"
+          placeholder="Descripción"
+          value={editProduct.descripcion}
+          onChange={handleInputChange}
+          style={{ paddingTop: "0.5rem" }}
+          required
+        />
+      </div>
 
       <div className="mb-4">
-        
-        <button 
-          type="button" 
+        <button
+          type="button"
           onClick={() => referenciaImg.current.click()}
-          className=" border border-gray-400 hover:border-gray-500  px-2 rounded">
+          className=" border border-gray-400 hover:border-gray-500  px-2 rounded"
+        >
           Seleccionar Imagen
         </button>
         <input
@@ -210,13 +316,22 @@ export default function EditMisPublicaciones({
           style={{ display: "none" }}
         />
         {imagePreviewUrl && (
-          <img src={imagePreviewUrl} alt="Preview" style={{ width: '150px', height: '150px', objectFit: 'cover', marginTop: '10px' }} />
-          )}
+          <img
+            src={imagePreviewUrl}
+            alt="Preview"
+            style={{
+              width: "150px",
+              height: "150px",
+              objectFit: "cover",
+              marginTop: "10px",
+            }}
+          />
+        )}
       </div>
 
       <div className="flex flex-col items-center justify-between space-y-2">
         <button
-          className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className="w-full bg-gray-950 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           type="submit"
         >
           {isNew ? "Add Product" : "Save Changes"}

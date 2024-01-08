@@ -56,7 +56,7 @@ export default function Me() {
           <button
             className={`px-4 py-2 mx-2 text-sm font-medium ${
               activeTab === "UserData"
-                ? "border-b-2 border-indigo-600 text-indigo-600"
+                ? "border-b-2 border-gray-950 text-gray-950"
                 : "text-gray-500"
             }`}
             onClick={() => setActiveTab("UserData")}
@@ -66,7 +66,7 @@ export default function Me() {
           <button
             className={`px-4 py-2 mx-2 text-sm font-medium ${
               activeTab === "MisCompras"
-                ? "border-b-2 border-indigo-600 text-indigo-600"
+                ? "border-b-2 border-gray-950 text-gray-950"
                 : "text-gray-500"
             }`}
             onClick={() => setActiveTab("MisCompras")}
@@ -77,7 +77,7 @@ export default function Me() {
             <button
               className={`px-4 py-2 mx-2 text-sm font-medium ${
                 activeTab === "MisPublicaciones"
-                  ? "border-b-2 border-indigo-600 text-indigo-600"
+                  ? "border-b-2 border-gray-950 text-gray-950"
                   : "text-gray-500"
               }`}
               onClick={() => setActiveTab("MisPublicaciones")}

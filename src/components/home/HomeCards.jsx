@@ -76,7 +76,7 @@ export default function HomeCards({ dataLoaded }) {
         <div className="flex justify-center items-center h-full pt-96 lg:pt-40">
           <TailSpin
             type="ThreeDots"
-            color="#4F46E5"
+            color="#030712"
             height={50}
             width={50}
           />
@@ -127,7 +127,7 @@ export default function HomeCards({ dataLoaded }) {
             <div className="p-4">
               <div className="items-center mb-5">
                 <div className="flex">
-                  <p className="text-indigo-700 text-xl font-semibold ">
+                  <p className="text-blue-800 text-xl font-semibold ">
                     ${product.precio}
                   </p>
                 </div>
@@ -140,7 +140,7 @@ export default function HomeCards({ dataLoaded }) {
               {cartItems.some((item) => item.id === product.id) ? (
                 <div className="flex items-center justify-center">
                   <button
-                    className="bg-gray-200 text-indigo-600 px-3 py-1 rounded-md hover:bg-gray-300 min-w-[32px]"
+                    className="bg-gray-200 text-gray-900 px-3 py-1 rounded-md hover:bg-gray-300 min-w-[32px]"
                     onClick={() => decreaseQuantity(product.id)}
                   >
                     -
@@ -152,21 +152,21 @@ export default function HomeCards({ dataLoaded }) {
                     }
                   </span>
                   <button
-                    className="bg-indigo-600 text-white px-3 py-1 rounded-md hover:bg-indigo-700"
+                    className="bg-gray-950 text-white px-3 py-1 rounded-md hover:bg-gray-900"
                     onClick={() => increaseQuantity(product.id)}
                   >
                     +
                   </button>
   
                   <Link to="/cart">
-                    <button className="bg-indigo-600 text-white px-6 py-2  rounded-md hover:bg-indigo-700 ml-4">
+                    <button className="bg-gray-950 text-white px-6 py-2  rounded-md hover:bg-gray-900 ml-4">
                       Ver Carrito
                     </button>
                   </Link>
                 </div>
               ) : (
                 <button
-                  className="bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700 w-full"
+                  className="bg-gray-950 text-white py-2 rounded-md hover:bg-gray-900 w-full"
                   onClick={() => handleAddToCart(product)}
                 >
                   Agregar al carrito
@@ -183,7 +183,7 @@ export default function HomeCards({ dataLoaded }) {
               <button
                 key={index}
                 onClick={() => paginate(index + 1)}
-                className={`mx-2 px-4 py-2 rounded ${currentPage === index + 1 ? 'bg-indigo-600 text-white' : 'bg-gray-200'}`}
+                className={`mx-2 px-4 py-2 rounded ${currentPage === index + 1 ? 'bg-gray-950 text-white' : 'bg-gray-200'}`}
               >
                 {index + 1}
               </button>
