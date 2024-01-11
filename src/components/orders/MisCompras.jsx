@@ -64,9 +64,9 @@ const MisCompras = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-4 max-w-[400px] md:max-w-[800px]">
+    <div className="container mx-auto px-4 py-4 max-w-[400px] md:max-w-[800px] pt-40 md:pt-32">
       {isLoading ? (
-        <div className="flex justify-center mt-20">
+        <div className="flex justify-center mt-40">
           <div className="flex justify-center items-center h-full">
             <TailSpin
               color="#030712"

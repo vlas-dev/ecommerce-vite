@@ -17,6 +17,25 @@ export default function Navbar() {
   const [showSubmenu, setShowSubmenu] = useState(false);
   const [showProfileSubmenu, setShowProfileSubmenu] = useState(false);
   const [showCartDropdown, setShowCartDropdown] = useState(false);
+  const [userRole, setUserRole] = useState("");
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const token = localStorage.getItem("x-token");
+        const config = {
+          headers: { "x-token": token },
+        };
+
+        const response = await crudAxios.get("/me", config);
+        setUserRole(response.data.usuario.role);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   //CAMBIOS EN SEARCH
   const { formState, onInputChange } = useForm({
@@ -95,30 +114,29 @@ export default function Navbar() {
   return (
     <div className="fixed w-full bg-gray-950 z-50">
       <nav className="max-w-[1200px] md:mx-auto flex flex-col md:flex-row justify-between items-center p-5 mx-5">
-        
         {/* Logo and Mobile Controls */}
         <div className="flex justify-between items-center w-full md:w-auto">
-          <Link to="/" className="flex w-1/3 md:max-w-[500px] lg:md:max-w-[300px] md:mr-10 md:w-auto md:mb-2 ">
+          <Link
+            to="/"
+            className="flex w-1/3 md:max-w-[500px] lg:md:max-w-[300px] md:mr-10 md:w-auto md:mb-2 "
+          >
             <img src={logoImage} alt="Logo" />
           </Link>
-  
+
           <div className="md:hidden flex items-center">
             <button
               className="text-white ml-10 mr-4"
               onClick={handleCartClickHamburger}
             >
-              <RiShoppingCartLine size={24} aria-label="Shopping Cart" /> 
+              <RiShoppingCartLine size={24} aria-label="Shopping Cart" />
               {cartItemCount > 0 && (
                 <span className="absolute top-6 right-24 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
                   {cartItemCount}
                 </span>
               )}
             </button>
-  
-            <div
-              onClick={() => setOpen(!isOpen)}
-              className="z-50"
-            >
+
+            <div onClick={() => setOpen(!isOpen)} className="z-50">
               <Hamburger
                 color="white"
                 size={20}
@@ -128,7 +146,7 @@ export default function Navbar() {
             </div>
           </div>
         </div>
-  
+
         {/* Search Bar */}
         <form
           className="w-full items-center flex mt-4 md:mt-0 "
@@ -153,37 +171,34 @@ export default function Navbar() {
         </form>
 
         <div className="hidden md:flex lg:hidden items-center">
-            <button
-              className="text-white ml-10 mr-4"
-              onClick={handleCartClickHamburger}
-            >
-              <RiShoppingCartLine size={24} aria-label="Shopping Cart" /> 
-              {cartItemCount > 0 && (
-                <span className="absolute top-6 right-24 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
-                  {cartItemCount}
-                </span>
-              )}
-            </button>
-  
-            <div
-              onClick={() => setOpen(!isOpen)}
-              className="z-50"
-            >
-              <Hamburger
-                color="white"
-                size={20}
-                toggled={isOpen}
-                toggle={setOpen}
-              />
-            </div>
+          <button
+            className="text-white ml-10 mr-4"
+            onClick={handleCartClickHamburger}
+          >
+            <RiShoppingCartLine size={24} aria-label="Shopping Cart" />
+            {cartItemCount > 0 && (
+              <span className="absolute top-6 right-24 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
+                {cartItemCount}
+              </span>
+            )}
+          </button>
+
+          <div onClick={() => setOpen(!isOpen)} className="z-50">
+            <Hamburger
+              color="white"
+              size={20}
+              toggled={isOpen}
+              toggle={setOpen}
+            />
           </div>
-  
+        </div>
+
         {/* Desktop Menu and User Controls */}
         <div className="hidden lg:flex  font-semibold text-white mx-10">
           {/* Category Dropdown */}
           <div className="relative group items-center">
             <button className="p-2 flex items-center justify-center gap-2">
-              Categorías <IoIosArrowDown />
+              Categories <IoIosArrowDown />
             </button>
             <div className="absolute p-2 opacity-0 group-hover:opacity-100 group-hover:scale-100 scale-95 bg-white rounded text-gray-800 transform transition-all duration-300 ease-in-out flex flex-col font-bold pointer-events-none group-hover:pointer-events-auto">
               {categories.map((category) => (
@@ -198,7 +213,7 @@ export default function Navbar() {
               ))}
             </div>
           </div>
-  
+
           {/* User Profile and Cart Dropdown */}
           {auth.isAuthenticated ? (
             <>
@@ -211,8 +226,30 @@ export default function Navbar() {
                     to="/me"
                     className="p-2 hover:bg-gray-200 rounded text-start"
                   >
-                    Perfil
+                    Profile
                   </Link>
+                  <Link
+                    to="/orders"
+                    className="p-2 hover:bg-gray-200 rounded text-start"
+                  >
+                    Orders
+                  </Link>
+                  {userRole === "ADMIN_ROLE" && (
+                    <>
+                      <Link
+                        to="/catalog"
+                        className="p-2 hover:bg-gray-200 rounded text-start"
+                      >
+                        Catalog
+                      </Link>
+                      <Link
+                        to="/users"
+                        className="p-2 hover:bg-gray-200 rounded text-start"
+                      >
+                        Users
+                      </Link>
+                    </>
+                  )}
                   <a
                     href="/"
                     onClick={handleLogout}
@@ -236,36 +273,47 @@ export default function Navbar() {
               </Link>
             </>
           )}
-  
-  <div className={`relative ${auth.isAuthenticated ? 'group' : ''}`}>
-  <button
-    onClick={handleCartClick}
-    className="p-2 flex items-center justify-center space-x-2"
-  >
-    <RiShoppingCartLine size={24} aria-label="Shopping Cart" />
-    {auth.isAuthenticated && <IoIosArrowDown />}
-    {cartItemCount > 0 && (
-      <span className="absolute top-0 left-3 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
-        {cartItemCount}
-      </span>
-    )}
-  </button>
-  <div className={`absolute top-full left-1/2 transform -translate-x-1/2 opacity-0 ${auth.isAuthenticated ? 'group-hover:opacity-100 group-hover:scale-100' : ''} scale-95 bg-white rounded text-gray-800 transition-all duration-300 ease-in-out flex flex-col font-bold pointer-events-none ${auth.isAuthenticated ? 'group-hover:pointer-events-auto' : ''}`}>
-    <CartDropDown />
-  </div>
-</div>
 
+          <div className={`relative ${auth.isAuthenticated ? "group" : ""}`}>
+            <button
+              onClick={handleCartClick}
+              className="p-2 flex items-center justify-center space-x-2"
+            >
+              <RiShoppingCartLine size={24} aria-label="Shopping Cart" />
+              {auth.isAuthenticated && <IoIosArrowDown />}
+              {cartItemCount > 0 && (
+                <span className="absolute top-0 left-3 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
+                  {cartItemCount}
+                </span>
+              )}
+            </button>
+            <div
+              className={`absolute top-full left-1/2 transform -translate-x-1/2 opacity-0 ${
+                auth.isAuthenticated
+                  ? "group-hover:opacity-100 group-hover:scale-100"
+                  : ""
+              } scale-95 bg-white rounded text-gray-800 transition-all duration-300 ease-in-out flex flex-col font-bold pointer-events-none ${
+                auth.isAuthenticated ? "group-hover:pointer-events-auto" : ""
+              }`}
+            >
+              <CartDropDown />
+            </div>
+          </div>
         </div>
-  
+
         {/* Mobile Menu Overlay */}
         <div
-          className={`lg:hidden fixed top-0 h-screen w-full  bg-black bg-opacity-50 transition-opacity ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+          className={`lg:hidden fixed top-0 h-screen w-full  bg-black bg-opacity-50 transition-opacity ${
+            isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+          }`}
           onClick={() => setOpen(false)}
         ></div>
-  
+
         {/* Mobile Menu */}
         <ul
-          className={`lg:hidden fixed top-0 right-0 h-screen  px-10 space-y-8 bg-gray-950 flex flex-col pt-32 text-white text-xl transform ${isOpen ? "translate-x-0" : "translate-x-full"} transition duration-300 ease-in-out`}
+          className={`lg:hidden fixed top-0 right-0 h-screen  px-10 space-y-8 bg-gray-950 flex flex-col pt-32 text-white text-xl transform ${
+            isOpen ? "translate-x-0" : "translate-x-full"
+          } transition duration-300 ease-in-out`}
         >
           {auth.isAuthenticated ? (
             <>
@@ -274,23 +322,61 @@ export default function Navbar() {
                   className="p-2 flex items-center justify-center gap-2"
                   onClick={() => setShowProfileSubmenu(!showProfileSubmenu)}
                 >
-                  Mi Cuenta <IoIosArrowDown />
+                  My Account <IoIosArrowDown />
                 </button>
                 <div
-                  className={`${showProfileSubmenu ? "block" : "hidden"
-                    } flex flex-col font-bold `}
+                  className={`${
+                    showProfileSubmenu ? "block" : "hidden"
+                  } flex flex-col font-bold `}
                 >
                   <Link
                     onClick={() => {
                       setOpen(false);
                       setShowProfileSubmenu(false);
-  
                     }}
                     to="/me"
                     className="p-2 my-2 hover:bg-gray-800 rounded"
                   >
-                    Perfil
+                    Profile
                   </Link>
+
+                  <Link
+                    onClick={() => {
+                      setOpen(false);
+                      setShowProfileSubmenu(false);
+                    }}
+                    to="/orders"
+                    className="p-2 my-2 hover:bg-gray-800 rounded"
+                  >
+                    Orders
+                  </Link>
+
+                  {userRole === "ADMIN_ROLE" && (
+                    <>
+                      <Link
+                        onClick={() => {
+                          setOpen(false);
+                          setShowProfileSubmenu(false);
+                        }}
+                        to="/catalog"
+                        className="p-2 my-2 hover:bg-gray-800 rounded"
+                      >
+                        Catalog{" "}
+                      </Link>
+
+                      <Link
+                        onClick={() => {
+                          setOpen(false);
+                          setShowProfileSubmenu(false);
+                        }}
+                        to="/users"
+                        className="p-2 my-2 hover:bg-gray-800 rounded"
+                      >
+                        Users
+                      </Link>
+                    </>
+                  )}
+
                   <a
                     href="/"
                     onClick={() => {
@@ -326,17 +412,18 @@ export default function Navbar() {
               </Link>
             </>
           )}
-  
+
           <div className={`relative group items-center`}>
             <button
               className="p-2 flex items-center justify-center gap-2 "
               onClick={() => setShowSubmenu(!showSubmenu)}
             >
-              Categorías <IoIosArrowDown />
+              Categories <IoIosArrowDown />
             </button>
             <div
-              className={`${showSubmenu ? "block" : "hidden"
-                } flex flex-col font-bold`}
+              className={`${
+                showSubmenu ? "block" : "hidden"
+              } flex flex-col font-bold`}
             >
               {categories.map((category) => (
                 <Link
@@ -356,4 +443,5 @@ export default function Navbar() {
         </ul>
       </nav>
     </div>
-  );}
+  );
+}

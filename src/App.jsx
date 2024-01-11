@@ -14,41 +14,78 @@ import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
 import RecoverPassword from "./pages/RecoverPassword";
 import Me from "./pages/Me";
+import Users from "./pages/Users";
+import MisCompras from "./components/orders/MisCompras";
+import MisPublicaciones from "./components/catalog/MisPublicaciones";
 import Cart from "./pages/Cart";
 import Success from "./pages/Success";
- 
+
 import Footer from "./components/shared/Footer";
 import { CRMContext, CRMProvider } from "./components/context/CRMcontext";
 
 import { CartProvider } from "./components/context/CartContext";
 
-
 import ProductPage from "./pages/productsPage";
 import { Checkout } from "./pages/Checkout";
-import crudAxios from "./config/axios"; 
- 
+import crudAxios from "./config/axios";
 
 function AnimatedRoutes() {
   const location = useLocation();
-  const [options,setOption] = useState({
+  const navigate = useNavigate();
+  const [userRole, setUserRole] = useState(null);
+  const [options, setOption] = useState({
     clientSecret: "",
-  })
-  const navigate = useNavigate()
-      // Animation variants
-      const pageTransition = {
-        in: {
-          opacity: 1,
-        },
-        out: {
-          opacity: 0,
-        },
-      };
-  useEffect(()=>{
-    if(options.clientSecret.length>0){
-      navigate('/checkout')
- 
+  });
+
+  // ... existing code ...
+
+  // Fetch user data for role
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const token = localStorage.getItem("x-token");
+        if (!token) {
+          throw new Error("No token found");
+        }
+        const config = {
+          headers: { "x-token": token },
+        };
+
+        const response = await crudAxios.get("/me", config);
+        setUserRole(response.data.usuario.role);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        setUserRole(null);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  // Redirect if not admin
+  useEffect(() => {
+    if (userRole !== "ADMIN_ROLE" && (location.pathname === '/catalog' || location.pathname === '/users')) {
+      navigate('/');
     }
-  },[options])
+  }, [userRole, location.pathname, navigate]);
+ 
+  
+  // Animation variants
+  const pageTransition = {
+    in: {
+      opacity: 1,
+    },
+    out: {
+      opacity: 0,
+    },
+  };
+
+  useEffect(() => {
+    if (options.clientSecret.length > 0) {
+      navigate("/checkout");
+    }
+  }, [options, navigate]);
+
   return (
     <AnimatePresence mode="wait">
       <motion.div
@@ -64,11 +101,14 @@ function AnimatedRoutes() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/me" element={<Me />} />
+          <Route path="/catalog" element={<MisPublicaciones />} />
+          <Route path="/orders" element={<MisCompras />} />
+          <Route path="/users" element={<Users />} />
           <Route path="/product/get/:slug" element={<Home />} />
-          <Route path="/product/:id" element={<ProductPage />} /> 
-          <Route path="/cart" element={<Cart setOption={setOption}/>} /> 
-          <Route path="/checkout" element={<Checkout options={options} />} /> 
-          <Route path="/recover" element={<RecoverPassword />} /> 
+          <Route path="/product/:id" element={<ProductPage />} />
+          <Route path="/cart" element={<Cart setOption={setOption} />} />
+          <Route path="/checkout" element={<Checkout options={options} />} />
+          <Route path="/recover" element={<RecoverPassword />} />
 
           <Route path="/success" element={<Success />} />
 
@@ -98,13 +138,13 @@ export default function App() {
   return (
     <CRMProvider value={[auth, setAuth]}>
       <CartProvider>
-      <Router>
-        <Navbar />
-        <div className="min-h-screen bg-gray-100">
-          <AnimatedRoutes />
-        </div>
-        <Footer />
-      </Router>
+        <Router>
+          <Navbar />
+          <div className="min-h-screen bg-gray-100">
+            <AnimatedRoutes />
+          </div>
+          <Footer />
+        </Router>
       </CartProvider>
     </CRMProvider>
   );

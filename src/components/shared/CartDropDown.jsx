@@ -7,8 +7,7 @@ export default function CartDropdown({ closeDropdown }) {
   const { cartItems, removeFromCart, increaseQuantity, decreaseQuantity } =
     useContext(CartContext);
 
- 
-    // console.log(cartItems)
+  // console.log(cartItems)
   const calculateTotalPrice = () => {
     return cartItems.reduce((total, item) => {
       return total + item.precio * item.quantity;
@@ -24,8 +23,10 @@ export default function CartDropdown({ closeDropdown }) {
           <div key={item.id} className="flex justify-between items-center py-2">
             <div className="flex items-center">
               <img
-                src={`${import.meta.env.VITE_APP_BACKEND_URL}/uploads/productos/${item.imagen}`}
-               // src={`/images/products/${item.titulo}.png`}
+                src={`${
+                  import.meta.env.VITE_APP_BACKEND_URL
+                }/uploads/productos/${item.imagen}`}
+                // src={`/images/products/${item.titulo}.png`}
                 alt={item.titulo}
                 className="h-10 w-10 object-cover rounded mr-2"
               />
@@ -71,17 +72,17 @@ export default function CartDropdown({ closeDropdown }) {
 
   return (
     <div className=" bg-white text-black shadow-lg p-4 rounded z-50 w-64 ">
-      <div className="mb-4 font-bold">Mi Carrito</div>
+      <div className="mb-4 font-bold text-center">Cart</div>
       {renderCartItems()}
-      <div className="text-center mt-4">
+      <div className="text-center my-4">
         <div className="my-4 font-bold">
           Total: ${calculateTotalPrice().toFixed(2)}
         </div>
         <Link
           to="/cart"
-          className="bg-gray-950 text-white px-4 py-3  rounded-md hover:bg-gray-900"
+          className="bg-gray-950 text-white px-4 py-3  rounded-md hover:bg-gray-900 "
         >
-          Ver Carrito
+          Go to Cart
         </Link>
       </div>
     </div>

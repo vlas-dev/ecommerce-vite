@@ -1,93 +1,51 @@
-import React, { useEffect, useState } from "react";
-import UserData from "../components/me/UserData";
-import MisCompras from "../components/me/MisCompras";
-import MisPublicaciones from "../components/me/MisPublicaciones";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState, useRef } from "react";
 import crudAxios from "../config/axios";
-import { FaCamera } from "react-icons/fa";
+import ProfileData from "../components/me/ProfileData";
+import { EditProfileData } from "../components/me/EditProfileData";
+import { TailSpin } from 'react-loader-spinner';
 
 export default function Me() {
-  const [userRole, setUserRole] = useState("");
-  const [activeTab, setActiveTab] = useState("");
-  const navigate = useNavigate();
+  const [userData, setUserData] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [imageUploaded, setImageUploaded] = useState(false);
 
   useEffect(() => {
-    const fetchUserData = async () => {
+    const fetchData = async () => {
       try {
         const token = localStorage.getItem("x-token");
-        const config = {
-          headers: { "x-token": token },
-        };
-
-        const response = await crudAxios.get("/me", config);
-        setUserRole(response.data.usuario.role);
-        setActiveTab("UserData"); // Set an initial tab here if needed
+        const config = { headers: { "x-token": token } };
+        const res = await crudAxios.get("/me", config);
+        setUserData(res.data);
+        setImageUploaded(false);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
     };
+    fetchData();
+  }, [imageUploaded]);
 
-    fetchUserData();
-  }, []);
-
-  useEffect(() => {
-    if (!localStorage.getItem("x-token")) {
-      navigate("/signin");
-    }
-  }, [navigate]);
-
-  const renderTabContent = () => {
-    switch (activeTab) {
-      case "UserData":
-        return <UserData />;
-      case "MisCompras":
-        return <MisCompras />;
-      case "MisPublicaciones":
-        return <MisPublicaciones />;
-      default:
-        return null;
-    }
-  };
+  if (!userData) {
+    return (
+      <div className="flex justify-center pt-72">
+        <TailSpin color="#030712" height={50} width={50} />
+      </div>
+    );
+  }
 
   return (
-    <div className=" pt-44 md:pt-28">
-      {userRole !== "" && (
-        <div className="flex justify-center">
-          <button
-            className={`px-4 py-2 mx-2 text-sm font-medium ${
-              activeTab === "UserData"
-                ? "border-b-2 border-gray-950 text-gray-950"
-                : "text-gray-500"
-            }`}
-            onClick={() => setActiveTab("UserData")}
-          >
-            Mis Datos
-          </button>
-          <button
-            className={`px-4 py-2 mx-2 text-sm font-medium ${
-              activeTab === "MisCompras"
-                ? "border-b-2 border-gray-950 text-gray-950"
-                : "text-gray-500"
-            }`}
-            onClick={() => setActiveTab("MisCompras")}
-          >
-            Mis Pedidos
-          </button>
-          {userRole === "ADMIN_ROLE" && (
-            <button
-              className={`px-4 py-2 mx-2 text-sm font-medium ${
-                activeTab === "MisPublicaciones"
-                  ? "border-b-2 border-gray-950 text-gray-950"
-                  : "text-gray-500"
-              }`}
-              onClick={() => setActiveTab("MisPublicaciones")}
-            >
-              Mis Publicaciones
-            </button>
-          )}
-        </div>
-      )}
-      <div className="tab-content p-4">{userRole !== "" && renderTabContent()}</div>
+    <div className="bg-gray-100 flex justify-center py-6  pt-40 md:pt-32">
+      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
+        {isEditing ? (
+          <EditProfileData userData={userData} setUserData={setUserData} setIsEditing={setIsEditing} />
+
+        ) : (
+          <ProfileData 
+            userData={userData}
+            setIsEditing={setIsEditing}
+            setImageUploaded={setImageUploaded}
+          />
+        )}
+      </div>
     </div>
   );
 }
