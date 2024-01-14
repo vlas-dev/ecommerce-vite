@@ -70,7 +70,7 @@ const CheckoutForm = ({formulario}) => {
   return (
     
     <form className="p-8 min-h-[300px] w-[500px] bg-white shadow-md rounded-lg  max-w-[300px] md:max-w-[930px] ">        <h2 className="text-2xl font-bold mb-4 text-center">
-          Datos de Facturación
+          Billing Information
         </h2>
 
         {/* Flex container for Name and Last Name */}
@@ -87,7 +87,7 @@ const CheckoutForm = ({formulario}) => {
               placeholder=" "
             />
             <label htmlFor="nombre" className="block bg-gray-100">
-              Nombre
+              Name
             </label>
           </div>
 
@@ -103,7 +103,7 @@ const CheckoutForm = ({formulario}) => {
               placeholder="Apellido"
             />
             <label htmlFor="apellido" className="block bg-gray-100">
-              Apellido
+              Last Name
             </label>
           </div>
         </div>
@@ -133,9 +133,9 @@ const CheckoutForm = ({formulario}) => {
             name="pais" 
             value={formState.pais} 
             onChange={onInputChange}
-            className="h-12 text-[18px] bg-gray-100 border py-55-rem border-gray-400 text-sm rounded-lg focus:outline-none focus:shadow-outline block w-full p-2.5 placeholder-transparent "
+            className="h-12 text-gray-400 bg-gray-100 border py-55-rem border-gray-400 text-sm rounded-lg focus:outline-none focus:shadow-outline block w-full p-2.5 placeholder-transparent "
             id="">
-                <option value="">Selecciona un Pais</option>
+                <option value="">Country</option>
               {
                 countries.map((country,id)=>
                   <option value={country} key={id}>{country}</option>
@@ -154,11 +154,11 @@ const CheckoutForm = ({formulario}) => {
             name="estado" 
             value={formState.estado} 
             onChange={onInputChange}
-            className="h-12 text-[18px] bg-gray-100 border py-55-rem border-gray-400 text-sm rounded-lg focus:outline-none focus:shadow-outline block w-full p-2.5 placeholder-transparent "
+            className="h-12 text-gray-400 bg-gray-100 border py-55-rem border-gray-400 text-sm rounded-lg focus:outline-none focus:shadow-outline block w-full p-2.5 placeholder-transparent "
             id=""
             disabled={!states.length>0}
             >
-                <option value="">Selecciona una Provincia</option>
+                <option value="">State</option>
               {
                 states.map((state,id)=>
                   <option value={state} key={id}>{state}</option>
@@ -173,11 +173,11 @@ const CheckoutForm = ({formulario}) => {
               name="ciudad" 
               value={formState.ciudad} 
               onChange={onInputChange}
-              className="h-12 text-[18px] bg-gray-100 border py-55-rem border-gray-400 text-sm rounded-lg focus:outline-none focus:shadow-outline block w-full p-2.5 placeholder-transparent "
+              className="h-12 text-gray-400 bg-gray-100 border py-55-rem border-gray-400 text-sm rounded-lg focus:outline-none focus:shadow-outline block w-full p-2.5 placeholder-transparent "
               id=""
               disabled={!cities.length>0}
               >
-                  <option value="">Selecciona una Ciudad</option>
+                  <option value="">City</option>
                 {
                   cities.map((city,id)=>
                     <option value={city} key={id}>{city}</option>
@@ -201,7 +201,7 @@ const CheckoutForm = ({formulario}) => {
               placeholder=" "
             />
             <label htmlFor="address" className="block bg-gray-100 ">
-              Dirección
+              Address
             </label>
           </div>
 
@@ -217,7 +217,7 @@ const CheckoutForm = ({formulario}) => {
               placeholder=" "
             />
             <label htmlFor="postal_code" className="block bg-gray-100">
-              Código Postal
+            Postal Code
             </label>
           </div>
         </div>

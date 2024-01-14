@@ -10,7 +10,10 @@ export default function CartPage({ setOption }) {
     useContext(CartContext);
 
   const calculateTotalPrice = () => {
-    return cartItems.reduce((total, item) => total + item.precio * item.quantity, 0);
+    return cartItems.reduce(
+      (total, item) => total + item.precio * item.quantity,
+      0
+    );
   };
   const totalPrice = calculateTotalPrice();
   const navigate = useNavigate();
@@ -50,7 +53,9 @@ export default function CartPage({ setOption }) {
   useEffect(() => {
     const amount = {
       amount: turnFloatIntoInt(precio),
+      
     };
+    window.scrollTo(0, 0);
     setAmount(amount);
   }, [precio]);
 
@@ -58,15 +63,18 @@ export default function CartPage({ setOption }) {
     setPrecio(totalPrice);
   }, [totalPrice]);
 
-  const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
+  const totalItems = cartItems.reduce(
+    (total, item) => total + item.quantity,
+    0
+  );
   const [hoveredItemId, setHoveredItemId] = useState(null);
 
   if (cartItems.length === 0) {
     return (
       <div className="container mx-auto text-center pt-44">
-        <h2 className="text-2xl font-bold">Carrito vacío</h2>
+        <h2 className="text-2xl font-bold">Your cart is empty!</h2>
         <Link to="/" className="text-gray-950 mt-3 inline-block font-bold">
-          Volver
+          Go Back
         </Link>
       </div>
     );
@@ -77,8 +85,10 @@ export default function CartPage({ setOption }) {
       <div className="flex flex-col md:flex-row shadow-md ">
         <div className="w-full bg-white px-10 py-10 rounded mt-44">
           <div className="flex justify-between border-b pb-8">
-            <h1 className="text-2xl font-bold">Carrito</h1>
-            <h2 className="font-semibold text-2xl">{totalItems} Productos</h2>
+            <h1 className="text-2xl font-bold">Cart</h1>
+            <h2 className="font-semibold text-2xl">
+              {totalItems} Product{totalItems !== 1 && "s"}
+            </h2>
           </div>
           <div className="mt-4 mb-5 ">
             {cartItems.map((item) => (
@@ -88,7 +98,10 @@ export default function CartPage({ setOption }) {
               >
                 <div className="flex items-center mb-3 md:mb-0 ">
                   <img
- src={`${import.meta.env.VITE_APP_BACKEND_URL}/uploads/productos/${item.imagen}`}                    alt={item.titulo}
+                    src={`${
+                      import.meta.env.VITE_APP_BACKEND_URL
+                    }/uploads/productos/${item.imagen}`}
+                    alt={item.titulo}
                     className="h-16 w-16 md:h-20 md:w-20 object-cover rounded mr-4 "
                   />
                   <div>
@@ -97,33 +110,33 @@ export default function CartPage({ setOption }) {
                   </div>
                 </div>
                 <div className="flex justify-center">
-                <div className="flex items-center font-semibold text-xl">
-                  <button
-                    className="bg-gray-200 text-gray-950 px-2 sm:px-3 py-1 rounded-md hover:bg-gray-300 ml-1 sm:ml-2 min-w-[30px] sm:min-w-[36px]"
-                    onClick={() => decreaseQuantity(item.id)}
-                  >
-                    -
-                  </button>
-                  <span className="mx-2 sm:mx-3">{item.quantity}</span>
-                  <button
-                    className="bg-gray-950 text-white px-2 sm:px-3 py-1 rounded-md hover:bg-gray-900"
-                    onClick={() => increaseQuantity(item.id)}
-                  >
-                    +
-                  </button>
-                  <button
-                    className="ml-2 text-red-500"
-                    onClick={() => removeFromCart(item.id)}
-                    onMouseEnter={() => setHoveredItemId(item.id)}
-                    onMouseLeave={() => setHoveredItemId(null)}
-                  >
-                    {hoveredItemId === item.id ? (
-                      <RiDeleteBin7Fill />
-                    ) : (
-                      <RiDeleteBin7Line />
-                    )}
-                  </button>
-                </div>
+                  <div className="flex items-center font-semibold text-xl">
+                    <button
+                      className="bg-gray-200 text-gray-950 px-2 sm:px-3 py-1 rounded-md hover:bg-gray-300 ml-1 sm:ml-2 min-w-[30px] sm:min-w-[36px]"
+                      onClick={() => decreaseQuantity(item.id)}
+                    >
+                      -
+                    </button>
+                    <span className="mx-2 sm:mx-3">{item.quantity}</span>
+                    <button
+                      className="bg-gray-950 text-white px-2 sm:px-3 py-1 rounded-md hover:bg-gray-900"
+                      onClick={() => increaseQuantity(item.id)}
+                    >
+                      +
+                    </button>
+                    <button
+                      className="ml-2 text-red-500"
+                      onClick={() => removeFromCart(item.id)}
+                      onMouseEnter={() => setHoveredItemId(item.id)}
+                      onMouseLeave={() => setHoveredItemId(null)}
+                    >
+                      {hoveredItemId === item.id ? (
+                        <RiDeleteBin7Fill />
+                      ) : (
+                        <RiDeleteBin7Line />
+                      )}
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}
@@ -147,7 +160,7 @@ export default function CartPage({ setOption }) {
         </div>
       </div>
       <Link to="/" className="text-gray-950 inline-block font-semibold mt-4">
-        Continuar comprando
+        Go Back
       </Link>
     </div>
   );

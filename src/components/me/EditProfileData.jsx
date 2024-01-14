@@ -114,7 +114,7 @@ export const EditProfileData = ({ userData, setUserData, setIsEditing }) => {
             htmlFor="nombre"
             className="block text-sm font-medium text-gray-700"
           >
-            Nombre
+            Name
           </label>
           <input
             type="text"
@@ -130,7 +130,7 @@ export const EditProfileData = ({ userData, setUserData, setIsEditing }) => {
             htmlFor="apellido"
             className="block text-sm font-medium text-gray-700"
           >
-            Apellido
+            Last Name
           </label>
           <input
             type="text"
@@ -162,7 +162,7 @@ export const EditProfileData = ({ userData, setUserData, setIsEditing }) => {
             htmlFor="pais"
             className="block text-sm font-medium text-gray-700"
           >
-            País
+            Country
           </label>{" "}
           <select
             name="pais"
@@ -171,7 +171,7 @@ export const EditProfileData = ({ userData, setUserData, setIsEditing }) => {
             className="h-12 text-[18px] bg-gray-100 border py-55-rem border-gray-400 text-sm rounded-lg focus:outline-none focus:shadow-outline block w-full p-2.5 placeholder-transparent "
             id=""
           >
-            <option value={""}>Selecciona un Pais</option>
+            <option value={""}>Country</option>
             {countries.map((country, id) => (
               <option value={country} key={id}>
                 {country}
@@ -184,7 +184,7 @@ export const EditProfileData = ({ userData, setUserData, setIsEditing }) => {
             htmlFor="estado"
             className="block text-sm font-medium text-gray-700"
           >
-            Estado
+            State
           </label>
           <select
             name="estado"
@@ -194,7 +194,7 @@ export const EditProfileData = ({ userData, setUserData, setIsEditing }) => {
             id=""
             disabled={!states.length > 0}
           >
-            <option value="">Selecciona una Provincia</option>
+            <option value="">State</option>
             {states.map((state, id) => (
               <option value={state} key={id}>
                 {state}
@@ -207,7 +207,7 @@ export const EditProfileData = ({ userData, setUserData, setIsEditing }) => {
             htmlFor="ciudad"
             className="block text-sm font-medium text-gray-700"
           >
-            Ciudad
+            City
           </label>
           <select
             name="ciudad"
@@ -217,7 +217,7 @@ export const EditProfileData = ({ userData, setUserData, setIsEditing }) => {
             id=""
             disabled={!cities.length > 0}
           >
-            <option value="">Selecciona una Ciudad</option>
+            <option value="">City</option>
             {cities.map((city, id) => (
               <option value={city} key={id}>
                 {city}
@@ -230,7 +230,7 @@ export const EditProfileData = ({ userData, setUserData, setIsEditing }) => {
             htmlFor="password"
             className="block text-sm font-medium text-gray-700"
           >
-            Contraseña
+            Password
           </label>
           <input
             type="password"
@@ -248,7 +248,7 @@ export const EditProfileData = ({ userData, setUserData, setIsEditing }) => {
             type="submit"
             className="w-full mb-2 justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gray-950 hover:bg-gray-900 focus:outline-none"
           >
-            Guardar Cambios
+            Save Changes
           </button>
           <button
             onClick={() => {
@@ -257,7 +257,7 @@ export const EditProfileData = ({ userData, setUserData, setIsEditing }) => {
             }}
             className="w-full justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
           >
-            Cancelar
+            Cancel
           </button>
         </div>
       </form>

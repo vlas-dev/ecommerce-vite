@@ -66,26 +66,26 @@ const ProfileData = ({ userData, setIsEditing, setImageUploaded }) => {
           {userData.usuario.email}
         </p>
         <p>
-          <span className="font-medium text-gray-700">Contraseña:</span> ******
+          <span className="font-medium text-gray-700">Password:</span> ******
         </p>
         <p>
-          <span className="font-medium text-gray-700">Rol:</span>{" "}
+          <span className="font-medium text-gray-700">Role:</span>{" "}
           {userData.usuario.role === "USER_ROLE" ? "User" : "Admin"}
         </p>
         <p className="capitalize">
-          <span className="font-medium text-gray-700">País:</span>{" "}
+          <span className="font-medium text-gray-700">Country:</span>{" "}
           {userData.usuario.pais}
         </p>
         <p className="capitalize">
-          <span className="font-medium text-gray-700">Estado:</span>{" "}
+          <span className="font-medium text-gray-700">State:</span>{" "}
           {userData.usuario.estado}
         </p>
         <p className="capitalize">
-          <span className="font-medium text-gray-700">Ciudad:</span>{" "}
+          <span className="font-medium text-gray-700">City:</span>{" "}
           {userData.usuario.ciudad}
         </p>
         <p>
-          <span className="font-medium text-gray-700">Miembro Desde:</span>{" "}
+          <span className="font-medium text-gray-700">Member Since:</span>{" "}
           {new Date(userData.usuario.createdAt).toLocaleDateString("en-GB")}
         </p>
       </div>

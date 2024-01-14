@@ -34,7 +34,7 @@ export default function SignIn() {
   return (
     <div className="bg-gray-100 min-h-screen flex justify-center items-center">
       <div className="bg-white p-6 rounded-md shadow-md w-full max-w-sm">
-        <h2 className="text-2xl font-bold mb-4 text-center">Ingresar</h2>
+        <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
         <form onSubmit={autenticarUser}>
           <div className="floating-label-group">
             <input
@@ -61,7 +61,7 @@ export default function SignIn() {
               placeholder="Contraseña"
             />
             <label htmlFor="password" className="block bg-gray-100">
-              Contraseña
+              Password
             </label>
           </div>
           <div className="flex flex-col items-center">
@@ -69,17 +69,17 @@ export default function SignIn() {
               className="bg-gray-950 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full mb-4"
               type="submit"
             >
-              Ingresar
+              Login
             </button>
-            <div className="flex items-center space-x-16">
+            <div className="flex items-center space-x-10">
             <Link
               to="/signup"
-              className="inline-block align-baseline font-bold text-sm text-gray-950 hover:text-gray-900"
+              className="inline-block align-baseline font-bold text-sm text-gray-950 hover:text-gray-900 whitespace-nowrap"
             >
-              ¿No tienes cuenta?
+              I don't have an account.
             </Link>
-            <Link to="/recover" className="text-sm font-semibold text-gray-950">
-              Olvidé mi contraseña
+            <Link to="/recover" className="text-sm font-semibold text-gray-950 whitespace-nowrap">
+              I forgot my password.
             </Link>
             </div>
           </div>

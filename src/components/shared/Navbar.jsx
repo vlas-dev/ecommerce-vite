@@ -154,7 +154,7 @@ export default function Navbar() {
         >
           <input
             type="text"
-            placeholder="Buscar..."
+            placeholder="Search..."
             className="px-6 py-2 text-lg rounded-l border border-r-0 focus:outline-none w-full"
             aria-label="Search"
             name="search"

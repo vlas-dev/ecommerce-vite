@@ -71,7 +71,7 @@ const CheckoutInfo = ({formulario}) => {
 
   return (
     <div className="p-8 min-h-[300px] w-[500px] lg:w-[1015px] bg-white shadow-md rounded-lg  max-w-[300px] md:max-w-[1015px] ">
-      <h2 className="text-2xl font-bold mb-4 text-center">Información de la compra</h2>
+      <h2 className="text-2xl font-bold mb-4 text-center">Your Purchase</h2>
       {cartItems.map((item) => (
         <div key={item.id} className="mb-4 flex justify-between items-center">
           <div className="flex items-center">
@@ -84,7 +84,7 @@ const CheckoutInfo = ({formulario}) => {
             <div>
               <h2 className="text-lg font-semibold">{item.titulo}</h2>
               <p className="text-gray-500">${item.precio.toFixed(2)}</p>
-              <p className="text-gray-500">Cantidad: {item.quantity}</p>
+              <p className="text-gray-500">Quantity: {item.quantity}</p>
             </div>
           </div>
          
@@ -100,7 +100,7 @@ const CheckoutInfo = ({formulario}) => {
         disabled={!stripe}
         className="w-full bg-gray-950 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
       >
-        Pagar
+        Pay
       </button>
 
 

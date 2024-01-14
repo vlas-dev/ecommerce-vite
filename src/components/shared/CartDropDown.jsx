@@ -66,7 +66,7 @@ export default function CartDropdown({ closeDropdown }) {
         ))}
       </div>
     ) : (
-      <div className="p-2 text-center text-gray-600">Empty Cart.</div>
+      <div className="p-2 text-center text-gray-600">Your cart is empty!</div>
     );
   };
 

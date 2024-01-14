@@ -177,7 +177,7 @@ export default function EditMisPublicaciones({
       className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-[550px] md:w-[1000px]"
     >
       <div className="mb-4">
-        <h1>Producto</h1>
+        <h1>Products</h1>
         <input
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           name="titulo"
@@ -189,7 +189,7 @@ export default function EditMisPublicaciones({
       </div>
 
       <div className="mb-4">
-        <h1>Precio</h1>
+        <h1>Price</h1>
         <input
           type="number" // Set the input type to "number"
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -202,7 +202,7 @@ export default function EditMisPublicaciones({
       </div>
 
       <div className="mb-4">
-        <h1>Marca</h1>
+        <h1>Brand</h1>
         <input
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           name="marca"
@@ -214,7 +214,7 @@ export default function EditMisPublicaciones({
       </div>
 
       <div className="mb-4">
-        <h1>Descuento</h1>
+        <h1>Discount</h1>
         <input
           type="number"
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -226,7 +226,7 @@ export default function EditMisPublicaciones({
       </div>
 
       <div className="mb-4">
-        <h1>Envío</h1>
+        <h1>Shipping</h1>
         <select
           className="bg-white shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           name="envio"
@@ -239,7 +239,7 @@ export default function EditMisPublicaciones({
       </div>
 
       <div className="mb-4 relative">
-        <h1>Categoría</h1>
+        <h1>Categories</h1>
         <button
           type="button"
           className="text-start capitalize bg-white shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -263,7 +263,7 @@ export default function EditMisPublicaciones({
                   }}
                   className="text-red-600 hover:text-red-700"
                 >
-                  Eliminar
+                  Delete
                 </button>
               </div>
             ))}
@@ -272,7 +272,7 @@ export default function EditMisPublicaciones({
               className="px-3 py-1 font-bold hover:bg-gray-100 cursor-pointer"
               onClick={() => handleCategorySelect("add-new")}
             >
-              <span>Añadir Categoría</span>
+              <span>Add Category</span>
             </div>
           </div>
         )}
@@ -288,7 +288,7 @@ export default function EditMisPublicaciones({
       </div>
 
       <div className="mb-4">
-        <h1>Descripción</h1>
+        <h1>Description</h1>
         <textarea
           className="shadow appearance-none border rounded w-full py-20 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline my-2"
           name="descripcion"
@@ -306,7 +306,7 @@ export default function EditMisPublicaciones({
           onClick={() => referenciaImg.current.click()}
           className=" border border-gray-400 hover:border-gray-500  px-2 rounded"
         >
-          Seleccionar Imagen
+          Select Image
         </button>
         <input
           type="file"

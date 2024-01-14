@@ -77,9 +77,9 @@ const MisCompras = () => {
         </div>
       ) : (
         <>
-          <h2 className="text-2xl font-bold mb-4 text-center">Historial de Pedidos</h2>
+          <h2 className="text-2xl font-bold mb-4 text-center">Order History</h2>
           {pedidos.length === 0 ? (
-            <p className="text-center">No hay pedidos realizados.</p>
+            <p className="text-center">No orders registered.</p>
           ) : (
             pedidos.map((pedido, index) => (
               <div
@@ -98,13 +98,13 @@ const MisCompras = () => {
                     onClick={() => handleDelete(pedido.id)}
                     className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
                   >
-                    Cancelar pedido{" "}
+                    Cancel order{" "}
                   </button>
                 </div>
                    {/* Add the shipping status message */}
           <div className="p-4">
               <p className="text-green-600 font-semibold">
-                {pedido.estadoEnvio === 'en_proceso' ? 'Envío en proceso.' : 'Envío pendiente.'}
+                {pedido.estadoEnvio === 'en_proceso' ? 'Shipping in Process.' : 'Pending Shipment.'}
               </p>
             </div>
                 {pedido.productos.map((producto, idx) => (
@@ -121,8 +121,8 @@ const MisCompras = () => {
                     />
                     <div className="flex-grow">
                       <p className="font-bold">{producto.titulo}</p>
-                      <p>Cantidad: {producto.cantidad}</p>
-                      <p>Precio: ${producto.precio}</p>
+                      <p>Quantity: {producto.cantidad}</p>
+                      <p>Price: ${producto.precio}</p>
                     </div>
                   </div>
                 ))}

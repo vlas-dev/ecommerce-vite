@@ -19,7 +19,7 @@ export default function RecoverPassword() {
     return (
         <div className="bg-gray-100 min-h-screen flex justify-center items-center">
             <div className="bg-white p-6 rounded-md shadow-md w-full max-w-sm">
-                <h2 className="text-2xl font-bold mb-4 text-center">Recuperar Contraseña</h2>
+                <h2 className="text-2xl font-bold mb-4 text-center">Recover Password</h2>
                 <form onSubmit={handleRecuperarContrasena}>
                     <div className="floating-label-group">
                         <input
@@ -40,13 +40,13 @@ export default function RecoverPassword() {
                             className="bg-gray-950 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full mb-4"
                             type="submit"
                         >
-                            Enviar Enlace de Recuperación
+                            Send Recover Link
                         </button>
                         <Link
                             to="/signin"
                             className="inline-block align-baseline font-bold text-sm text-gray-950 hover:text-gray-900"
                         >
-                            Volver a Ingresar
+                            Go Back to Login
                         </Link>
                     </div>
                 </form>

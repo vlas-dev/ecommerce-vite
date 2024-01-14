@@ -116,13 +116,13 @@ export default function MisPublicaciones() {
         <div>
           <div className="flex flex-col justify-center items-center md:flex-row md:justify-between md:items-center mb-4 ">
             <h2 className="text-2xl font-bold mb-2 md:mb-0">
-              Lista de Productos
+              Products List
             </h2>
             <button
               onClick={handleAddNew}
               className="bg-gray-950 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded shadow-lg mt-2 md:mt-0"
             >
-              Subir Producto
+              Upload Product
             </button>
           </div>
 
