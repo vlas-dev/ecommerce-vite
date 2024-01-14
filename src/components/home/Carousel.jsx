@@ -11,23 +11,23 @@ export default function Carousel() {
   const slideData = [
     {
       id: 1,
-      link: "/product/8b2abdf9-ac0d-47bd-a56f-10a56e13b956",
+      link: "/product/fae33db7-5308-4714-a151-96b51e3136ec",
       image: "/assets/discount1.png",
     },
     {
       id: 2,
-      link: "/product/get/notebooks",
+      link: "/product/90a42337-b7aa-4f5f-a110-9666d0ade22c",
       image: "/assets/discount2.png",
     },
     {
       id: 3,
-      link: "/product/eec47b99-7a9d-48ad-99f1-eed7caf3b891",
+      link: "/product/get/Laptops",
       image: "/assets/discount3.png",
     },
   ];
 
   return (
-    <div className="bg-gray-950">
+    <div className="bg-gray-800 px-10 py-5">
       <Swiper
         pagination={{
           clickable: true,

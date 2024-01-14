@@ -32,7 +32,7 @@ export default function CartDropdown({ closeDropdown }) {
               />
               <div>
                 <div className="font-semibold">{item.titulo}</div>
-                <div className="text-sm text-gray-600">${item.precio}</div>
+                <div className="text-sm text-gray-600 text-center">${item.precio}</div>
               </div>
             </div>
             <div className="flex items-center">
@@ -66,12 +66,12 @@ export default function CartDropdown({ closeDropdown }) {
         ))}
       </div>
     ) : (
-      <div className="p-2 text-center text-gray-600">Carrito vacío.</div>
+      <div className="p-2 text-center text-gray-600">Empty Cart.</div>
     );
   };
 
   return (
-    <div className=" bg-white text-black shadow-lg p-4 rounded z-50 w-64 ">
+    <div className=" bg-white text-black shadow-lg p-4 rounded z-50 w-96 ">
       <div className="mb-4 font-bold text-center">Cart</div>
       {renderCartItems()}
       <div className="text-center my-4">

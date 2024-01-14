@@ -5,19 +5,19 @@
 /* Change calors ofcarousel arrows and bullets */
 
 .swiper-pagination-bullet-active {
-  background-color: #ffffff !important;
+  background-color: #292929;
 }
 
 .swiper-pagination-bullet {
-  background-color: #ffffff !important;
+  background-color: #292929;
 }
 
 .swiper-button-prev {
-   color: rgb(240, 240, 240);
+   color: #292929;
 }
 
 .swiper-button-next {
-  color: rgb(240, 240, 240);
+  color: #292929;
 }
 
 

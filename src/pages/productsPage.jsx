@@ -67,8 +67,8 @@ export default function ProductPage() {
             >
               <div className="md:w-1/2 flex justify-center items-center">
                 <img
-                  // src={`/images/products/${product.titulo}.png`}
-                  src={`${import.meta.env.VITE_APP_BACKEND_URL}/uploads/productos/${product.imagen}`}
+                  src={`/images/products/${product.titulo}.png`}
+                  // src={`${import.meta.env.VITE_APP_BACKEND_URL}/uploads/productos/${product.imagen}`}
                   alt={product.titulo}
                   className="w-3/4 p-10"
                 />
@@ -83,7 +83,7 @@ export default function ProductPage() {
                   ${product.precio}
                 </p>
                 <p className="font-semibold text-sm">
-                  {product.envio ? "Envío gratis " : "Sin envío incluido"}
+                  {product.envio ? "Free Shipping " : "Shipping Fee Not Included"}
                 </p>
 
                 <div className="my-10 flex flex-col font-semibold">
@@ -105,7 +105,7 @@ export default function ProductPage() {
 
                       <Link to="/cart">
                         <button className="bg-gray-950 text-white px-4 md:px-10 lg:px-28 py-2  rounded-md hover:bg-gray-900 ml-12 ">
-                          Ver Carrito
+                          Go to Cart
                         </button>
                       </Link>
                     </div>
@@ -114,7 +114,7 @@ export default function ProductPage() {
                       className="bg-gray-950 text-white  py-2 rounded-md hover:bg-gray-900"
                       onClick={handleAddToCart}
                     >
-                      Agregar al carrito
+                      Add to Cart
                     </button>
                   )}
                 </div>

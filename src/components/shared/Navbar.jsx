@@ -262,14 +262,15 @@ export default function Navbar() {
             </>
           ) : (
             <>
-              <Link className="p-2 mr-2" to="/signin">
-                Ingresar
+              <Link className="p-2 mr-2 whitespace-nowrap" to="/signin">
+                Login
               </Link>
+
               <Link
-                className="p-2 mr-2 bg-gray-100 rounded text-gray-900"
+                className="p-2 mr-2 bg-gray-100 rounded text-gray-900 whitespace-nowrap"
                 to="/signup"
               >
-                Registrarse
+                Sign Up
               </Link>
             </>
           )}

@@ -83,8 +83,8 @@ export default function HomeCards({ dataLoaded }) {
         </div>
       ) : (
         <>
-          <h2 className={`text-3xl font-bold mb-8 text-center ${slug ? 'pt-24 lg:pt-24' : 'pt-0 lg:pt-0'}`}>
-            {slug ? slug.charAt(0).toUpperCase() + slug.slice(1) : 'Nuestros productos'}
+          <h2 className={`text-3xl font-bold mb-8 text-center ${slug ? 'pt-24' : 'pt-10'}`}>
+            {slug ? slug.charAt(0).toUpperCase() + slug.slice(1) : 'Our Products'}
           </h2>
   
           <div className="flex flex-wrap justify-center gap-5 mx-auto md:pb-20">
@@ -101,7 +101,8 @@ export default function HomeCards({ dataLoaded }) {
                   className="w-full h-full block"
                 >
                  <img
-                    src={`${import.meta.env.VITE_APP_BACKEND_URL}/uploads/productos/${product.imagen}`}
+                 src={`/images/products/${product.titulo}.png`}
+                    // src={`${import.meta.env.VITE_APP_BACKEND_URL}/uploads/productos/${product.imagen}`}
                     alt={product.titulo}
                     className="object-cover p-5"
                     style={{ maxHeight: '100%', maxWidth: '100%' }}
@@ -133,7 +134,7 @@ export default function HomeCards({ dataLoaded }) {
                 </div>
   
                 <p className="font-semibold text-[14px]">
-                  {product.envio ? "Envío gratis " : "Sin envío incluido"}
+                  {product.envio ? "Free Shipping " : "Shipping Fee Not Included"}
                 </p>
               </div>
   
@@ -160,7 +161,7 @@ export default function HomeCards({ dataLoaded }) {
   
                   <Link to="/cart">
                     <button className="bg-gray-950 text-white px-6 py-2  rounded-md hover:bg-gray-900 ml-4">
-                      Ver Carrito
+                      Go to Cart
                     </button>
                   </Link>
                 </div>
@@ -169,7 +170,7 @@ export default function HomeCards({ dataLoaded }) {
                   className="bg-gray-950 text-white py-2 rounded-md hover:bg-gray-900 w-full"
                   onClick={() => handleAddToCart(product)}
                 >
-                  Agregar al carrito
+                  Add to Cart
                 </button>
               )}
             </div>

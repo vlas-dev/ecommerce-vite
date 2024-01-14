@@ -141,7 +141,7 @@ export default function CartPage({ setOption }) {
               onClick={toCheckOut}
               className="bg-gray-950 hover:bg-gray-900 px-4 sm:px-5 py-2 text-sm text-white w-full rounded font-bold"
             >
-              Completar Orden
+              Confirm Order
             </button>
           </div>
         </div>
