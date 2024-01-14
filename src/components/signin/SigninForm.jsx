@@ -29,6 +29,7 @@ export default function SignIn() {
     if (localStorage.getItem("x-token")) {
       navigate("/me");
     }
+    window.scrollTo(0, 0);
   }, [navigate]);
 
   return (

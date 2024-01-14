@@ -47,6 +47,7 @@ export default function SignUp() {
  
 
     }
+    window.scrollTo(0, 0);
   },[formState.pais])
   useEffect(()=>{
     if(formState.estado.length>0){

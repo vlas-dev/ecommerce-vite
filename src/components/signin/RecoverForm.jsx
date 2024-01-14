@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "../../hooks/useForm/useForm";
 import crudAxios from "../../config/axios";
 
 export default function RecoverPassword() {
     const { formState, onInputChange } = useForm({ email: "" });
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    })
 
     const handleRecuperarContrasena = async (e) => {
         e.preventDefault();
