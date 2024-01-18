@@ -21,7 +21,7 @@ export default function Carousel() {
     },
     {
       id: 3,
-      link: "/product/get/Laptops",
+      link: "/product/get/laptops",
       image: "/assets/discount3.png",
     },
   ];
