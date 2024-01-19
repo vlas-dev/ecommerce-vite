@@ -3,8 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "../../hooks/useForm/useForm";
 import crudAxios from "../../config/axios";
 import { CRMContext } from "../context/CRMcontext";
-import { countries } from "../../config/countries";
-import axios from "axios";
+import { Country, State, City } from 'country-state-city';
 
 export default function SignUp() {
   const { formState, onInputChange } = useForm({
@@ -18,64 +17,32 @@ export default function SignUp() {
     estado: "",
   });
   const [auth, setAuth] = useContext(CRMContext);
-  const [errors, setErrors] = useState([]); // State to store errors
-  const [states, setStates] = useState([])
-  const [cities, setCities] = useState([])
+  const [errors, setErrors] = useState([]);
+  const [states, setStates] = useState([]);
+  const [cities, setCities] = useState([]);
   const navigate = useNavigate();
-  useEffect(()=>{
-    if(formState.pais.length>0){
-      const consultarApi = async () => {
-        try {
- 
-          const res = await axios.get(`https://www.universal-tutorial.com/api/states/${formState.pais}`,{
-            headers:{
-              "Authorization":import.meta.env.VITE_APP_COUNTRY_API,
-              "Accept":"application/json"
-            }
-          })
-          const estados = res.data.map(estado=> estado.state_name)
-        
-          setStates(estados)
- 
-        } catch (error) {
-          console.log(error);
-          return [];
-        }
-      };
-      consultarApi();
 
- 
-
+  useEffect(() => {
+    if (formState.pais) {
+      const fetchedStates = State.getStatesOfCountry(formState.pais);
+      setStates(fetchedStates);
+      setCities([]); // Reset cities when country changes
+    } else {
+      setStates([]);
+      setCities([]); // Reset cities when there is no country selected
     }
-    window.scrollTo(0, 0);
-  },[formState.pais])
-  useEffect(()=>{
-    if(formState.estado.length>0){
-      const consultarApi = async () => {
-        try {
-          console.log(formState.estado)
-          const res = await axios.get(`https://www.universal-tutorial.com/api/cities/${formState.estado}`,{
-            headers:{
-              "Authorization":import.meta.env.VITE_APP_COUNTRY_API,
-              "Accept":"application/json"
-            }
-          })
+  }, [formState.pais]);
+  
 
-          const ciudades = res.data.map(ciudad=> ciudad.city_name)
-        
-          setCities(ciudades)
-        // Notify parent component that data is loaded
-        } catch (error) {
-          console.log(error);
-          return [];
-        }
-      };
-      consultarApi();
-
- 
-
+  useEffect(() => {
+    if (formState.estado) {
+      const fetchedCities = City.getCitiesOfState(formState.pais, formState.estado);
+      setCities(fetchedCities);
+    } else {
+      setCities([]);
     }
-  },[formState.estado])
+  }, [formState.estado]);
+
   const crearUsuario = async (e) => {
     e.preventDefault();
     try {
@@ -99,10 +66,10 @@ export default function SignUp() {
 
   return (
     <div className="bg-gray-100 min-h-screen flex justify-center items-center">
-      <div className="bg-white p-6 rounded-md shadow-md w-full max-w-lg mt-44 md:mt-0 mx-10 ">
+      <div className="bg-white p-6 rounded-md shadow-md w-full max-w-lg mt-44 md:mt-32 mx-10">
         <h2 className="text-2xl font-bold mb-4 text-center">Sign Up</h2>
-        <form onSubmit={crearUsuario} className="grid grid-cols-2">
-          <div className="floating-label-group col-span-2 md:col-span-1 mx-2">
+        <form onSubmit={crearUsuario} className="grid grid-cols-2 ">
+          <div className="floating-label-group col-span-2 mx-2">
             <input
               type="text"
               id="firstName"
@@ -117,7 +84,7 @@ export default function SignUp() {
             </label>
           </div>
 
-          <div className="floating-label-group col-span-2 md:col-span-1 mx-2">
+          <div className="floating-label-group col-span-2 mx-2">
             {" "}
             <input
               type="text"
@@ -133,7 +100,7 @@ export default function SignUp() {
             </label>
           </div>
 
-          <div className="floating-label-group col-span-2 md:col-span-1 mx-2">
+          <div className="floating-label-group col-span-2 mx-2">
             {" "}
             <input
               type="email"
@@ -149,62 +116,62 @@ export default function SignUp() {
             </label>
           </div>
 
-          <div className="floating-label-group col-span-2 md:col-span-1 mx-2">
-            {" "}
-            <select 
-            name="pais" 
-            value={formState.pais} 
-            onChange={onInputChange}
-            className="h-12 text-[18px] bg-gray-100 border py-55-rem border-gray-400 text-sm rounded-lg focus:outline-none focus:shadow-outline block w-full p-2.5 placeholder-transparent "
-            id="">
-                <option value="">Country</option>
-              {
-                countries.map((country,id)=>
-                  <option value={country} key={id}>{country}</option>
-                  )
-              }
-            </select>
-          </div>
-
-          <div className="floating-label-group col-span-2 md:col-span-1 mx-2">
-            {" "}
-            <select 
-            name="estado" 
-            value={formState.estado} 
-            onChange={onInputChange}
-            className="h-12 text-[18px] bg-gray-100 border py-55-rem border-gray-400 text-sm rounded-lg focus:outline-none focus:shadow-outline block w-full p-2.5 placeholder-transparent "
-            id=""
-            disabled={!states.length>0}
+         {/* Country Select Field */}
+         <div className="floating-label-group col-span-2 mx-2">
+            <select
+              name="pais"
+              value={formState.pais}
+              onChange={onInputChange}
+              className="h-12 text-[18px] bg-gray-100 border py-55-rem border-gray-400 text-sm rounded-lg focus:outline-none focus:shadow-outline block w-full p-2.5"
             >
-                <option value="">State</option>
-              {
-                states.map((state,id)=>
-                  <option value={state} key={id}>{state}</option>
-                  )
-              }
+              <option value="">Country</option>
+              {Country.getAllCountries().map((country, index) => (
+                <option key={index} value={country.isoCode}>{country.name}</option>
+              ))}
             </select>
-
+            <label htmlFor="pais" className="block bg-gray-100">
+              Country
+            </label>
           </div>
 
-          <div className="floating-label-group col-span-2 md:col-span-1 mx-2">
-            {" "}
-            <select 
-            name="ciudad" 
-            value={formState.ciudad} 
-            onChange={onInputChange}
-            className="h-12 text-[18px] bg-gray-100 border py-55-rem border-gray-400 text-sm rounded-lg focus:outline-none focus:shadow-outline block w-full p-2.5 placeholder-transparent "
-            id=""
-            disabled={!cities.length>0}
+          {/* State Select Field */}
+          <div className="floating-label-group col-span-2 mx-2">
+            <select
+              name="estado"
+              value={formState.estado}
+              onChange={onInputChange}
+              className="h-12 text-[18px] bg-gray-100 border py-55-rem border-gray-400 text-sm rounded-lg focus:outline-none focus:shadow-outline block w-full p-2.5"
+              disabled={!states.length}
             >
-                <option value="">City</option>
-              {
-                cities.map((city,id)=>
-                  <option value={city} key={id}>{city}</option>
-                  )
-              }
+              <option value="">State</option>
+              {states.map((state, index) => (
+                <option key={index} value={state.isoCode}>{state.name}</option>
+              ))}
             </select>
-
+            <label htmlFor="estado" className="block bg-gray-100">
+              State
+            </label>
           </div>
+
+          {/* City Select Field */}
+          <div className="floating-label-group col-span-2 mx-2">
+            <select
+              name="ciudad"
+              value={formState.ciudad}
+              onChange={onInputChange}
+              className="h-12 text-[18px] bg-gray-100 border py-55-rem border-gray-400 text-sm rounded-lg focus:outline-none focus:shadow-outline block w-full p-2.5"
+              disabled={!cities.length}
+            >
+              <option value="">City</option>
+              {cities.map((city, index) => (
+                <option key={index} value={city.name}>{city.name}</option>
+              ))}
+            </select>
+            <label htmlFor="ciudad" className="block bg-gray-100">
+              City
+            </label>
+          </div>
+
 
           <div className="floating-label-group col-span-2 md:col-span-1 mx-2">
             {" "}
